@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WTICS Soluciones Informáticas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="canvas-container"></div>
+
+    <div class="modal-overlay" id="modalContact">
+        <div class="contact-modal">
+            <h2>SOLICITUD DE SOPORTE</h2>
+            <form id="supportForm">
+                <input type="text" id="nombre" placeholder="NOMBRE Y APELLIDO" required>
+                <input type="email" id="correo" placeholder="CORREO ELECTRÓNICO" required>
+                <input type="tel" id="tel" placeholder="TELÉFONO" required>
+                <div class="modal-buttons">
+                    <button type="submit" style="background: #00ffcc; color: #000; font-weight: bold;">ENVIAR</button>
+                    <button type="reset" style="border-color: #ffcc00; color: #ffcc00; background: transparent;">BORRAR</button>
+                    <button type="button" onclick="closeModal()" style="border-color: #ff3333; color: #ff3333; background: transparent;">CANCELAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalStaff">
+        <div class="contact-modal">
+            <h2>PERSONAL AUTORIZADO</h2>
+            <div class="staff-grid">
+                <div class="staff-card">
+                    <div style="font-size: 2rem;">👨‍💻</div>
+                    <div class="staff-info">
+                        <span class="staff-name">ADMINISTRADOR CORE</span>
+                        <span class="staff-role">Sistemas IT | Gestión</span>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div style="font-size: 2rem;">⚙️</div>
+                    <div class="staff-info">
+                        <span class="staff-name">SOPORTE TÉCNICO</span>
+                        <span class="staff-role">Infraestructura y Redes</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button type="button" onclick="closeStaff()">VOLVER</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ui-layer">
+        <div class="header-logo">
+            <h1>WTICS Soluciones Informáticas</h1>
+            <div class="line"></div>
+            <div class="subtitle" id="core-status">ESTADO DEL NÚCLEO: OPERACIONAL</div>
+        </div>
+
+        <div class="services-menu">
+            <button onclick="updateStatus('Protocolo Infraestructura: Iniciado')">Soporte IT</button>
+            <button onclick="updateStatus('Enlace Remoto: Esperando respuesta')">Soporte Infraestructura</button>
+            <button onclick="updateStatus('Kernel Win/Linux: Acceso concedido')">Asistencia remota/presencial</button>
+            <button onclick="updateStatus('Firewall: Escaneo de puertos activo')">Redes y Seguridad</button>
+            <button onclick="updateStatus('Rack Manager: Configurando nodos')">Suite MS/Lin</button>
+            <button onclick="openStaff()">NOSOTROS / STAFF</button>
+        </div>
+
+        <div class="core-visual-container">
+            <div id="server-cluster-complex"></div>
+        </div>
+
+        <div class="network-schema" id="net-monitor" onclick="openModal()" title="Abrir Formulario de Soporte"></div>
+        <div class="network-label">[ FORMS - CONTACTO ]</div>
+
+        <div id="clipo-section">
+            <div id="clipo-bubble">¿Necesitás ayuda rápida? <br><strong>¡Contactanos por WhatsApp!</strong></div>
+            <div id="clipo-wrapper" onclick="openWhatsApp()">
+                <div id="clipo-sprite">📎</div>
+            </div>
+        </div>
+
+        <div class="footer-info">
+            LATENCIA: 0.05ms | ENLACE SATELITAL: ACTIVO | UBICACIÓN: BUENOS AIRES
+        </div>
+    </div>
+
+    <script>
+        function openWhatsApp() {
+            const telefono = "123456789"; 
+            const mensaje = encodeURIComponent("Hola, necesito asistencia técnica del área de SISTEMAS IT.");
+            window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
+        }
+
+        const modal = document.getElementById('modalContact');
+        const mStaff = document.getElementById('modalStaff');
+
+        function openModal() { modal.style.display = 'flex'; }
+        function closeModal() { modal.style.display = 'none'; }
+        
+        function openStaff() { mStaff.style.display = 'flex'; }
+        function closeStaff() { mStaff.style.display = 'none'; }
+
+        document.getElementById('supportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            window.location.href = `mailto:tu-correo@ejemplo.com?subject=Soporte: ${nombre}`;
+            closeModal();
+        });
+
+        function updateStatus(text) {
+            document.getElementById('clipo-bubble').innerHTML = text;
+            document.getElementById('core-status').innerText = "SISTEMA: " + text.toUpperCase();
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) closeModal();
+            if (event.target == mStaff) closeStaff();
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
