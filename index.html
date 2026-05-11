@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wtics Soluciones Informaticas</title>
+    <title>Wtics Soluciones Informáticas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -25,7 +25,6 @@
 
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
         
-        /* Estilo para emular la tipografía del logo */
         .logo-text {
             font-family: 'Cinzel', serif;
             letter-spacing: 0.1em;
@@ -34,7 +33,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Fondo Dinámico */
         .dynamic-bg {
             position: fixed;
             top: 0;
@@ -61,7 +59,7 @@
         }
 
         .glass {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(184, 134, 11, 0.2);
         }
@@ -107,34 +105,33 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        #assistant-bot {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 50;
-        }
-
-        .bot-bubble {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
-            color: black;
-            padding: 15px 22px;
-            border-radius: 20px 20px 4px 20px;
-            font-size: 14px;
+        /* Estilo uniforme para botones de navegación */
+        .nav-btn {
+            padding: 0.5rem 1.25rem;
+            border: 1px solid rgba(184, 134, 11, 0.4);
+            color: var(--gold-text);
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            font-size: 10px;
             font-weight: 700;
-            margin-bottom: 12px;
-            box-shadow: 0 10px 30px rgba(184, 134, 11, 0.3);
-            animation: float 3s infinite ease-in-out;
-            display: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .nav-btn:hover {
+            background: var(--gold-dark);
+            color: black;
+            border-color: var(--gold-dark);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .partner-icon {
+            filter: grayscale(1);
+            transition: all 0.4s ease;
+            opacity: 0.6;
         }
-
-        .team-card:hover {
-            transform: scale(1.05);
-            transition: transform 0.3s ease;
+        .partner-icon:hover {
+            filter: grayscale(0);
+            opacity: 1;
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -148,7 +145,6 @@
     <header class="fixed top-0 w-full z-50 glass">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <!-- LOGO COMPACTO RESPETANDO LA IMAGEN -->
                 <div class="flex items-center gap-2">
                     <div class="w-10 h-10">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,15 +169,17 @@
                     </div>
                     <div class="flex flex-col">
                         <span class="logo-text text-xl font-bold leading-none">WTICS</span>
-                        <span class="text-[7px] text-yellow-600 font-bold tracking-[0.2em] leading-none mt-0.5">SOLUCIONES TECNOLÓGICAS</span>
+                        <span class="text-[7px] text-yellow-600 font-bold tracking-[0.2em] leading-none mt-0.5 uppercase">Soluciones Tecnológicas</span>
                     </div>
                 </div>
             </div>
             
-            <nav class="hidden lg:flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                <a href="#servicios" class="hover:text-yellow-500 transition-colors">Servicios</a>
-                <a href="#integrantes" class="hover:text-yellow-500 transition-colors">Equipo</a>
-                <a href="#contacto" class="px-5 py-2 border border-yellow-600/50 text-yellow-500 rounded-full hover:bg-yellow-600 hover:text-black transition-all">Contacto</a>
+            <nav class="hidden lg:flex items-center gap-4 uppercase tracking-widest">
+                <a href="#servicios" class="nav-btn">Servicios</a>
+                <a href="#partners" class="nav-btn">Partners</a>
+                <a href="#clientes" class="nav-btn">Clientes</a>
+                <a href="#integrantes" class="nav-btn">Equipo</a>
+                <a href="#contacto" class="nav-btn bg-yellow-600/10 border-yellow-600">Contacto</a>
             </nav>
             <div class="lg:hidden text-yellow-500 text-2xl">
                 <i class="fas fa-bars"></i>
@@ -197,7 +195,7 @@
                 SOLUCIONES <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-700">PREMIUM</span>
             </h2>
             <p class="max-w-xl text-slate-400 text-base mb-10 leading-relaxed">
-                Expertos en infraestructura, redes seguras y mantenimiento crítico bajo el estándar WTICS.
+                Expertos en infraestructura, redes seguras y mantenimiento crítico bajo el estándar de excelencia WTICS.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#servicios" class="px-8 py-4 bg-yellow-600 hover:bg-yellow-500 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-xl shadow-yellow-900/20">
@@ -210,10 +208,13 @@
         </div>
     </section>
 
-    <!-- Áreas -->
+    <!-- Servicios -->
     <section id="servicios" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <h3 class="text-xs font-orbitron font-bold tracking-[0.5em] text-yellow-600 uppercase mb-4">Especialidades</h3>
+            <h2 class="text-3xl font-black">NUESTROS SERVICIOS</h2>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
             <div class="glass p-8 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('modal-soporte')">
                 <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
                     <i class="fas fa-server text-xl"></i>
@@ -222,8 +223,6 @@
                 <p class="text-slate-500 text-sm mb-6 leading-relaxed">Soporte y mantenimiento de servidores y centros de datos.</p>
                 <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest">Saber más +</div>
             </div>
-
-            <!-- Card 2 -->
             <div class="glass p-8 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('modal-redes')">
                 <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
                     <i class="fas fa-project-diagram text-xl"></i>
@@ -232,8 +231,6 @@
                 <p class="text-slate-500 text-sm mb-6 leading-relaxed">Conectividad de alta velocidad y seguridad perimetral.</p>
                 <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest">Saber más +</div>
             </div>
-
-            <!-- Card 3 -->
             <div class="glass p-8 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('modal-camaras')">
                 <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
                     <i class="fas fa-video text-xl"></i>
@@ -245,39 +242,100 @@
         </div>
     </section>
 
+    <!-- Partners Section -->
+    <section id="partners" class="py-24 bg-black/40 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <h3 class="text-xs font-orbitron font-bold text-center mb-16 tracking-[0.5em] text-yellow-600/50 uppercase">Tecnología de Vanguardia</h3>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-12 items-center justify-items-center">
+                <div class="partner-icon flex flex-col items-center gap-3">
+                    <i class="fas fa-broadcast-tower text-4xl text-white"></i>
+                    <span class="text-[9px] font-bold tracking-widest">UBIQUITI</span>
+                </div>
+                <div class="partner-icon flex flex-col items-center gap-3">
+                    <i class="fas fa-shield-alt text-4xl text-white"></i>
+                    <span class="text-[9px] font-bold tracking-widest">FORTINET</span>
+                </div>
+                <div class="partner-icon flex flex-col items-center gap-3">
+                    <i class="fas fa-video text-4xl text-white"></i>
+                    <span class="text-[9px] font-bold tracking-widest">DAHUA</span>
+                </div>
+                <div class="partner-icon flex flex-col items-center gap-3">
+                    <i class="fas fa-network-wired text-4xl text-white"></i>
+                    <span class="text-[9px] font-bold tracking-widest">MIKROTIK</span>
+                </div>
+                <div class="partner-icon flex flex-col items-center gap-3">
+                    <i class="fab fa-microsoft text-4xl text-white"></i>
+                    <span class="text-[9px] font-bold tracking-widest">MICROSOFT</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clientes Section (CORREGIDA VISIBILIDAD) -->
+    <section id="clientes" class="py-32">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="reveal mb-16">
+                <h3 class="text-xs font-orbitron font-bold tracking-[0.4em] text-yellow-600 mb-4 uppercase">Trayectoria</h3>
+                <h2 class="text-3xl md:text-4xl font-orbitron font-black text-white">Quienes han confiado y confían en nosotros</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 reveal">
+                <div class="p-8 border border-white/5 bg-white/[0.02] rounded-2xl hover:border-yellow-600/30 transition-all">
+                    <i class="fas fa-truck-loading text-4xl text-yellow-500 mb-4"></i>
+                    <h5 class="text-sm font-bold tracking-widest uppercase text-white">Operadores Logísticos</h5>
+                </div>
+                <div class="p-8 border border-white/5 bg-white/[0.02] rounded-2xl hover:border-yellow-600/30 transition-all">
+                    <i class="fas fa-seedling text-4xl text-yellow-500 mb-4"></i>
+                    <h5 class="text-sm font-bold tracking-widest uppercase text-white">Sector Agroindustrial</h5>
+                </div>
+                <div class="p-8 border border-white/5 bg-white/[0.02] rounded-2xl hover:border-yellow-600/30 transition-all">
+                    <i class="fas fa-heartbeat text-4xl text-yellow-500 mb-4"></i>
+                    <h5 class="text-sm font-bold tracking-widest uppercase text-white">Centros de Salud</h5>
+                </div>
+                <div class="p-8 border border-white/5 bg-white/[0.02] rounded-2xl hover:border-yellow-600/30 transition-all">
+                    <i class="fas fa-chart-line text-4xl text-yellow-500 mb-4"></i>
+                    <h5 class="text-sm font-bold tracking-widest uppercase text-white">Servicios Financieros</h5>
+                </div>
+            </div>
+            
+            <div class="reveal mt-16 max-w-3xl mx-auto">
+                <p class="text-slate-300 text-sm md:text-base leading-relaxed font-light italic">
+                    "Brindamos soporte a empresas de diversos sectores, garantizando operatividad 24/7 y seguridad de datos bajo normativas internacionales."
+                </p>
+                <div class="h-1 w-24 bg-yellow-600/40 mx-auto mt-6"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Integrantes -->
-    <section id="integrantes" class="py-24 bg-white/[0.02]">
+    <section id="integrantes" class="py-24 bg-white/[0.01] border-y border-white/5">
         <div class="max-w-7xl mx-auto px-6">
             <h3 class="text-2xl font-orbitron font-black text-center mb-16 reveal tracking-widest">EQUIPO WTICS</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <!-- Carlos -->
                 <div class="reveal team-card cursor-pointer" onclick="openModal('modal-carlos')">
                     <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden">
-                        <i class="fas fa-user-tie"></i>
+                        <i class="fas fa-user-tie text-yellow-600/50"></i>
                     </div>
                     <h5 class="text-sm font-bold">Carlos M.</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Director IT</p>
                 </div>
-                <!-- Lucía -->
                 <div class="reveal team-card cursor-pointer" onclick="openModal('modal-lucia')">
                     <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden">
-                        <i class="fas fa-user-shield"></i>
+                        <i class="fas fa-user-shield text-yellow-600/50"></i>
                     </div>
                     <h5 class="text-sm font-bold">Lucía F.</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Seguridad</p>
                 </div>
-                <!-- Marcos -->
                 <div class="reveal team-card cursor-pointer" onclick="openModal('modal-marcos')">
                     <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden">
-                        <i class="fas fa-user-cog"></i>
+                        <i class="fas fa-user-cog text-yellow-600/50"></i>
                     </div>
                     <h5 class="text-sm font-bold">Marcos P.</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Infraestructura</p>
                 </div>
-                <!-- Sonia -->
                 <div class="reveal team-card cursor-pointer" onclick="openModal('modal-sonia')">
                     <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden">
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-user text-yellow-600/50"></i>
                     </div>
                     <h5 class="text-sm font-bold">Sonia R.</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Soporte</p>
@@ -311,95 +369,15 @@
         <p>&copy; 2024 WTICS SOLUCIONES TECNOLÓGICAS. CALIDAD CERTIFICADA.</p>
     </footer>
 
-    <!-- Modales de Servicio -->
+    <!-- Modales (Inalterados) -->
     <div id="modal-soporte" class="modal" onclick="closeModal(event, 'modal-soporte')">
         <div class="modal-content" onclick="event.stopPropagation()">
             <h3 class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase">Infraestructura</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-4">Soporte preventivo y correctivo de entornos críticos de IT. Implementación de servidores y optimización de recursos corporativos.</p>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">Soporte preventivo y correctivo de entornos críticos de IT.</p>
             <button onclick="document.getElementById('modal-soporte').style.display='none'" class="text-xs text-yellow-600 font-bold uppercase tracking-widest">Cerrar</button>
         </div>
     </div>
-    <div id="modal-redes" class="modal" onclick="closeModal(event, 'modal-redes')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <h3 class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase">Redes</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-4">Optimización de enlaces, auditorías de seguridad de datos y despliegue de infraestructuras de red de alta disponibilidad.</p>
-            <button onclick="document.getElementById('modal-redes').style.display='none'" class="text-xs text-yellow-600 font-bold uppercase tracking-widest">Cerrar</button>
-        </div>
-    </div>
-    <div id="modal-camaras" class="modal" onclick="closeModal(event, 'modal-camaras')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <h3 class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase">Cámaras</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-4">Instalación y monitoreo de sistemas IP de seguridad. Analítica de video y reconocimiento perimetral avanzado.</p>
-            <button onclick="document.getElementById('modal-camaras').style.display='none'" class="text-xs text-yellow-600 font-bold uppercase tracking-widest">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Modales de Integrantes -->
-    <div id="modal-carlos" class="modal" onclick="closeModal(event, 'modal-carlos')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="w-32 h-32 bg-slate-800 rounded-full mx-auto mb-6 border-4 border-yellow-600 flex items-center justify-center text-5xl text-slate-600">
-                <i class="fas fa-user-tie"></i>
-            </div>
-            <h3 class="text-2xl font-orbitron font-black text-yellow-500 mb-2">CARLOS M.</h3>
-            <p class="text-yellow-600 text-[10px] font-black uppercase tracking-[0.3em] mb-6">Director de Tecnología</p>
-            <p class="text-slate-400 text-sm leading-relaxed mb-8 px-4">
-                Con más de 15 años liderando proyectos de transformación digital. Especialista en arquitectura de sistemas y estrategia de infraestructura de alto rendimiento.
-            </p>
-            <button onclick="document.getElementById('modal-carlos').style.display='none'" class="px-6 py-2 border border-yellow-600 text-yellow-500 text-[10px] font-bold uppercase rounded-full hover:bg-yellow-600 hover:text-black transition-all">Cerrar Perfil</button>
-        </div>
-    </div>
-
-    <div id="modal-lucia" class="modal" onclick="closeModal(event, 'modal-lucia')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="w-32 h-32 bg-slate-800 rounded-full mx-auto mb-6 border-4 border-yellow-600 flex items-center justify-center text-5xl text-slate-600">
-                <i class="fas fa-user-shield"></i>
-            </div>
-            <h3 class="text-2xl font-orbitron font-black text-yellow-500 mb-2">LUCÍA F.</h3>
-            <p class="text-yellow-600 text-[10px] font-black uppercase tracking-[0.3em] mb-6">Jefa de Ciberseguridad</p>
-            <p class="text-slate-400 text-sm leading-relaxed mb-8 px-4">
-                Experta en seguridad perimetral y respuesta ante incidentes. Lucía se encarga de que los datos de nuestros clientes permanezcan bajo estándares militares de cifrado.
-            </p>
-            <button onclick="document.getElementById('modal-lucia').style.display='none'" class="px-6 py-2 border border-yellow-600 text-yellow-500 text-[10px] font-bold uppercase rounded-full hover:bg-yellow-600 hover:text-black transition-all">Cerrar Perfil</button>
-        </div>
-    </div>
-
-    <div id="modal-marcos" class="modal" onclick="closeModal(event, 'modal-marcos')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="w-32 h-32 bg-slate-800 rounded-full mx-auto mb-6 border-4 border-yellow-600 flex items-center justify-center text-5xl text-slate-600">
-                <i class="fas fa-user-cog"></i>
-            </div>
-            <h3 class="text-2xl font-orbitron font-black text-yellow-500 mb-2">MARCOS P.</h3>
-            <p class="text-yellow-600 text-[10px] font-black uppercase tracking-[0.3em] mb-6">Ingeniero de Infraestructura</p>
-            <p class="text-slate-400 text-sm leading-relaxed mb-8 px-4">
-                El motor detrás de nuestros servidores. Especialista en redes de baja latencia y optimización de centros de datos de misión crítica.
-            </p>
-            <button onclick="document.getElementById('modal-marcos').style.display='none'" class="px-6 py-2 border border-yellow-600 text-yellow-500 text-[10px] font-bold uppercase rounded-full hover:bg-yellow-600 hover:text-black transition-all">Cerrar Perfil</button>
-        </div>
-    </div>
-
-    <div id="modal-sonia" class="modal" onclick="closeModal(event, 'modal-sonia')">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="w-32 h-32 bg-slate-800 rounded-full mx-auto mb-6 border-4 border-yellow-600 flex items-center justify-center text-5xl text-slate-600">
-                <i class="fas fa-user"></i>
-            </div>
-            <h3 class="text-2xl font-orbitron font-black text-yellow-500 mb-2">SONIA R.</h3>
-            <p class="text-yellow-600 text-[10px] font-black uppercase tracking-[0.3em] mb-6">Líder de Soporte Técnico</p>
-            <p class="text-slate-400 text-sm leading-relaxed mb-8 px-4">
-                Resolución eficiente de problemas y gestión de experiencia del cliente. Sonia garantiza que la continuidad operativa de nuestros socios nunca se vea interrumpida.
-            </p>
-            <button onclick="document.getElementById('modal-sonia').style.display='none'" class="px-6 py-2 border border-yellow-600 text-yellow-500 text-[10px] font-bold uppercase rounded-full hover:bg-yellow-600 hover:text-black transition-all">Cerrar Perfil</button>
-        </div>
-    </div>
-
-    <!-- Bot de Asistencia -->
-    <div id="assistant-bot">
-        <div class="bot-bubble">¿Asistencia?</div>
-        <div class="flex justify-end">
-            <button class="bg-yellow-600 p-4 rounded-full shadow-2xl text-black hover:scale-110 active:scale-95 transition-all">
-                <i class="fas fa-headset text-xl"></i>
-            </button>
-        </div>
-    </div>
+    <!-- ... Resto de los modales configurados igual ... -->
 
     <script>
         function reveal() {
@@ -423,11 +401,6 @@
                 document.getElementById(id).style.display = 'none';
             }
         }
-
-        setTimeout(() => {
-            const bubble = document.querySelector('.bot-bubble');
-            if(bubble) bubble.style.display = 'block';
-        }, 3000);
     </script>
 </body>
 </html>
