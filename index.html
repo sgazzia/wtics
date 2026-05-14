@@ -99,6 +99,11 @@
             animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
         #skypper-container {
             position: fixed;
             bottom: 20px;
@@ -194,7 +199,6 @@
     </style>
 </head>
 <body id="top">
-
     <div class="dynamic-bg">
         <div class="particles"></div>
     </div>
@@ -220,7 +224,6 @@
 
     <header class="fixed top-0 w-full z-50 glass">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Logo con funcionalidad de Scroll to Top -->
             <div class="flex items-center gap-3 cursor-pointer group/logo" 
                  onclick="scrollToTop()" 
                  onmouseover="skypperSpeak('¡Click aquí para volver al inicio rápido!')">
@@ -300,7 +303,6 @@
                 <p class="text-slate-500 text-sm mb-6 leading-relaxed">Soporte y mantenimiento de servidores y centros de datos.</p>
                 <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest">Saber más +</div>
             </div>
-            <!-- Otros servicios con Skypper e interacciones... -->
             <div class="glass p-8 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('modal-redes')" onmouseover="skypperSpeak('¡Redes veloces para que internet vuele!')">
                 <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
                     <i class="fas fa-project-diagram text-xl"></i>
@@ -327,7 +329,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="gallery-card group reveal" onclick="openVideoModal('W-Network Setup', '77O5-6W-uYI', 'Implementación de red de fibra óptica industrial con redundancia total.')" onmouseover="skypperSpeak('¡Este proyecto quedó increíble! Mira el video.')">
-                <img src="https://placehold.co/600x400/111/f0c419?text=Proyecto+Redes" alt="Redes">
+                <img src="https://placehold.co/600x400/111/f0c419?text=Proyecto+Redes" alt="Redes" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
                     <i class="fas fa-play-circle text-yellow-500 text-4xl mb-2"></i>
                     <h4 class="font-bold">Networking Industrial</h4>
@@ -335,7 +337,7 @@
                 </div>
             </div>
             <div class="gallery-card group reveal" onclick="openVideoModal('Seguridad Bancaria', 'dQw4w9WgXcQ', 'Sistema de monitoreo IP con reconocimiento facial para entidad financiera.')" onmouseover="skypperSpeak('Seguridad nivel experto. Dale click.')">
-                <img src="https://placehold.co/600x400/111/f0c419?text=CCTV+Premium" alt="CCTV">
+                <img src="https://placehold.co/600x400/111/f0c419?text=CCTV+Premium" alt="CCTV" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
                     <i class="fas fa-video text-yellow-500 text-4xl mb-2"></i>
                     <h4 class="font-bold">Monitoreo Bancario</h4>
@@ -343,7 +345,7 @@
                 </div>
             </div>
             <div class="gallery-card group reveal" onclick="openVideoModal('Data Center 2024', 'l482T0yNkeo', 'Renovación completa de servidores Rack y gestión térmica.')" onmouseover="skypperSpeak('¡Uf! Qué frío hace en este Data Center. ¡Míralo!')">
-                <img src="https://placehold.co/600x400/111/f0c419?text=Data+Center" alt="Data Center">
+                <img src="https://placehold.co/600x400/111/f0c419?text=Data+Center" alt="Data Center" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
                     <i class="fas fa-server text-yellow-500 text-4xl mb-2"></i>
                     <h4 class="font-bold">Data Center Upgrade</h4>
@@ -418,42 +420,47 @@
         <div class="glass rounded-[2rem] p-8 md:p-12 relative border border-white/5">
             <h3 class="text-2xl font-orbitron font-black text-center mb-8 tracking-wider italic uppercase">Contactanos hoy</h3>
             <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="handleForm(event)">
-                <input type="text" class="bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Nombre" required onfocus="skypperSpeak('¿Cómo te llamas? ¡Dime!')">
-                <input type="email" class="bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Email" required onfocus="skypperSpeak('Escribe bien tu email para poder responderte.')">
-                <textarea class="md:col-span-2 bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white h-32 outline-none focus:border-yellow-500 transition-all" placeholder="¿En qué podemos ayudarte?" required onfocus="skypperSpeak('¡Cuéntame tus problemas IT! Skypper los resuelve.')"></textarea>
-                <button type="submit" class="md:col-span-2 bg-yellow-600 hover:bg-yellow-500 text-black font-black py-4 rounded-xl uppercase tracking-widest text-xs transition-all" onmouseover="skypperSpeak('¡Enviar! ¡Enviar! ¡Enviar!')">
+                <input name="nombre" type="text" class="bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Nombre" required onfocus="skypperSpeak('¿Cómo te llamas? ¡Dime!')">
+                <input name="email" type="email" class="bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Email" required onfocus="skypperSpeak('Escribe bien tu email para poder responderte.')">
+                <textarea name="mensaje" class="md:col-span-2 bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white h-32 outline-none focus:border-yellow-500 transition-all" placeholder="¿En qué podemos ayudarte?" required onfocus="skypperSpeak('¡Cuéntame tus problemas IT! Skypper los resuelve.')"></textarea>
+                <button type="submit" id="btn-submit" class="md:col-span-2 bg-yellow-600 hover:bg-yellow-500 text-black font-black py-4 rounded-xl uppercase tracking-widest text-xs transition-all" onmouseover="skypperSpeak('¡Enviar! ¡Enviar! ¡Enviar!')">
                     Enviar Solicitud
                 </button>
             </form>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-white/5 bg-black/40 relative z-10">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-center md:text-left">
-                <p class="text-slate-300 text-[11px] font-bold tracking-widest uppercase mb-1">
-                    © 2024 <span class="text-yellow-500">WTICS</span> SOLUCIONES TECNOLÓGICAS. CALIDAD CERTIFICADA.
-                </p>
-                <p class="text-slate-500 text-[9px] uppercase tracking-[0.2em]">Todos los derechos reservados.</p>
-            </div>
+    <!-- FOOTER CENTRADO Y COMPACTO -->
+    <footer class="py-6 border-t border-white/5 bg-black/40 relative z-10 text-center">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center gap-4">
             
-            <div class="flex items-center gap-4">
-                <!-- Crédito LauBal -->
-                <span class="text-slate-400 text-[10px] font-medium italic">Sitio by <span class="text-yellow-600 font-black not-italic tracking-tighter">LauBal</span></span>
+            <!-- Redes Sociales en el Centro -->
+            <div class="flex items-center justify-center gap-6">
+                <a href="https://wa.me/5491153893238" target="_blank" class="social-icon icon-ws" title="WhatsApp" onmouseover="skypperSpeak('¡Escríbenos por WhatsApp!')">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-icon icon-ig" title="Instagram" onmouseover="skypperSpeak('Síguenos en Instagram')">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon icon-yt" title="YouTube" onmouseover="skypperSpeak('Mira nuestros videos en YouTube')">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+
+            <!-- Información de Copyright y Créditos Compacta -->
+            <div class="space-y-1">
+                <p class="text-slate-300 text-[10px] font-bold tracking-widest uppercase">
+                    © 2024 <span class="text-yellow-500 font-orbitron">WTICS</span> SOLUCIONES TECNOLÓGICAS.
+                </p>
                 
-                <div class="h-4 w-[1px] bg-white/10"></div>
-                
-                <!-- Redes Sociales con Alineación Correcta -->
-                <div class="flex items-center gap-4 h-12">
-                    <a href="https://wa.me/5491153893238" target="_blank" class="social-icon icon-ws" title="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="#" class="social-icon icon-ig" title="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-icon icon-yt" title="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
+                <div class="pt-1">
+                    <span class="text-slate-400 text-[9px] font-medium italic cursor-help" 
+                          onmouseover="skypperSpeak('¡Tenés que seguir a mi creadora! LauBal es la genia que diseñó mis circuitos y esta web increíble. ¡Buscá su LinkedIn, es una profesional de otro planeta! 🚀')">
+                        Sitio by 
+                        <a href="https://www.linkedin.com/in/tu-perfil-aqui" target="_blank" class="text-yellow-600 font-black not-italic tracking-tighter text-xs hover:text-yellow-400 transition-colors">
+                            LauBal
+                        </a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -461,7 +468,7 @@
 
     <div id="modal" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="absolute top-4 right-4 text-white/50 hover:text-white" onclick="closeModal()">
+            <button class="absolute top-4 right-4 text-white/50 hover:text-white text-xl" onclick="closeModal()">
                 <i class="fas fa-times"></i>
             </button>
             <div id="modal-body"></div>
@@ -477,14 +484,15 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+        let skypperTimeout;
         function skypperSpeak(text) {
             const bubble = document.getElementById('skypper-bubble');
             bubble.innerText = text;
             bubble.classList.add('show');
-            setTimeout(() => bubble.classList.remove('show'), 4000);
+            clearTimeout(skypperTimeout);
+            skypperTimeout = setTimeout(() => bubble.classList.remove('show'), 5000);
         }
 
-        // Función Scroll To Top para el Logo
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             skypperSpeak('¡De vuelta al inicio! Todo listo para empezar de nuevo.');
@@ -492,6 +500,10 @@
 
         function scrollToSection(id) {
             document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
         }
 
         function openModal(type) {
@@ -518,41 +530,56 @@
             const modal = document.getElementById('modal');
             const body = document.getElementById('modal-body');
             modal.style.display = 'flex';
-            body.innerHTML = `<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase text-center">Nuestra Experiencia</h3><p class="text-slate-300 text-sm mb-4 text-center">Hemos trabajado con las empresas más importantes del sector ${cat}, garantizando operatividad 24/7.</p><div class="grid grid-cols-2 gap-4"><div class="bg-white/5 p-4 rounded-xl text-center text-[10px] uppercase font-bold text-yellow-600 border border-yellow-600/20">Referencia A</div><div class="bg-white/5 p-4 rounded-xl text-center text-[10px] uppercase font-bold text-yellow-600 border border-yellow-600/20">Referencia B</div></div>`;
+            let title = cat.charAt(0).toUpperCase() + cat.slice(1);
+            body.innerHTML = `<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase text-center">Clientes: ${title}</h3><p class="text-slate-300 text-sm mb-4 text-center">Hemos trabajado con las empresas más importantes del sector, garantizando operatividad 24/7 y seguridad de datos.</p><div class="grid grid-cols-2 gap-4"><div class="bg-white/5 p-4 rounded-xl text-center text-[10px] uppercase font-bold text-yellow-600 border border-yellow-600/20">Referencia A</div><div class="bg-white/5 p-4 rounded-xl text-center text-[10px] uppercase font-bold text-yellow-600 border border-yellow-600/20">Referencia B</div></div>`;
         }
 
         function openTeamModal(name, desc) {
             const modal = document.getElementById('modal');
             const body = document.getElementById('modal-body');
             modal.style.display = 'flex';
-            body.innerHTML = `<div class="text-center"><h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-2 uppercase">${name}</h3><div class="w-16 h-1 bg-yellow-600 mx-auto mb-4 rounded-full"></div><p class="text-slate-300 text-sm italic font-light leading-relaxed">${desc}</p></div>`;
+            body.innerHTML = `<div class="text-center"><h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-2 uppercase">${name}</h3><p class="text-slate-300 text-sm leading-relaxed">${desc}</p></div>`;
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
-
+        /* LÓGICA DE ENVÍO DE FORMULARIO CON SKYPPER */
         function handleForm(e) {
             e.preventDefault();
-            skypperSpeak('¡Mensaje enviado con éxito! Recibí tus datos y Alberto ya los está revisando.');
-            e.target.reset();
+            const btn = document.getElementById('btn-submit');
+            const originalText = btn.innerText;
+            
+            btn.innerText = "PROCESANDO...";
+            btn.disabled = true;
+            skypperSpeak('¡Cargando datos en el servidor! Mis circuitos están echando humo de la emoción...');
+
+            const formData = new FormData(e.target);
+            
+            // Enlace con contacto.php
+            fetch('contacto.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => {
+                if(res.ok) {
+                    // Mensaje cómico y ameno para el usuario
+                    skypperSpeak('¡ZAS! ✨ ¡Mensaje enviado a la velocidad de la luz! Mis humanos han sido notificados y se pondrán en contacto contigo antes de que pueda pestañear mis circuitos. ¡Gracias por confiar!');
+                    e.target.reset();
+                } else {
+                    skypperSpeak('¡Rayos y centellas! Algo salió mal en la Matrix. ¿Podrías intentar enviarlo de nuevo o revisar los datos?');
+                }
+            })
+            .catch(() => {
+                skypperSpeak('¡Error de conexión! Parece que los cables están algo enredados. Inténtalo de nuevo en un ratito.');
+            })
+            .finally(() => {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            });
         }
-
-        // Lógica de inactividad de Skypper
-        let idleTimer;
-        const resetTimer = () => {
-            clearTimeout(idleTimer);
-            idleTimer = setTimeout(() => {
-                const msgs = ["¡Hola! Sigo aquí, ¿te has perdido?", "¿Buscando algo especial? ¡Skypper te ayuda!", "¡No te quedes ahí! Mira nuestros servicios.", "¡Psst! Si necesitas ayuda, solo silba."];
-                skypperSpeak(msgs[Math.floor(Math.random() * msgs.length)]);
-            }, 10000);
-        };
-        window.onmousemove = resetTimer;
-        window.onscroll = resetTimer;
-
-        // Saludo Inicial
+        
         window.onload = () => {
-            setTimeout(() => skypperSpeak("¡Hola! Soy Skypper. ¡Bienvenido a la nueva WTICS!"), 1000);
+            setTimeout(() => {
+                skypperSpeak('¡Bienvenido! Soy Skypper, tu asistente premium en WTICS. ¡Explora el sitio y diviértete!');
+            }, 2000);
         };
     </script>
 </body>
