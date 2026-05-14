@@ -419,6 +419,7 @@
     <section id="contacto" class="py-24 px-6 max-w-4xl mx-auto reveal">
         <div class="glass rounded-[2rem] p-8 md:p-12 relative border border-white/5">
             <h3 class="text-2xl font-orbitron font-black text-center mb-8 tracking-wider italic uppercase">Contactanos hoy</h3>
+            <!-- CAMBIAR EL ID DE ABAJO POR TU ID DE FORMSPREE -->
             <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="handleForm(event)">
                 <input name="nombre" type="text" class="bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Nombre" required onfocus="skypperSpeak('¿Cómo te llamas? ¡Dime!')">
                 <input name="email" type="email" class="bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Email" required onfocus="skypperSpeak('Escribe bien tu email para poder responderte.')">
@@ -430,11 +431,10 @@
         </div>
     </section>
 
-    <!-- FOOTER CENTRADO Y COMPACTO -->
     <footer class="py-6 border-t border-white/5 bg-black/40 relative z-10 text-center">
         <div class="max-w-7xl mx-auto px-6 flex flex-col items-center gap-4">
             
-            <!-- Redes Sociales en el Centro -->
+            <!-- Redes Sociales arriba al centro -->
             <div class="flex items-center justify-center gap-6">
                 <a href="https://wa.me/5491153893238" target="_blank" class="social-icon icon-ws" title="WhatsApp" onmouseover="skypperSpeak('¡Escríbenos por WhatsApp!')">
                     <i class="fab fa-whatsapp"></i>
@@ -447,15 +447,16 @@
                 </a>
             </div>
 
-            <!-- Información de Copyright y Créditos Compacta -->
+            <!-- Copyright y Crédito centrado -->
             <div class="space-y-1">
                 <p class="text-slate-300 text-[10px] font-bold tracking-widest uppercase">
                     © 2024 <span class="text-yellow-500 font-orbitron">WTICS</span> SOLUCIONES TECNOLÓGICAS.
                 </p>
                 
+                <!-- Crédito LauBal con evento para Skypper -->
                 <div class="pt-1">
                     <span class="text-slate-400 text-[9px] font-medium italic cursor-help" 
-                          onmouseover="skypperSpeak('¡Tenés que seguir a mi creadora!¡Buscá su LinkedIn, es una profesional de otro planeta! 🚀')">
+                          onmouseover="skypperSpeak('¡Tenés que seguir a mi creadora! LauBal es la genia que diseñó mis circuitos y esta web increíble. ¡Buscá su LinkedIn, es una profesional de otro planeta! 🚀')">
                         Sitio by 
                         <a href="https://www.linkedin.com/in/tu-perfil-aqui" target="_blank" class="text-yellow-600 font-black not-italic tracking-tighter text-xs hover:text-yellow-400 transition-colors">
                             LauBal
@@ -541,11 +542,13 @@
             body.innerHTML = `<div class="text-center"><h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-2 uppercase">${name}</h3><p class="text-slate-300 text-sm leading-relaxed">${desc}</p></div>`;
         }
 
-        /* LÓGICA DE ENVÍO DE FORMULARIO CON SKYPPER */
         function handleForm(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit');
             const originalText = btn.innerText;
+            
+            // Reemplaza 'TU_ID_AQUI' por el ID que te de Formspree
+            const FORMSPREE_ID = "sebastiangazzia@gmail.com"; 
             
             btn.innerText = "PROCESANDO...";
             btn.disabled = true;
@@ -553,34 +556,30 @@
 
             const formData = new FormData(e.target);
             
-            // Enlace con contacto.php
-            fetch('contacto.php', {
+            fetch(`https://formspree.io/f/xpqbgqkk`, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
             })
             .then(res => {
                 if(res.ok) {
-                    // Mensaje cómico y ameno para el usuario
                     skypperSpeak('¡ZAS! ✨ ¡Mensaje enviado a la velocidad de la luz! Mis humanos han sido notificados y se pondrán en contacto contigo antes de que pueda pestañear mis circuitos. ¡Gracias por confiar!');
                     e.target.reset();
                 } else {
-                    skypperSpeak('¡Rayos y centellas! Algo salió mal en la Matrix. ¿Podrías intentar enviarlo de nuevo o revisar los datos?');
+                    skypperSpeak('¡Rayos! Algo salió mal con el envío. Asegúrate de que el ID de Formspree sea correcto.');
                 }
             })
-            .catch(() => {
-                skypperSpeak('¡Error de conexión! Parece que los cables están algo enredados. Inténtalo de nuevo en un ratito.');
+            .catch((error) => {
+                console.error('Error:', error);
+                skypperSpeak('¡Error de conexión! Parece que mi antena está fallando o no hay internet.');
             })
             .finally(() => {
                 btn.innerText = originalText;
                 btn.disabled = false;
             });
         }
-        
-        window.onload = () => {
-            setTimeout(() => {
-                skypperSpeak('¡Bienvenido! Soy Skypper, tu asistente premium en WTICS. ¡Explora el sitio y diviértete!');
-            }, 2000);
-        };
     </script>
 </body>
 </html>
