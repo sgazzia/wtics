@@ -99,28 +99,6 @@
             animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        @keyframes zoomIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .nav-btn {
-            padding: 0.5rem 1.25rem;
-            border: 1px solid rgba(184, 134, 11, 0.4);
-            color: var(--gold-text);
-            border-radius: 9999px;
-            transition: all 0.3s ease;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        .nav-btn:hover {
-            background: var(--gold-dark);
-            color: black;
-            border-color: var(--gold-dark);
-        }
-
         #skypper-container {
             position: fixed;
             bottom: 20px;
@@ -162,29 +140,10 @@
             cursor: pointer;
             filter: drop-shadow(0 5px 15px rgba(240, 196, 25, 0.4));
             transition: transform 0.3s ease;
-            position: relative;
         }
         
         .skypper-character:hover {
             transform: scale(1.1) rotate(5deg);
-        }
-
-        .eye-blink {
-            animation: blink 4s infinite;
-        }
-
-        @keyframes blink {
-            0%, 90%, 100% { transform: scaleY(1); }
-            95% { transform: scaleY(0.1); }
-        }
-
-        .bounce-anim {
-            animation: bounceSkypper 3s infinite ease-in-out;
-        }
-
-        @keyframes bounceSkypper {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         .social-icon {
@@ -208,6 +167,18 @@
         .icon-yt { color: #FF0000; border-color: rgba(255, 0, 0, 0.3); }
         .icon-yt:hover { background: #FF0000; color: white; box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); }
 
+        .nav-btn {
+            padding: 0.5rem 1.25rem;
+            border: 1px solid rgba(184, 134, 11, 0.4);
+            color: var(--gold-text);
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
         .gallery-card {
             overflow: hidden;
             border-radius: 24px;
@@ -215,41 +186,14 @@
             aspect-ratio: 16/9;
             cursor: pointer;
         }
-        .gallery-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-        .gallery-card:hover img {
-            transform: scale(1.1);
-        }
-        .gallery-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            display: flex;
-            align-items: flex-end;
-            padding: 25px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .gallery-card:hover .gallery-overlay {
-            opacity: 1;
-        }
 
-        .client-card {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .client-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold-text);
-            background: rgba(240, 196, 25, 0.05);
-        }
+        .eye-blink { animation: blink 4s infinite; }
+        @keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+        .bounce-anim { animation: bounceSkypper 3s infinite ease-in-out; }
+        @keyframes bounceSkypper { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     </style>
 </head>
-<body>
+<body id="top">
 
     <div class="dynamic-bg">
         <div class="particles"></div>
@@ -276,9 +220,12 @@
 
     <header class="fixed top-0 w-full z-50 glass">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
+            <!-- Logo con funcionalidad de Scroll to Top -->
+            <div class="flex items-center gap-3 cursor-pointer group/logo" 
+                 onclick="scrollToTop()" 
+                 onmouseover="skypperSpeak('¡Click aquí para volver al inicio rápido!')">
                 <div class="flex items-center gap-2">
-                    <div class="w-10 h-10">
+                    <div class="w-10 h-10 transition-transform duration-500 group-hover/logo:scale-110" id="main-logo-svg">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
                                 <linearGradient id="goldGradLogo" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -353,6 +300,7 @@
                 <p class="text-slate-500 text-sm mb-6 leading-relaxed">Soporte y mantenimiento de servidores y centros de datos.</p>
                 <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest">Saber más +</div>
             </div>
+            <!-- Otros servicios con Skypper e interacciones... -->
             <div class="glass p-8 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('modal-redes')" onmouseover="skypperSpeak('¡Redes veloces para que internet vuele!')">
                 <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
                     <i class="fas fa-project-diagram text-xl"></i>
@@ -380,32 +328,26 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="gallery-card group reveal" onclick="openVideoModal('W-Network Setup', '77O5-6W-uYI', 'Implementación de red de fibra óptica industrial con redundancia total.')" onmouseover="skypperSpeak('¡Este proyecto quedó increíble! Mira el video.')">
                 <img src="https://placehold.co/600x400/111/f0c419?text=Proyecto+Redes" alt="Redes">
-                <div class="gallery-overlay">
-                    <div class="w-full">
-                        <i class="fas fa-play-circle text-yellow-500 text-4xl mb-2"></i>
-                        <h4 class="font-bold">Networking Industrial</h4>
-                        <p class="text-xs text-slate-300">Video explicativo en YouTube</p>
-                    </div>
+                <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-play-circle text-yellow-500 text-4xl mb-2"></i>
+                    <h4 class="font-bold">Networking Industrial</h4>
+                    <p class="text-xs text-slate-300">Video explicativo en YouTube</p>
                 </div>
             </div>
             <div class="gallery-card group reveal" onclick="openVideoModal('Seguridad Bancaria', 'dQw4w9WgXcQ', 'Sistema de monitoreo IP con reconocimiento facial para entidad financiera.')" onmouseover="skypperSpeak('Seguridad nivel experto. Dale click.')">
                 <img src="https://placehold.co/600x400/111/f0c419?text=CCTV+Premium" alt="CCTV">
-                <div class="gallery-overlay">
-                    <div class="w-full">
-                        <i class="fas fa-video text-yellow-500 text-4xl mb-2"></i>
-                        <h4 class="font-bold">Monitoreo Bancario</h4>
-                        <p class="text-xs text-slate-300">Click para detalles técnicos</p>
-                    </div>
+                <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-video text-yellow-500 text-4xl mb-2"></i>
+                    <h4 class="font-bold">Monitoreo Bancario</h4>
+                    <p class="text-xs text-slate-300">Click para detalles técnicos</p>
                 </div>
             </div>
             <div class="gallery-card group reveal" onclick="openVideoModal('Data Center 2024', 'l482T0yNkeo', 'Renovación completa de servidores Rack y gestión térmica.')" onmouseover="skypperSpeak('¡Uf! Qué frío hace en este Data Center. ¡Míralo!')">
                 <img src="https://placehold.co/600x400/111/f0c419?text=Data+Center" alt="Data Center">
-                <div class="gallery-overlay">
-                    <div class="w-full">
-                        <i class="fas fa-server text-yellow-500 text-4xl mb-2"></i>
-                        <h4 class="font-bold">Data Center Upgrade</h4>
-                        <p class="text-xs text-slate-300">Video explicativo disponible</p>
-                    </div>
+                <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-server text-yellow-500 text-4xl mb-2"></i>
+                    <h4 class="font-bold">Data Center Upgrade</h4>
+                    <p class="text-xs text-slate-300">Video explicativo disponible</p>
                 </div>
             </div>
         </div>
@@ -419,22 +361,22 @@
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 reveal">
-                <div class="client-card p-10 border border-white/5 bg-white/[0.02] rounded-3xl" onclick="openClientModal('logistica')" onmouseover="skypperSpeak('¡Camiones y logística! Aquí ayudamos con las entregas.')">
+                <div class="cursor-pointer p-10 border border-white/5 bg-white/[0.02] rounded-3xl hover:border-yellow-600/30 transition-all" onclick="openClientModal('logistica')" onmouseover="skypperSpeak('¡Camiones y logística! Aquí ayudamos con las entregas.')">
                     <i class="fas fa-truck-loading text-5xl text-yellow-500 mb-6"></i>
                     <h5 class="text-sm font-bold tracking-widest uppercase">Operadores Logísticos</h5>
                     <p class="text-[10px] text-yellow-600/60 mt-4 uppercase font-bold">Ver Clientes +</p>
                 </div>
-                <div class="client-card p-10 border border-white/5 bg-white/[0.02] rounded-3xl" onclick="openClientModal('retail')" onmouseover="skypperSpeak('Supermercados y tiendas. ¡A Skypper le encanta el shopping!')">
+                <div class="cursor-pointer p-10 border border-white/5 bg-white/[0.02] rounded-3xl hover:border-yellow-600/30 transition-all" onclick="openClientModal('retail')" onmouseover="skypperSpeak('Supermercados y tiendas. ¡A Skypper le encanta el shopping!')">
                     <i class="fas fa-seedling text-5xl text-yellow-500 mb-6"></i>
                     <h5 class="text-sm font-bold tracking-widest uppercase">Sector Retail</h5>
                     <p class="text-[10px] text-yellow-600/60 mt-4 uppercase font-bold">Ver Clientes +</p>
                 </div>
-                <div class="client-card p-10 border border-white/5 bg-white/[0.02] rounded-3xl" onclick="openClientModal('salud')" onmouseover="skypperSpeak('Clínicas y laboratorios. ¡Todo seguro para la salud!')">
+                <div class="cursor-pointer p-10 border border-white/5 bg-white/[0.02] rounded-3xl hover:border-yellow-600/30 transition-all" onclick="openClientModal('salud')" onmouseover="skypperSpeak('Clínicas y laboratorios. ¡Todo seguro para la salud!')">
                     <i class="fas fa-heartbeat text-5xl text-yellow-500 mb-6"></i>
                     <h5 class="text-sm font-bold tracking-widest uppercase">Centros de Salud</h5>
                     <p class="text-[10px] text-yellow-600/60 mt-4 uppercase font-bold">Ver Clientes +</p>
                 </div>
-                <div class="client-card p-10 border border-white/5 bg-white/[0.02] rounded-3xl" onclick="openClientModal('finanzas')" onmouseover="skypperSpeak('¡Bancos! Aquí cuidamos los tesoros digitales.')">
+                <div class="cursor-pointer p-10 border border-white/5 bg-white/[0.02] rounded-3xl hover:border-yellow-600/30 transition-all" onclick="openClientModal('finanzas')" onmouseover="skypperSpeak('¡Bancos! Aquí cuidamos los tesoros digitales.')">
                     <i class="fas fa-chart-line text-5xl text-yellow-500 mb-6"></i>
                     <h5 class="text-sm font-bold tracking-widest uppercase">Servicios Financieros</h5>
                     <p class="text-[10px] text-yellow-600/60 mt-4 uppercase font-bold">Ver Clientes +</p>
@@ -454,14 +396,14 @@
                     <h5 class="text-sm font-bold uppercase">Seba Gazzia</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Infraestructura / Soporte IT</p>
                 </div>
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Alberto Canteros', 'Experto en Camaras de seguridad y Redes Corporativas. Te ayuda a que estes tranquilo/a.')" onmouseover="skypperSpeak('Alberto es mi guardián. Nadie pasa sin su permiso.')">
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Alberto Canteros', 'Experto en Seguridad Informática y Redes Corporativas. Creador de escudos digitales.')" onmouseover="skypperSpeak('Alberto es mi guardián. Nadie pasa sin su permiso.')">
                     <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110">
                         <i class="fas fa-shield-virus text-yellow-600/50"></i>
                     </div>
                     <h5 class="text-sm font-bold uppercase">Alberto Canteros</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Seguridad / Redes</p>
                 </div>
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Creativa en Diseño de Páginas Web y además es nuestra comunity. Le da vida visual a WTICS.')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Creativa en Diseño de Páginas Web y UX/UI. Le da vida visual a WTICS.')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
                     <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110">
                         <i class="fas fa-laptop-code text-yellow-600/50"></i>
                     </div>
@@ -472,7 +414,6 @@
         </div>
     </section>
 
-    <!-- Contacto -->
     <section id="contacto" class="py-24 px-6 max-w-4xl mx-auto reveal">
         <div class="glass rounded-[2rem] p-8 md:p-12 relative border border-white/5">
             <h3 class="text-2xl font-orbitron font-black text-center mb-8 tracking-wider italic uppercase">Contactanos hoy</h3>
@@ -487,197 +428,132 @@
         </div>
     </section>
 
-    <footer class="py-12 border-t border-white/5 text-center text-slate-600 text-[10px] tracking-widest">
-        <div class="flex justify-center items-center gap-6 mb-8 h-12">
-            <a href="https://wa.me/5491126194448" target="_blank" class="social-icon icon-ws" onmouseover="skypperSpeak('¡Mandame un mensaje directo por WhatsApp!')">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="#" class="social-icon icon-ig" onmouseover="skypperSpeak('Míranos en Instagram, ahí soy más famoso.')">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" class="social-icon icon-yt" onmouseover="skypperSpeak('¡Suscríbete a nuestro canal de YouTube!')">
-                <i class="fab fa-youtube"></i>
-            </a>
+    <footer class="py-12 border-t border-white/5 bg-black/40 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-center md:text-left">
+                <p class="text-slate-300 text-[11px] font-bold tracking-widest uppercase mb-1">
+                    © 2024 <span class="text-yellow-500">WTICS</span> SOLUCIONES TECNOLÓGICAS. CALIDAD CERTIFICADA.
+                </p>
+                <p class="text-slate-500 text-[9px] uppercase tracking-[0.2em]">Todos los derechos reservados.</p>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <!-- Crédito LauBal -->
+                <span class="text-slate-400 text-[10px] font-medium italic">Sitio by <span class="text-yellow-600 font-black not-italic tracking-tighter">LauBal</span></span>
+                
+                <div class="h-4 w-[1px] bg-white/10"></div>
+                
+                <!-- Redes Sociales con Alineación Correcta -->
+                <div class="flex items-center gap-4 h-12">
+                    <a href="https://wa.me/5491153893238" target="_blank" class="social-icon icon-ws" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="social-icon icon-ig" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon icon-yt" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-        <p>&copy; 2024 WTICS SOLUCIONES TECNOLÓGICAS. CALIDAD CERTIFICADA.</p>
     </footer>
 
-    <div id="modal-info" class="modal" onclick="closeModal('modal-info')">
-        <div class="modal-content text-center !max-w-xs" onclick="event.stopPropagation()">
-            <h3 id="modal-title" class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase"></h3>
-            <p id="modal-body" class="text-slate-400 text-sm leading-relaxed mb-6"></p>
-            <button onclick="closeModal('modal-info')" class="nav-btn px-6">Cerrar</button>
-        </div>
-    </div>
-
-    <div id="modal-video" class="modal" onclick="closeModal('modal-video')">
-        <div class="modal-content !max-w-2xl" onclick="event.stopPropagation()">
-            <h3 id="video-title" class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase"></h3>
-            <div class="aspect-video w-full rounded-xl overflow-hidden mb-4 bg-black">
-                <iframe id="video-frame" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            </div>
-            <p id="video-desc" class="text-slate-400 text-sm italic mb-6"></p>
-            <button onclick="closeModal('modal-video')" class="nav-btn px-6">Cerrar</button>
+    <div id="modal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 text-white/50 hover:text-white" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modal-body"></div>
         </div>
     </div>
 
     <script>
-        const bubble = document.getElementById('skypper-bubble');
-        let skypperTimer;
-        let idleTimer;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
         function skypperSpeak(text) {
-            clearTimeout(skypperTimer);
-            clearTimeout(idleTimer);
+            const bubble = document.getElementById('skypper-bubble');
             bubble.innerText = text;
             bubble.classList.add('show');
-            
-            skypperTimer = setTimeout(() => {
-                bubble.classList.remove('show');
-                startIdleTimer();
-            }, 5000);
+            setTimeout(() => bubble.classList.remove('show'), 4000);
         }
 
-        function startIdleTimer() {
-            idleTimer = setTimeout(() => {
-                const messages = [
-                    "¡Ey! ¡Aquí estoy! ¿En qué puedo ayudarte?",
-                    "¿Estás buscando lo mejor en IT? ¡Skypper te guía!",
-                    "¿Pshhh! Mira mis redes sociales aquí abajo.",
-                    "¡Oye! No te quedes ahí parado, ¡pide tu presupuesto!"
-                ];
-                skypperSpeak(messages[Math.floor(Math.random() * messages.length)]);
-            }, 8000);
+        // Función Scroll To Top para el Logo
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            skypperSpeak('¡De vuelta al inicio! Todo listo para empezar de nuevo.');
         }
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                skypperSpeak("¡Hola! Soy Skypper. ¡Bienvenido a WTICS! ¿Empezamos el viaje?");
-            }, 1500);
-            startIdleTimer();
-            reveal();
-        });
-
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
 
         function scrollToSection(id) {
-            const el = document.querySelector(id);
-            if (el) {
-                window.scrollTo({
-                    top: el.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                skypperSpeak(`¡Vamos a la sección de ${id.replace('#', '')}!`);
-            }
+            document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        function openModal(id) {
-            document.getElementById(id).style.display = 'flex';
+        function openModal(type) {
+            const modal = document.getElementById('modal');
+            const body = document.getElementById('modal-body');
+            modal.style.display = 'flex';
+            
+            let content = '';
+            if(type === 'modal-soporte') content = '<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase">Infraestructura Crítica</h3><p class="text-slate-300 text-sm leading-relaxed">Ofrecemos mantenimiento preventivo y correctivo de servidores, gestión de backups y optimización de centros de datos bajo normas internacionales.</p>';
+            if(type === 'modal-redes') content = '<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase">Redes de Alto Rendimiento</h3><p class="text-slate-300 text-sm leading-relaxed">Diseño e implementación de redes WiFi 6, fibra óptica y seguridad perimetral para empresas que no pueden permitirse caídas.</p>';
+            if(type === 'modal-camaras') content = '<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase">Seguridad IP Inteligente</h3><p class="text-slate-300 text-sm leading-relaxed">Sistemas de videovigilancia con analítica de movimiento y visión nocturna industrial.</p>';
+            
+            body.innerHTML = content;
         }
 
-        function closeModal(id) {
-            const m = document.getElementById(id);
-            m.style.display = 'none';
-            if(id === 'modal-video') document.getElementById('video-frame').src = "";
+        function openVideoModal(title, vidId, desc) {
+            const modal = document.getElementById('modal');
+            const body = document.getElementById('modal-body');
+            modal.style.display = 'flex';
+            body.innerHTML = `<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase text-center">${title}</h3><div class="aspect-video mb-4 rounded-xl overflow-hidden bg-black shadow-2xl"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${vidId}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div><p class="text-slate-300 text-xs text-center leading-relaxed italic">${desc}</p>`;
         }
 
-        function openVideoModal(title, videoId, desc) {
-            document.getElementById('video-title').innerText = title;
-            document.getElementById('video-desc').innerText = desc;
-            document.getElementById('video-frame').src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            document.getElementById('modal-video').style.display = 'flex';
-            skypperSpeak(`¡Disfruta del video de ${title}! Skypper recomienda palomitas.`);
+        function openClientModal(cat) {
+            const modal = document.getElementById('modal');
+            const body = document.getElementById('modal-body');
+            modal.style.display = 'flex';
+            body.innerHTML = `<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase text-center">Nuestra Experiencia</h3><p class="text-slate-300 text-sm mb-4 text-center">Hemos trabajado con las empresas más importantes del sector ${cat}, garantizando operatividad 24/7.</p><div class="grid grid-cols-2 gap-4"><div class="bg-white/5 p-4 rounded-xl text-center text-[10px] uppercase font-bold text-yellow-600 border border-yellow-600/20">Referencia A</div><div class="bg-white/5 p-4 rounded-xl text-center text-[10px] uppercase font-bold text-yellow-600 border border-yellow-600/20">Referencia B</div></div>`;
         }
 
         function openTeamModal(name, desc) {
-            document.getElementById('modal-title').innerText = name;
-            document.getElementById('modal-body').innerText = desc;
-            document.getElementById('modal-info').style.display = 'flex';
-            skypperSpeak(`Conoce a ${name}, ¡es un genio total!`);
+            const modal = document.getElementById('modal');
+            const body = document.getElementById('modal-body');
+            modal.style.display = 'flex';
+            body.innerHTML = `<div class="text-center"><h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-2 uppercase">${name}</h3><div class="w-16 h-1 bg-yellow-600 mx-auto mb-4 rounded-full"></div><p class="text-slate-300 text-sm italic font-light leading-relaxed">${desc}</p></div>`;
         }
 
-        function openClientModal(type) {
-            const data = {
-                'logistica': {
-                    title: 'Operadores Logísticos',
-                    body: '🔹 Andreani: Mantenimiento de redes.\n🔹 OCASA: Soporte de servidores.\n🔹 Transportes Imaz: Seguridad CCTV.'
-                },
-                'retail': {
-                    title: 'Sector Retail',
-                    body: '🔹 Coto: Estructura de redes.\n🔹 Carrefour: Soporte preventivo.\n🔹 Dexter: Conectividad de locales.'
-                },
-                'salud': {
-                    title: 'Centros de Salud',
-                    body: '🔹 Swiss Medical: Auditoría de seguridad.\n🔹 Bagó: Backup centralizado.\n🔹 Clínica del Sol: Red Wi-Fi.'
-                },
-                'finanzas': {
-                    title: 'Servicios Financieros',
-                    body: '🔹 Banco Provincia: Soporte Nivel 2.\n🔹 Galicia: Firewalls Fortinet.\n🔹 Western Union: Mantenimiento CCTV.'
-                }
-            };
-
-            const client = data[type];
-            document.getElementById('modal-title').innerText = client.title;
-            document.getElementById('modal-body').innerText = client.body;
-            document.getElementById('modal-info').style.display = 'flex';
-            skypperSpeak(`¡Mira qué empresas confían en nosotros para ${client.title}!`);
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
         }
 
         function handleForm(e) {
             e.preventDefault();
-            skypperSpeak("¡Mensaje enviado con éxito! Skypper lo entregó volando.");
+            skypperSpeak('¡Mensaje enviado con éxito! Recibí tus datos y Alberto ya los está revisando.');
             e.target.reset();
         }
 
-        window.addEventListener('mousemove', () => {
+        // Lógica de inactividad de Skypper
+        let idleTimer;
+        const resetTimer = () => {
             clearTimeout(idleTimer);
-            if (!bubble.classList.contains('show')) startIdleTimer();
-        });
+            idleTimer = setTimeout(() => {
+                const msgs = ["¡Hola! Sigo aquí, ¿te has perdido?", "¿Buscando algo especial? ¡Skypper te ayuda!", "¡No te quedes ahí! Mira nuestros servicios.", "¡Psst! Si necesitas ayuda, solo silba."];
+                skypperSpeak(msgs[Math.floor(Math.random() * msgs.length)]);
+            }, 10000);
+        };
+        window.onmousemove = resetTimer;
+        window.onscroll = resetTimer;
 
-        // Asegurar que los links de navegación funcionen
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = this.getAttribute('href');
-                scrollToSection(target);
-            });
-        });
+        // Saludo Inicial
+        window.onload = () => {
+            setTimeout(() => skypperSpeak("¡Hola! Soy Skypper. ¡Bienvenido a la nueva WTICS!"), 1000);
+        };
     </script>
-
-    <!-- Modales de Servicios -->
-    <div id="modal-soporte" class="modal" onclick="closeModal('modal-soporte')">
-        <div class="modal-content text-center" onclick="event.stopPropagation()">
-            <h3 class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase">Infraestructura</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-6">Mantenimiento preventivo y correctivo de servidores físicos y virtuales. Virtualización de alta disponibilidad.</p>
-            <button onclick="closeModal('modal-soporte')" class="nav-btn px-6">Cerrar</button>
-        </div>
-    </div>
-    
-    <div id="modal-redes" class="modal" onclick="closeModal('modal-redes')">
-        <div class="modal-content text-center" onclick="event.stopPropagation()">
-            <h3 class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase">Redes</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-6">Cableado estructurado de última generación, enlaces Ubiquiti y configuración de switches Cisco/Mikrotik.</p>
-            <button onclick="closeModal('modal-redes')" class="nav-btn px-6">Cerrar</button>
-        </div>
-    </div>
-
-    <div id="modal-camaras" class="modal" onclick="closeModal('modal-camaras')">
-        <div class="modal-content text-center" onclick="event.stopPropagation()">
-            <h3 class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase">Seguridad</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-6">Sistemas Dahua con IA: detección de intrusos y visión nocturna color de alta definición.</p>
-            <button onclick="closeModal('modal-camaras')" class="nav-btn px-6">Cerrar</button>
-        </div>
-    </div>
-
 </body>
 </html>
