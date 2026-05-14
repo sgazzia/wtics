@@ -454,14 +454,14 @@
                     <h5 class="text-sm font-bold uppercase">Seba Gazzia</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Infraestructura / Soporte IT</p>
                 </div>
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Alberto Canteros', 'Experto en Seguridad Informática y Redes Corporativas. Creador de escudos digitales.')" onmouseover="skypperSpeak('Alberto es mi guardián. Nadie pasa sin su permiso.')">
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Alberto Canteros', 'Experto en Camaras de seguridad y Redes Corporativas. Te ayuda a que estes tranquilo/a.')" onmouseover="skypperSpeak('Alberto es mi guardián. Nadie pasa sin su permiso.')">
                     <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110">
                         <i class="fas fa-shield-virus text-yellow-600/50"></i>
                     </div>
                     <h5 class="text-sm font-bold uppercase">Alberto Canteros</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Seguridad / Redes</p>
                 </div>
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Creativa en Diseño de Páginas Web y UX/UI. Le da vida visual a WTICS.')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Creativa en Diseño de Páginas Web y además es nuestra comunity. Le da vida visual a WTICS.')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
                     <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110">
                         <i class="fas fa-laptop-code text-yellow-600/50"></i>
                     </div>
@@ -487,4 +487,197 @@
         </div>
     </section>
 
-    <footer class="py-12 border-t border-
+    <footer class="py-12 border-t border-white/5 text-center text-slate-600 text-[10px] tracking-widest">
+        <div class="flex justify-center items-center gap-6 mb-8 h-12">
+            <a href="https://wa.me/5491126194448" target="_blank" class="social-icon icon-ws" onmouseover="skypperSpeak('¡Mandame un mensaje directo por WhatsApp!')">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="#" class="social-icon icon-ig" onmouseover="skypperSpeak('Míranos en Instagram, ahí soy más famoso.')">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-icon icon-yt" onmouseover="skypperSpeak('¡Suscríbete a nuestro canal de YouTube!')">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+        <p>&copy; 2024 WTICS SOLUCIONES TECNOLÓGICAS. CALIDAD CERTIFICADA.</p>
+    </footer>
+
+    <div id="modal-info" class="modal" onclick="closeModal('modal-info')">
+        <div class="modal-content text-center !max-w-xs" onclick="event.stopPropagation()">
+            <h3 id="modal-title" class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase"></h3>
+            <p id="modal-body" class="text-slate-400 text-sm leading-relaxed mb-6"></p>
+            <button onclick="closeModal('modal-info')" class="nav-btn px-6">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="modal-video" class="modal" onclick="closeModal('modal-video')">
+        <div class="modal-content !max-w-2xl" onclick="event.stopPropagation()">
+            <h3 id="video-title" class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase"></h3>
+            <div class="aspect-video w-full rounded-xl overflow-hidden mb-4 bg-black">
+                <iframe id="video-frame" class="w-full h-full" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            <p id="video-desc" class="text-slate-400 text-sm italic mb-6"></p>
+            <button onclick="closeModal('modal-video')" class="nav-btn px-6">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        const bubble = document.getElementById('skypper-bubble');
+        let skypperTimer;
+        let idleTimer;
+
+        function skypperSpeak(text) {
+            clearTimeout(skypperTimer);
+            clearTimeout(idleTimer);
+            bubble.innerText = text;
+            bubble.classList.add('show');
+            
+            skypperTimer = setTimeout(() => {
+                bubble.classList.remove('show');
+                startIdleTimer();
+            }, 5000);
+        }
+
+        function startIdleTimer() {
+            idleTimer = setTimeout(() => {
+                const messages = [
+                    "¡Ey! ¡Aquí estoy! ¿En qué puedo ayudarte?",
+                    "¿Estás buscando lo mejor en IT? ¡Skypper te guía!",
+                    "¿Pshhh! Mira mis redes sociales aquí abajo.",
+                    "¡Oye! No te quedes ahí parado, ¡pide tu presupuesto!"
+                ];
+                skypperSpeak(messages[Math.floor(Math.random() * messages.length)]);
+            }, 8000);
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                skypperSpeak("¡Hola! Soy Skypper. ¡Bienvenido a WTICS! ¿Empezamos el viaje?");
+            }, 1500);
+            startIdleTimer();
+            reveal();
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        function scrollToSection(id) {
+            const el = document.querySelector(id);
+            if (el) {
+                window.scrollTo({
+                    top: el.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                skypperSpeak(`¡Vamos a la sección de ${id.replace('#', '')}!`);
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            const m = document.getElementById(id);
+            m.style.display = 'none';
+            if(id === 'modal-video') document.getElementById('video-frame').src = "";
+        }
+
+        function openVideoModal(title, videoId, desc) {
+            document.getElementById('video-title').innerText = title;
+            document.getElementById('video-desc').innerText = desc;
+            document.getElementById('video-frame').src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            document.getElementById('modal-video').style.display = 'flex';
+            skypperSpeak(`¡Disfruta del video de ${title}! Skypper recomienda palomitas.`);
+        }
+
+        function openTeamModal(name, desc) {
+            document.getElementById('modal-title').innerText = name;
+            document.getElementById('modal-body').innerText = desc;
+            document.getElementById('modal-info').style.display = 'flex';
+            skypperSpeak(`Conoce a ${name}, ¡es un genio total!`);
+        }
+
+        function openClientModal(type) {
+            const data = {
+                'logistica': {
+                    title: 'Operadores Logísticos',
+                    body: '🔹 Andreani: Mantenimiento de redes.\n🔹 OCASA: Soporte de servidores.\n🔹 Transportes Imaz: Seguridad CCTV.'
+                },
+                'retail': {
+                    title: 'Sector Retail',
+                    body: '🔹 Coto: Estructura de redes.\n🔹 Carrefour: Soporte preventivo.\n🔹 Dexter: Conectividad de locales.'
+                },
+                'salud': {
+                    title: 'Centros de Salud',
+                    body: '🔹 Swiss Medical: Auditoría de seguridad.\n🔹 Bagó: Backup centralizado.\n🔹 Clínica del Sol: Red Wi-Fi.'
+                },
+                'finanzas': {
+                    title: 'Servicios Financieros',
+                    body: '🔹 Banco Provincia: Soporte Nivel 2.\n🔹 Galicia: Firewalls Fortinet.\n🔹 Western Union: Mantenimiento CCTV.'
+                }
+            };
+
+            const client = data[type];
+            document.getElementById('modal-title').innerText = client.title;
+            document.getElementById('modal-body').innerText = client.body;
+            document.getElementById('modal-info').style.display = 'flex';
+            skypperSpeak(`¡Mira qué empresas confían en nosotros para ${client.title}!`);
+        }
+
+        function handleForm(e) {
+            e.preventDefault();
+            skypperSpeak("¡Mensaje enviado con éxito! Skypper lo entregó volando.");
+            e.target.reset();
+        }
+
+        window.addEventListener('mousemove', () => {
+            clearTimeout(idleTimer);
+            if (!bubble.classList.contains('show')) startIdleTimer();
+        });
+
+        // Asegurar que los links de navegación funcionen
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                scrollToSection(target);
+            });
+        });
+    </script>
+
+    <!-- Modales de Servicios -->
+    <div id="modal-soporte" class="modal" onclick="closeModal('modal-soporte')">
+        <div class="modal-content text-center" onclick="event.stopPropagation()">
+            <h3 class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase">Infraestructura</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">Mantenimiento preventivo y correctivo de servidores físicos y virtuales. Virtualización de alta disponibilidad.</p>
+            <button onclick="closeModal('modal-soporte')" class="nav-btn px-6">Cerrar</button>
+        </div>
+    </div>
+    
+    <div id="modal-redes" class="modal" onclick="closeModal('modal-redes')">
+        <div class="modal-content text-center" onclick="event.stopPropagation()">
+            <h3 class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase">Redes</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">Cableado estructurado de última generación, enlaces Ubiquiti y configuración de switches Cisco/Mikrotik.</p>
+            <button onclick="closeModal('modal-redes')" class="nav-btn px-6">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="modal-camaras" class="modal" onclick="closeModal('modal-camaras')">
+        <div class="modal-content text-center" onclick="event.stopPropagation()">
+            <h3 class="text-xl font-orbitron font-black text-yellow-500 mb-4 uppercase">Seguridad</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-6">Sistemas Dahua con IA: detección de intrusos y visión nocturna color de alta definición.</p>
+            <button onclick="closeModal('modal-camaras')" class="nav-btn px-6">Cerrar</button>
+        </div>
+    </div>
+
+</body>
+</html>
