@@ -445,20 +445,17 @@
 
     <script>
         // CONFIGURACIÓN DE EMAILJS
-        // 1. Logueate en dashboard.emailjs.com
-        // 2. Ve a 'Account' -> copia 'Public Key' y ponla aquí abajo.
+        // Logueate en dashboard.emailjs.com
         const EMAILJS_PUBLIC_KEY = "pF2Aeyl051x-114DS"; 
         
-        // 3. Ve a 'Email Services' -> El ID que se ve en tu captura es service_pml6t4a
+        //  Ve a 'Email Services' 
         const EMAILJS_SERVICE_ID = "service_5923r8p"; 
         
-        // 4. Ve a 'Email Templates' -> Crea uno y copia el ID aquí.
+        // Ve a 'Email Templates' -> Crea uno y copia el ID aquí.
         const EMAILJS_TEMPLATE_ID = "template_9wpkmfe"; 
 
         (function() {
-            if (EMAILJS_PUBLIC_KEY !== "pF2Aeyl051x-114DS") {
-                emailjs.init(pF2Aeyl051x-114DS); 
-            }
+          emailjs.init("pF2Aeyl051x-114DS"); 
         })();
 
         const observer = new IntersectionObserver((entries) => {
