@@ -548,7 +548,7 @@
                 const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
 
                 if (response.status === 200) {
-                    skypperSpeak('¡MENSAJE ENVIADO! 🚀 Mis humanos te responderán a la brevedad. ¡Gracias!');
+                    skypperSpeak('¡MENSAJE ENVIADO! 🚀 Gracias por comunicarte,te responderán a la brevedad. ¡Gracias!');
                     document.getElementById('contactForm').reset();
                 }
             } catch (error) {
