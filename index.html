@@ -224,6 +224,43 @@
         </div>
     </div>
 
+    <!-- FONDO EN BLUR TRANSLÚCIDO PARA EL MENÚ MÓVIL (BACKDROP) -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[99] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+
+    <!-- MENÚ MÓVIL ESTILO "SIDE DRAWER" (A LA DERECHA) -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-black/95 border-l border-yellow-600/30 z-[100] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col p-6 shadow-2xl">
+        <div class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
+            <div class="flex items-center gap-2">
+                <span class="logo-text text-xl font-bold font-orbitron">WTICS</span>
+            </div>
+            <button class="text-yellow-500 hover:text-yellow-400 text-2xl focus:outline-none w-10 h-10 flex items-center justify-center rounded-full border border-yellow-600/20 bg-yellow-600/5" onclick="toggleMobileMenu()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="flex flex-col gap-6 uppercase tracking-widest text-xs font-bold">
+            <a href="#servicios" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('¿Quieres ver qué hacemos? ¡Servidores, Redes y mucha magia IT!')">
+                <i class="fas fa-server text-yellow-500 text-[10px]"></i> Servicios
+            </a>
+            <a href="#proyectos" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('¡Mira mis trabajos favoritos! Tengo videos de YouTube aquí.')">
+                <i class="fas fa-folder-open text-yellow-500 text-[10px]"></i> Proyectos
+            </a>
+            <a href="#clientes" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('¡Las mejores empresas confían en nosotros!')">
+                <i class="fas fa-handshake text-yellow-500 text-[10px]"></i> Clientes
+            </a>
+            <a href="#integrantes" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('Conoce a los genios detrás de todo esto.')">
+                <i class="fas fa-users text-yellow-500 text-[10px]"></i> Equipo
+            </a>
+            <a href="#contacto" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 bg-yellow-600/15 border-yellow-600 hover:bg-yellow-600/20 transition-colors" onmouseover="skypperSpeak('¡Hablemos de tu próximo gran proyecto!')">
+                <i class="fas fa-envelope text-yellow-500 text-[10px]"></i> Contacto
+            </a>
+        </nav>
+
+        <div class="mt-auto text-center border-t border-white/5 pt-6">
+            <p class="text-[8px] text-slate-500 tracking-widest uppercase">© 2024 WTICS TECH</p>
+        </div>
+    </div>
+
     <header class="fixed top-0 w-full z-50 glass">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer group/logo" 
@@ -265,8 +302,8 @@
                 <a href="#integrantes" class="nav-btn" onmouseover="skypperSpeak('Conoce a los genios detrás de todo esto.')">Equipo</a>
                 <a href="#contacto" class="nav-btn bg-yellow-600/10 border-yellow-600" onmouseover="skypperSpeak('¡Hablemos de tu próximo gran proyecto!')">Contacto</a>
             </nav>
-            <div class="lg:hidden text-yellow-500 text-2xl">
-                <i class="fas fa-bars"></i>
+            <div class="lg:hidden text-yellow-500 text-2xl cursor-pointer p-2" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars" id="menu-icon"></i>
             </div>
         </div>
     </header>
@@ -469,15 +506,22 @@
         let skypperTimeout;
         function skypperSpeak(text) {
             const bubble = document.getElementById('skypper-bubble');
-            bubble.innerText = text;
-            bubble.classList.add('show');
-            clearTimeout(skypperTimeout);
-            skypperTimeout = setTimeout(() => bubble.classList.remove('show'), 5000);
+            if (bubble) {
+                bubble.innerText = text;
+                bubble.classList.add('show');
+                clearTimeout(skypperTimeout);
+                skypperTimeout = setTimeout(() => bubble.classList.remove('show'), 5000);
+            }
         }
 
+        // Modificado para asegurar que el menu también se cierre si está abierto
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             skypperSpeak('¡De vuelta al inicio! Todo listo para empezar de nuevo.');
+            const menu = document.getElementById('mobile-menu');
+            if (menu && !menu.classList.contains('translate-x-full')) {
+                toggleMobileMenu();
+            }
         }
 
         function scrollToSection(id) {
@@ -518,6 +562,46 @@
             const body = document.getElementById('modal-body');
             modal.style.display = 'flex';
             body.innerHTML = `<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase text-center">${name}</h3><p class="text-slate-300 text-sm text-center italic">${bio}</p>`;
+        }
+
+        // --- LÓGICA REOPTIMIZADA DE APERTURA Y CIERRE DE MENÚ MÓVIL ESTILO DRAWER ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('mobile-menu-backdrop');
+            const icon = document.getElementById('menu-icon');
+            
+            if (menu.classList.contains('translate-x-full')) {
+                // Abrir menú con deslizamiento premium
+                menu.classList.remove('translate-x-full');
+                menu.classList.add('translate-x-0');
+                
+                // Mostrar backdrop con opacidad animada
+                backdrop.classList.remove('hidden');
+                setTimeout(() => {
+                    backdrop.classList.remove('opacity-0');
+                    backdrop.classList.add('opacity-100');
+                }, 10);
+                
+                // Cambiar icono
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+                skypperSpeak('¡Menú abierto! ¿Adónde navegamos hoy? 🚀');
+            } else {
+                // Cerrar menú deslizando hacia la derecha
+                menu.classList.remove('translate-x-0');
+                menu.classList.add('translate-x-full');
+                
+                // Ocultar backdrop animadamente
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => {
+                    backdrop.classList.add('hidden');
+                }, 300);
+                
+                // Restaurar icono
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         }
 
         // --- LÓGICA DE ENVÍO CON EMAILJS ---
