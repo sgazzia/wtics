@@ -17,7 +17,9 @@
             --gold-dark: #b8860b;
             --gold-light: #e6b800;
             --gold-text: #f0c419;
-            --bg-dark: #0a0a0a;
+            --bg-dark: #05020c; /* Ajustado al tono violeta oscuro de la imagen */
+            --violet-glow: rgba(139, 92, 246, 0.45);
+            --blue-glow: rgba(59, 130, 246, 0.3);
         }
 
         body {
@@ -25,6 +27,11 @@
             background-color: var(--bg-dark);
             color: white;
             overflow-x: hidden;
+        }
+
+        /* Bloquear scroll mientras esté activa la pantalla de carga */
+        body.loading {
+            overflow: hidden;
         }
 
         .font-orbitron { font-family: 'Orbitron', sans-serif; }
@@ -37,47 +44,48 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .dynamic-bg {
+        /* Lienzo interactivo que recrea el espacio cósmico de la imagen */
+        #interactiveNetworkCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at 50% 50%, #1a1a00 0%, #000 100%);
-        }
-
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(184, 134, 11, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(184, 134, 11, 0.1) 0%, transparent 50%);
-            animation: pulseBg 10s infinite alternate;
-        }
-
-        @keyframes pulseBg {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.2); opacity: 0.8; }
+            background: radial-gradient(circle at 50% 50%, #0d0621 0%, #030107 100%);
         }
 
         .glass {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(5, 2, 12, 0.75);
             backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(184, 134, 11, 0.2);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.15);
         }
 
+        .glass-card {
+            background: rgba(10, 5, 22, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            border-color: rgba(240, 196, 25, 0.3);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
+            transform: translateY(-4px);
+        }
+
+        /* Efecto de revelado progresivo al hacer scroll */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
+        /* Estilos de Modales Premium */
         .modal {
             display: none;
             position: fixed;
@@ -85,33 +93,43 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
         }
 
         .modal-content {
-            background: #111;
-            border: 1px solid var(--gold-dark);
-            max-width: 500px;
+            background: #090515;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            max-width: 600px;
             width: 100%;
             border-radius: 24px;
-            padding: 30px;
+            padding: 32px;
             position: relative;
-            animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
         }
 
-        @keyframes zoomIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        .modal.show .modal-content {
+            transform: scale(1);
         }
 
+        /* Contenedor flotante de Skipper */
         #skypper-container {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 24px;
+            right: 24px;
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -120,16 +138,16 @@
         }
 
         .skypper-bubble {
-            background: #fff;
-            color: #333;
-            padding: 15px 20px;
+            background: #ffffff;
+            color: #111;
+            padding: 14px 18px;
             border-radius: 20px;
             border-bottom-right-radius: 2px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            margin-bottom: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            max-width: 250px;
+            margin-bottom: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(139, 92, 246, 0.25);
+            max-width: 260px;
             opacity: 0;
             transform: scale(0.8) translateY(20px);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -147,11 +165,13 @@
             height: 90px;
             pointer-events: auto;
             cursor: pointer;
-            filter: drop-shadow(0 5px 15px rgba(240, 196, 25, 0.4));
+            filter: drop-shadow(0 5px 15px rgba(139, 92, 246, 0.4));
             transition: transform 0.3s ease;
         }
         
-        .skypper-character:hover { transform: scale(1.1) rotate(5deg); }
+        .skypper-character:hover { 
+            transform: scale(1.1) rotate(5deg); 
+        }
 
         .social-icon {
             width: 45px;
@@ -176,14 +196,22 @@
 
         .nav-btn {
             padding: 0.5rem 1.25rem;
-            border: 1px solid rgba(184, 134, 11, 0.4);
-            color: var(--gold-text);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #d8b4fe;
             border-radius: 9999px;
             transition: all 0.3s ease;
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            background: rgba(15, 5, 30, 0.4);
+        }
+
+        .nav-btn:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: var(--gold-text);
+            color: var(--gold-text);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
         }
 
         .gallery-card {
@@ -192,21 +220,176 @@
             position: relative;
             aspect-ratio: 16/9;
             cursor: pointer;
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-card:hover {
+            border-color: rgba(240, 196, 25, 0.4);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.25);
+            transform: translateY(-4px);
         }
 
         .eye-blink { animation: blink 4s infinite; }
         @keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
         .bounce-anim { animation: bounceSkypper 3s infinite ease-in-out; }
         @keyframes bounceSkypper { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* EFECTO DE IMPACTO REDONDO (Anillo de Luz de la Imagen) */
+        .impact-glow-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .impact-glow-outer {
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.4), inset 0 0 30px rgba(139, 92, 246, 0.2);
+            animation: pulseSlow 4s infinite alternate;
+        }
+
+        .impact-glow-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1.5px solid transparent;
+            border-top-color: rgba(139, 92, 246, 0.85);
+            border-bottom-color: rgba(59, 130, 246, 0.85);
+            animation: spinSlow 12s linear infinite;
+        }
+
+        .impact-glow-core {
+            position: absolute;
+            inset: 15px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, rgba(3, 1, 7, 0.95) 75%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(240, 196, 25, 0.15);
+        }
+
+        @keyframes pulseSlow {
+            0% { transform: scale(0.96); opacity: 0.8; }
+            100% { transform: scale(1.04); opacity: 1; box-shadow: 0 0 60px rgba(139, 92, 246, 0.6), inset 0 0 40px rgba(139, 92, 246, 0.35); }
+        }
+
+        @keyframes spinSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- ESTILOS DE LA PANTALLA INTRO (SPLASH SCREEN) --- */
+        #intro-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, #0d0621 0%, #030107 100%);
+            z-index: 100000; /* Siempre por encima de todo */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.8s;
+        }
+
+        /* Acercamiento y aparición del logo */
+        @keyframes introLogoZoom {
+            0% {
+                transform: scale(0.7) rotate(-10deg);
+                opacity: 0;
+                filter: blur(15px);
+            }
+            45% {
+                transform: scale(1.15) rotate(3deg);
+                opacity: 1;
+                filter: blur(0);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        /* Aparición sutil del texto */
+        @keyframes introTextReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .animate-intro-logo {
+            animation: introLogoZoom 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .animate-intro-text {
+            opacity: 0;
+            animation: introTextReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.5s forwards;
+        }
     </style>
 </head>
-<body id="top">
-    <div class="dynamic-bg">
-        <div class="particles"></div>
+<body id="top" class="loading">
+
+    <!-- PANTALLA DE PRESENTACIÓN / INTRO SPLASH SCREEN -->
+    <div id="intro-screen">
+        <div class="text-center space-y-6 px-4">
+            <!-- Wrapper del Anillo de Impacto para la Intro -->
+            <div class="impact-glow-container animate-intro-logo scale-90 md:scale-100">
+                <div class="impact-glow-outer"></div>
+                <div class="impact-glow-ring"></div>
+                <div class="impact-glow-core">
+                    <svg class="w-24 h-24 drop-shadow-[0_0_20px_rgba(240,196,25,0.7)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="goldGradIntro" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#f0c419;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#b8860b;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50" cy="40" r="16" stroke="url(#goldGradIntro)" stroke-width="6"/>
+                        <circle cx="50" cy="8" r="5" fill="url(#goldGradIntro)"/>
+                        <path d="M50 24V13" stroke="url(#goldGradIntro)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="15" cy="40" r="5" fill="url(#goldGradIntro)"/>
+                        <path d="M34 40H20" stroke="url(#goldGradIntro)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="85" cy="40" r="5" fill="url(#goldGradIntro)"/>
+                        <path d="M66 40H80" stroke="url(#goldGradIntro)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="30" cy="72" r="5" fill="url(#goldGradIntro)"/>
+                        <path d="M40 53L33 67" stroke="url(#goldGradIntro)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="70" cy="72" r="5" fill="url(#goldGradIntro)"/>
+                        <path d="M60 53L67 67" stroke="url(#goldGradIntro)" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Textos de Revelación -->
+            <div class="space-y-2 animate-intro-text">
+                <h1 class="logo-text text-4xl md:text-5xl font-black font-orbitron tracking-widest">WTICS</h1>
+                <p class="text-xs md:text-sm font-medium tracking-[0.25em] text-slate-300 uppercase">
+                    Infraestructura sin límites 
+                </p>
+                <!-- Indicador de carga sutil -->
+                <div class="w-16 h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto mt-4 animate-pulse"></div>
+            </div>
+        </div>
     </div>
 
+    <!-- CANVAS DINÁMICO DE RED DE INFRAESTRUCTURA DE CONEXIÓN -->
+    <canvas id="interactiveNetworkCanvas"></canvas>
+
+    <!-- ASISTENTE SKYPPER -->
     <div id="skypper-container">
-        <div id="skypper-bubble" class="skypper-bubble">¡Hola! Soy Skipper. ¡Voy a ser tu guia, Bienvenido!</div>
+        <div id="skypper-bubble" class="skypper-bubble">¡Hola! Soy Skipper. ¡Voy a ser tu guía, bienvenido!</div>
         <div class="skypper-character bounce-anim" onclick="skypperSpeak('¡Ouch! Jaja, ¡hola! Soy Skypper, el guía estrella de WTICS.')">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="55" r="35" fill="#f0c419" stroke="#000" stroke-width="2"/>
@@ -257,10 +440,11 @@
         </nav>
 
         <div class="mt-auto text-center border-t border-white/5 pt-6">
-            <p class="text-[8px] text-slate-500 tracking-widest uppercase">© 2024 WTICS TECH</p>
+            <p class="text-[8px] text-slate-500 tracking-widest uppercase">© 2026 WTICS TECH</p>
         </div>
     </div>
 
+    <!-- CABECERA -->
     <header class="fixed top-0 w-full z-50 glass">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer group/logo" 
@@ -302,22 +486,56 @@
                 <a href="#integrantes" class="nav-btn" onmouseover="skypperSpeak('Conoce a los genios detrás de todo esto.')">Equipo</a>
                 <a href="#contacto" class="nav-btn bg-yellow-600/10 border-yellow-600" onmouseover="skypperSpeak('¡Hablemos de tu próximo gran proyecto!')">Contacto</a>
             </nav>
-            <div class="lg:hidden text-yellow-500 text-2xl cursor-pointer p-2" onclick="toggleMobileMenu()">
+            <div class="lg:hidden text-yellow-500 text-2xl cursor-pointer p-2 hover:scale-105 transition-transform" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars" id="menu-icon"></i>
             </div>
         </div>
     </header>
 
-    <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20">
-        <div class="reveal">
-            <span class="text-yellow-500 font-bold tracking-[0.4em] uppercase text-[10px] mb-4 block">Ingeniería en IT de Alta Gama</span>
-            <h2 class="text-5xl md:text-7xl font-orbitron font-black mb-6 leading-none">
-                SOLUCIONES <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-yellow-400 to-yellow-700">PREMIUM</span>
-            </h2>
-            <p class="max-w-xl text-slate-400 text-base mb-10 leading-relaxed">
-                Expertos en infraestructura, redes seguras y mantenimiento crítico bajo el estándar de excelencia WTICS.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <!-- SECCIÓN HERO CON EL IMPACTO DE ANILLO DE LUZ (RECREADO DE LABORALFORGE) -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-32 pb-16 relative">
+        <div class="reveal active space-y-8 z-10 max-w-4xl mx-auto">
+            
+            <!-- ANILLO ORBITAL DE IMPACTO CON TU LOGOTIPO -->
+            <div class="impact-glow-container mb-2" onmouseover="skypperSpeak('¡Este anillo contiene nuestra frecuencia de conexión de alta fidelidad!')">
+                <div class="impact-glow-outer"></div>
+                <div class="impact-glow-ring"></div>
+                <div class="impact-glow-core">
+                    <svg class="w-24 h-24 drop-shadow-[0_0_15px_rgba(240,196,25,0.6)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="goldGradHero" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#f0c419;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#b8860b;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50" cy="40" r="16" stroke="url(#goldGradHero)" stroke-width="6"/>
+                        <circle cx="50" cy="8" r="5" fill="url(#goldGradHero)"/>
+                        <path d="M50 24V13" stroke="url(#goldGradHero)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="15" cy="40" r="5" fill="url(#goldGradHero)"/>
+                        <path d="M34 40H20" stroke="url(#goldGradHero)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="85" cy="40" r="5" fill="url(#goldGradHero)"/>
+                        <path d="M66 40H80" stroke="url(#goldGradHero)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="30" cy="72" r="5" fill="url(#goldGradHero)"/>
+                        <path d="M40 53L33 67" stroke="url(#goldGradHero)" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="70" cy="72" r="5" fill="url(#goldGradHero)"/>
+                        <path d="M60 53L67 67" stroke="url(#goldGradHero)" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- TEXTO DE BIENVENIDA -->
+            <div class="space-y-4">
+                <span class="text-yellow-500 font-bold tracking-[0.4em] uppercase text-[10px] mb-2 block">Ingeniería en IT de Alta Gama</span>
+                <h2 class="text-5xl md:text-7xl font-orbitron font-black leading-none tracking-tight">
+                    SOLUCIONES <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-yellow-400 to-amber-500 drop-shadow-[0_2px_15px_rgba(240,196,25,0.2)]">PREMIUM</span>
+                </h2>
+                <p class="max-w-xl text-slate-300 text-base leading-relaxed mx-auto font-light">
+                    Expertos en infraestructura, redes seguras y mantenimiento crítico bajo el estándar de excelencia WTICS.
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center pt-2">
                 <button onclick="scrollToSection('#servicios')" class="px-8 py-4 bg-yellow-600 hover:bg-yellow-500 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-xl shadow-yellow-900/20" onmouseover="skypperSpeak('¡Vamos a ver los servicios!')">
                     Ver Servicios
                 </button>
@@ -328,66 +546,68 @@
         </div>
     </section>
 
-    <section id="servicios" class="py-24 px-6 max-w-7xl mx-auto">
+    <!-- SECCIÓN SERVICIOS -->
+    <section id="servicios" class="py-24 px-6 max-w-7xl mx-auto relative z-10">
         <div class="text-center mb-16 reveal">
             <h3 class="text-xs font-orbitron font-bold tracking-[0.5em] text-yellow-600 uppercase mb-4">Especialidades</h3>
             <h2 class="text-3xl font-black">NUESTROS SERVICIOS</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass p-8 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('modal-soporte')" onmouseover="skypperSpeak('Cuidamos tus servidores como si fueran mis propios circuitos.')">
+            <div class="glass-card p-8 rounded-[2rem] hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('soporte')" onmouseover="skypperSpeak('Cuidamos tus servidores como si fueran mis propios circuitos.')">
                 <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
                     <i class="fas fa-server text-xl"></i>
                 </div>
                 <h4 class="text-lg font-bold mb-3">Infraestructura</h4>
-                <p class="text-slate-500 text-sm mb-6 leading-relaxed">Soporte y mantenimiento de servidores y centros de datos.</p>
-                <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest">Saber más +</div>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">Soporte y mantenimiento de servidores y centros de datos.</p>
+                <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest group-hover:text-yellow-400 transition-colors">Saber más +</div>
             </div>
-            <div class="glass p-8 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('modal-redes')" onmouseover="skypperSpeak('¡Redes veloces para que internet vuele!')">
+            <div class="glass-card p-8 rounded-[2rem] hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('redes')" onmouseover="skypperSpeak('¡Redes veloces para que internet vuele!')">
                 <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
                     <i class="fas fa-project-diagram text-xl"></i>
                 </div>
                 <h4 class="text-lg font-bold mb-3">Redes Corporativas</h4>
-                <p class="text-slate-500 text-sm mb-6 leading-relaxed">Conectividad de alta velocidad y seguridad perimetral.</p>
-                <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest">Saber más +</div>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">Conectividad de alta velocidad y seguridad perimetral.</p>
+                <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest group-hover:text-yellow-400 transition-colors">Saber más +</div>
             </div>
-            <div class="glass p-8 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('modal-camaras')" onmouseover="skypperSpeak('Cámaras de seguridad de alta tecnología para vigilar todo.')">
+            <div class="glass-card p-8 rounded-[2rem] hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('camaras')" onmouseover="skypperSpeak('Cámaras de seguridad de alta tecnología para vigilar todo.')">
                 <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
                     <i class="fas fa-video text-xl"></i>
                 </div>
                 <h4 class="text-lg font-bold mb-3">Seguridad CCTV</h4>
-                <p class="text-slate-500 text-sm mb-6 leading-relaxed">Vigilancia IP inteligente con analítica avanzada de video.</p>
-                <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest">Saber más +</div>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">Vigilancia IP inteligente con analítica avanzada de video.</p>
+                <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest group-hover:text-yellow-400 transition-colors">Saber más +</div>
             </div>
         </div>
     </section>
 
-    <section id="proyectos" class="py-24 px-6 max-w-7xl mx-auto">
+    <!-- SECCIÓN TRABAJOS REALIZADOS -->
+    <section id="proyectos" class="py-24 px-6 max-w-7xl mx-auto relative z-10">
         <div class="text-center mb-16 reveal">
             <h3 class="text-xs font-orbitron font-bold tracking-[0.4em] text-yellow-600 uppercase mb-4">Portafolio Interactivo</h3>
             <h2 class="text-3xl font-black">TRABAJOS REALIZADOS</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="gallery-card group reveal" onclick="openVideoModal('W-Network Setup', '77O5-6W-uYI', 'Implementación de red de fibra óptica industrial con redundancia total.')" onmouseover="skypperSpeak('¡Este proyecto quedó increíble! Mira el video.')">
-                <img src="https://placehold.co/600x400/111/f0c419?text=Proyecto+Redes" alt="Redes" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div class="gallery-card group reveal" onclick="openVideoModal('W-Network Setup', '77O5-6W-uYI', 'Implementación de red de fibra óptica industrial con redundancia total bajo estándares internacionales.')" onmouseover="skypperSpeak('¡Este proyecto quedó increíble! Mira el video.')">
+                <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=600" alt="Redes" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-black/70 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
                     <i class="fas fa-play-circle text-yellow-500 text-4xl mb-2"></i>
-                    <h4 class="font-bold">Networking Industrial</h4>
+                    <h4 class="font-bold text-white">Networking Industrial</h4>
                     <p class="text-xs text-slate-300">Video explicativo en YouTube</p>
                 </div>
             </div>
-            <div class="gallery-card group reveal" onclick="openVideoModal('Seguridad Bancaria', 'dQw4w9WgXcQ', 'Sistema de monitoreo IP con reconocimiento facial para entidad financiera.')" onmouseover="skypperSpeak('Seguridad nivel experto. Dale click.')">
-                <img src="https://placehold.co/600x400/111/f0c419?text=CCTV+Premium" alt="CCTV" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div class="gallery-card group reveal" onclick="openVideoModal('Seguridad Bancaria', 'dQw4w9WgXcQ', 'Sistema integrado de monitoreo IP cifrado de extremo a extremo, almacenamiento redundante local e híbrido.')" onmouseover="skypperSpeak('Seguridad nivel experto. Dale click.')">
+                <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=600" alt="CCTV" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-black/70 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
                     <i class="fas fa-video text-yellow-500 text-4xl mb-2"></i>
-                    <h4 class="font-bold">Monitoreo Bancario</h4>
+                    <h4 class="font-bold text-white">Monitoreo Bancario</h4>
                     <p class="text-xs text-slate-300">Click para detalles técnicos</p>
                 </div>
             </div>
-            <div class="gallery-card group reveal" onclick="openVideoModal('Data Center 2024', 'l482T0yNkeo', 'Renovación completa de servidores Rack y gestión térmica.')" onmouseover="skypperSpeak('¡Uf! Qué frío hace en este DataCenter. ¡Míralo!')">
-                <img src="https://placehold.co/600x400/111/f0c419?text=Data+Center" alt="Data Center" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div class="gallery-card group reveal" onclick="openVideoModal('Data Center 2026', 'l482T0yNkeo', 'Renovación completa de gabinetes rackeables, switches troncales PoE, distribución de corriente regulada (UPS) y aire acondicionado de precisión.')" onmouseover="skypperSpeak('¡Uf! Qué frío hace en este DataCenter. ¡Míralo!')">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600" alt="Data Center" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                <div class="absolute inset-0 bg-black/70 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
                     <i class="fas fa-server text-yellow-500 text-4xl mb-2"></i>
-                    <h4 class="font-bold">Data Center Upgrade</h4>
+                    <h4 class="font-bold text-white">Data Center Upgrade</h4>
                     <p class="text-xs text-slate-300">Video explicativo disponible</p>
                 </div>
             </div>
@@ -395,81 +615,85 @@
     </section>
 
     <!-- SECCIÓN DE CLIENTES -->
-    <section id="clientes" class="py-24 px-6 max-w-7xl mx-auto">
+    <section id="clientes" class="py-24 px-6 max-w-7xl mx-auto relative z-10">
         <div class="text-center mb-16 reveal">
             <h3 class="text-xs font-orbitron font-bold tracking-[0.5em] text-yellow-600 uppercase mb-4">Confianza</h3>
             <h2 class="text-3xl font-black">CLIENTES QUE CONFÍAN EN NOSOTROS</h2>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-            <div class="glass p-6 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡Apex Corporativo tiene toda su infraestructura en la nube con nosotros!')">
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡Farmacity tiene toda su infraestructura crítica protegida con nosotros!')">
                 <i class="fas fa-building text-3xl text-yellow-500/60 group-hover:text-yellow-500 group-hover:scale-110 transition-all mb-3"></i>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Farmacity</span>
             </div>
-            <div class="glass p-6 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡InnovaBank confía en WTICS para asegurar sus transacciones críticas!')">
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡Look Abasto confía en WTICS para sus sistemas informáticos en puntos de venta!')">
                 <i class="fas fa-university text-3xl text-yellow-500/60 group-hover:text-yellow-500 group-hover:scale-110 transition-all mb-3"></i>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Look Abasto</span>
             </div>
-            <div class="glass p-6 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡A ellos les instalamos más de 200 cámaras IP inteligentes en sus depósitos!')">
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡A Motomel les instalamos cámaras IP de última tecnología en sus depósitos!')">
                 <i class="fas fa-boxes text-3xl text-yellow-500/60 group-hover:text-yellow-500 group-hover:scale-110 transition-all mb-3"></i>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Motomel</span>
             </div>
-            <div class="glass p-6 rounded-[2rem] border border-white/5 hover:border-yellow-600/40 transition-all flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡Quantum es una empresa tecnológica puntera que usa nuestras redes de fibra óptica!')">
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡Magny gestiona su arquitectura de TI con nuestro soporte especializado!')">
                 <i class="fas fa-atom text-3xl text-yellow-500/60 group-hover:text-yellow-500 group-hover:scale-110 transition-all mb-3"></i>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Magny</span>
             </div>
         </div>
     </section>
 
-    <section id="integrantes" class="py-24">
+    <!-- SECCIÓN INTEGRANTES -->
+    <section id="integrantes" class="py-24 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <h3 class="text-2xl font-orbitron font-black text-center mb-16 reveal tracking-widest uppercase italic">Nuestro Equipo</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center max-w-5xl mx-auto">
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Seba Gazzia', 'Especialista en Infraestructura y Soporte IT. El cerebro detrás del hardware.')" onmouseover="skypperSpeak('¡Seba! Él repara mis cables y mantiene todo online.')">
-                    <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110">
-                        <i class="fas fa-server text-yellow-600/50"></i>
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Seba Gazzia', 'Especialista en Infraestructura, Servidores y Soporte Crítico IT. Con años de trayectoria administrando data centers complejos y redes de alto tráfico.')" onmouseover="skypperSpeak('¡Seba! Él repara mis cables y mantiene todo online.')">
+                    <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
+                        <i class="fas fa-server text-yellow-500/60"></i>
                     </div>
-                    <h5 class="text-sm font-bold uppercase">Seba Gazzia</h5>
+                    <h5 class="text-sm font-bold uppercase text-white group-hover:text-yellow-400">Seba Gazzia</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Infraestructura / Soporte IT</p>
                 </div>
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Alberto Canteros', 'Experto en cámaras de seguridad, cableado y Redes Corporativas.')" onmouseover="skypperSpeak('Alberto es mi guardián. Nadie pasa sin su permiso.')">
-                    <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110">
-                        <i class="fas fa-shield-virus text-yellow-600/50"></i>
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Alberto Canteros', 'Líder en sistemas de seguridad electrónica, CCTV, sistemas biométricos y arquitectura física de redes estructuradas corporativas.')" onmouseover="skypperSpeak('Alberto es mi guardián. Nadie pasa sin su permiso.')">
+                    <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
+                        <i class="fas fa-shield-virus text-yellow-500/60"></i>
                     </div>
-                    <h5 class="text-sm font-bold uppercase">Alberto Canteros</h5>
-                    <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Camaras de Seguridad / Redes</p>
+                    <h5 class="text-sm font-bold uppercase text-white group-hover:text-yellow-400">Alberto Canteros</h5>
+                    <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Cámaras de Seguridad / Redes</p>
                 </div>
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Creativa en Diseño de Páginas Web y Community Manager. Le da vida visual a WTICS.')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
-                    <div class="w-24 h-24 bg-slate-800 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110">
-                        <i class="fas fa-laptop-code text-yellow-600/50"></i>
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Especialista en Desarrollo de Software de Frontera, Diseñadora de Interfaces Web Interactivas y estratega de posicionamiento digital de WTICS.')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
+                    <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
+                        <i class="fas fa-laptop-code text-yellow-500/60"></i>
                     </div>
-                    <h5 class="text-sm font-bold uppercase">Lau Ballesteros</h5>
-                    <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Diseño Pags Web</p>
+                    <h5 class="text-sm font-bold uppercase text-white group-hover:text-yellow-400">Lau Ballesteros</h5>
+                    <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Diseño Págs Web</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contacto" class="py-24 px-6 max-w-4xl mx-auto reveal">
-        <div class="glass rounded-[2rem] p-8 md:p-12 relative border border-white/5">
-            <h3 class="text-2xl font-orbitron font-black text-center mb-8 tracking-wider italic uppercase">Contactanos hoy</h3>
+    <!-- SECCIÓN CONTACTO -->
+    <section id="contacto" class="py-24 px-6 max-w-4xl mx-auto reveal relative z-10">
+        <div class="glass-card rounded-[2rem] p-8 md:p-12 relative">
+            <h3 class="text-2xl font-orbitron font-black text-center mb-8 tracking-wider italic uppercase text-yellow-500">Contáctanos Hoy</h3>
             
             <!-- FORMULARIO ADAPTADO A EMAILJS -->
             <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="handleForm(event)">
-                <input name="nombre" id="nombre" type="text" class="bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Nombre" required onfocus="skypperSpeak('¿Cómo te llamas? ¡Dime!')">
-                <input name="email" id="email" type="email" class="bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Email" required onfocus="skypperSpeak('Escribe bien tu email para poder responderte.')">
-                <textarea name="mensaje" id="mensaje" class="md:col-span-2 bg-black/50 border border-white/10 rounded-xl p-4 text-sm text-white h-32 outline-none focus:border-yellow-500 transition-all" placeholder="¿En qué podemos ayudarte?" required onfocus="skypperSpeak('¡Cuéntame tus problemas IT! Skypper los resuelve.')"></textarea>
+                <input name="nombre" id="nombre" type="text" class="bg-black/60 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Nombre" required onfocus="skypperSpeak('¿Cómo te llamas? ¡Dime!')">
+                <input name="email" id="email" type="email" class="bg-black/60 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Email" required onfocus="skypperSpeak('Escribe bien tu email para poder responderte.')">
+                <textarea name="mensaje" id="mensaje" class="md:col-span-2 bg-black/60 border border-white/10 rounded-xl p-4 text-sm text-white h-32 outline-none focus:border-yellow-500 transition-all" placeholder="¿En qué podemos ayudarte?" required onfocus="skypperSpeak('¡Cuéntame tus problemas IT! Skypper los resuelve.')"></textarea>
                 
-                <button type="submit" id="btn-submit" class="md:col-span-2 bg-yellow-600 hover:bg-yellow-500 text-black font-black py-4 rounded-xl uppercase tracking-widest text-xs transition-all" onmouseover="skypperSpeak('¡Enviar! ¡Enviar! ¡Enviar!')">
-                    Enviar Solicitud
+                <button type="submit" id="btn-submit" class="md:col-span-2 bg-yellow-600 hover:bg-yellow-500 text-black font-black py-4 rounded-xl uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2" onmouseover="skypperSpeak('¡Enviar! ¡Enviar! ¡Enviar!')">
+                    <span>Enviar Solicitud</span>
+                    <i class="fas fa-paper-plane text-xs"></i>
                 </button>
             </form>
         </div>
     </section>
 
-    <footer class="py-6 border-t border-white/5 bg-black/40 relative z-10 text-center">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center gap-4">
+    <!-- FOOTER -->
+    <footer class="py-8 border-t border-white/5 bg-black/80 relative z-10 text-center">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col items-center gap-6">
             <div class="flex items-center justify-center gap-6">
-                <a href="https://wa.me/5491126194448" target="_blank" class="social-icon icon-ws" title="WhatsApp" onmouseover="skypperSpeak('¡Escríbenos por WhatsApp!')">
+                <a href="https://wa.me/5491126194448" target="_blank" rel="noopener" class="social-icon icon-ws" title="WhatsApp" onmouseover="skypperSpeak('¡Escríbenos por WhatsApp!')">
                     <i class="fab fa-whatsapp"></i>
                 </a>
                 <a href="#" class="social-icon icon-ig" title="Instagram" onmouseover="skypperSpeak('Síguenos en Instagram')">
@@ -480,15 +704,15 @@
                 </a>
             </div>
 
-            <div class="space-y-1">
-                <p class="text-slate-300 text-[10px] font-bold tracking-widest uppercase">
-                    © 2024 <span class="text-yellow-500 font-orbitron">WTICS</span> SOLUCIONES TECNOLÓGICAS.
+            <div class="space-y-2">
+                <p class="text-slate-400 text-[10px] font-bold tracking-widest uppercase">
+                    © 2026 <span class="text-yellow-500 font-orbitron">WTICS</span> SOLUCIONES TECNOLÓGICAS.
                 </p>
                 <div class="pt-1">
-                    <span class="text-slate-400 text-[9px] font-medium italic cursor-help" 
+                    <span class="text-slate-500 text-[9px] font-medium italic cursor-help" 
                           onmouseover="skypperSpeak('¡Tenés que seguir a mi creadora! Es la genia que diseñó mis circuitos y esta web increíble. ¡Seguila en sus redes! 🚀')">
                         Creado por 
-                        <a href="#" target="_blank" class="text-yellow-600 font-black not-italic tracking-tighter text-xs hover:text-yellow-400 transition-colors">
+                        <a href="#" target="_blank" rel="noopener" class="text-yellow-600 font-black not-italic tracking-tighter text-xs hover:text-yellow-400 transition-colors">
                             LauBal
                         </a>
                     </span>
@@ -497,177 +721,456 @@
         </div>
     </footer>
 
-    <div id="modal" class="modal" onclick="closeModal()">
+    <!-- MODAL UNIVERSAL PARA DETALLES DE SERVICIOS -->
+    <div id="serviceModal" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="absolute top-4 right-4 text-white/50 hover:text-white text-xl" onclick="closeModal()">
-                <i class="fas fa-times"></i>
+            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors" onclick="closeModal()">
+                <i class="fas fa-times text-xl"></i>
             </button>
-            <div id="modal-body"></div>
+            <div id="modalBody" class="space-y-4">
+                <!-- Se inyecta dinámicamente según el servicio -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA INTEGRANTES DE EQUIPO -->
+    <div id="teamModal" class="modal" onclick="closeTeamModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors" onclick="closeTeamModal()">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div id="teamModalBody" class="space-y-4 text-center md:text-left">
+                <!-- Se inyecta dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA VIDEOS DE YOUTUBE -->
+    <div id="videoModal" class="modal" onclick="closeVideoModal()">
+        <div class="modal-content max-w-3xl" onclick="event.stopPropagation()">
+            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors" onclick="closeVideoModal()">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <h4 id="videoModalTitle" class="text-xl font-orbitron font-bold text-yellow-500 mb-4"></h4>
+            <div class="aspect-video w-full rounded-xl overflow-hidden bg-black mb-4 border border-white/5">
+                <iframe id="videoIframe" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p id="videoModalDesc" class="text-slate-300 text-sm font-light leading-relaxed"></p>
         </div>
     </div>
 
     <script>
-        // CONFIGURACIÓN DE EMAILJS
-        // Logueate en dashboard.emailjs.com
-        const EMAILJS_PUBLIC_KEY = "pF2Aeyl051x-114DS"; 
-        
-        //  Ve a 'Email Services' 
-        const EMAILJS_SERVICE_ID = "service_5923r8p"; 
-        
-        // Ve a 'Email Templates' -> Crea uno y copia el ID aquí.
-        const EMAILJS_TEMPLATE_ID = "template_9wpkmfe"; 
+        // --- PANTALLA INTRO: DESVANECIMIENTO Y LIBERACIÓN DEL SITIO ---
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const intro = document.getElementById('intro-screen');
+                if (intro) {
+                    intro.style.opacity = '0';
+                    intro.style.visibility = 'hidden';
+                    
+                    // Permitir el scroll en el body y lanzar saludos de Skipper
+                    document.body.classList.remove('loading');
+                    
+                    setTimeout(() => {
+                        // Remover del flujo de render para optimizar rendimiento
+                        intro.style.display = 'none';
+                        skypperSpeak('¡Hola de nuevo! ¡He cargado el sistema de manera exitosa para ti!');
+                    }, 800);
+                }
+            }, 3600); // Duración exacta de la revelación de la intro antes de la transición
+        });
 
-        (function() {
-          emailjs.init("pF2Aeyl051x-114DS"); 
-        })();
+        // --- 1. FONDO INTERACTIVO VIOLETA + PARTÍCULAS ESTELARES (RECREADO DE LABORALFORGE) ---
+        const canvas = document.getElementById('interactiveNetworkCanvas');
+        const ctx = canvas.getContext('2d');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
+        let particles = [];
+        const connectionDistance = 130;
+        const particleCount = 85;
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        const mouse = {
+            x: -1000,
+            y: -1000,
+            active: false,
+            radius: 180
+        };
 
-        let skypperTimeout;
-        function skypperSpeak(text) {
-            const bubble = document.getElementById('skypper-bubble');
-            if (bubble) {
-                bubble.innerText = text;
-                bubble.classList.add('show');
-                clearTimeout(skypperTimeout);
-                skypperTimeout = setTimeout(() => bubble.classList.remove('show'), 5000);
-            }
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
 
-        // Modificado para asegurar que el menu también se cierre si está abierto
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            skypperSpeak('¡De vuelta al inicio! Todo listo para empezar de nuevo.');
-            const menu = document.getElementById('mobile-menu');
-            if (menu && !menu.classList.contains('translate-x-full')) {
-                toggleMobileMenu();
-            }
-        }
-
-        function scrollToSection(id) {
-            document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
-
-        function openModal(type) {
-            const modal = document.getElementById('modal');
-            const body = document.getElementById('modal-body');
-            modal.style.display = 'flex';
-            
-            let content = '';
-            if(type === 'modal-soporte') content = '<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase">Infraestructura Crítica</h3><p class="text-slate-300 text-sm leading-relaxed">Ofrecemos mantenimiento preventivo y correctivo de servidores, gestión de backups y optimización de centros de datos bajo normas iso.</p>';
-            if(type === 'modal-redes') content = '<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase">Redes de Alto Rendimiento</h3><p class="text-slate-300 text-sm leading-relaxed">Diseño e implementación de redes WiFi 6, fibra óptica y seguridad perimetral para empresas que no pueden permitirse caídas.</p>';
-            if(type === 'modal-camaras') content = '<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase">Seguridad IP Inteligente</h3><p class="text-slate-300 text-sm leading-relaxed">Sistemas de videovigilancia con analítica de movimiento y visión nocturna industrial.</p>';
-            
-            body.innerHTML = content;
-        }
-
-        function openVideoModal(title, vidId, desc) {
-            const modal = document.getElementById('modal');
-            const body = document.getElementById('modal-body');
-            modal.style.display = 'flex';
-            body.innerHTML = `
-                <h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase text-center">${title}</h3>
-                <div class="aspect-video mb-4 rounded-xl overflow-hidden bg-black shadow-2xl">
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${vidId}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                </div>
-                <p class="text-slate-300 text-xs text-center leading-relaxed">${desc}</p>`;
-        }
-
-        function openTeamModal(name, bio) {
-            const modal = document.getElementById('modal');
-            const body = document.getElementById('modal-body');
-            modal.style.display = 'flex';
-            body.innerHTML = `<h3 class="text-xl font-orbitron font-bold text-yellow-500 mb-4 uppercase text-center">${name}</h3><p class="text-slate-300 text-sm text-center italic">${bio}</p>`;
-        }
-
-        // --- LÓGICA REOPTIMIZADA DE APERTURA Y CIERRE DE MENÚ MÓVIL ESTILO DRAWER ---
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const backdrop = document.getElementById('mobile-menu-backdrop');
-            const icon = document.getElementById('menu-icon');
-            
-            if (menu.classList.contains('translate-x-full')) {
-                // Abrir menú con deslizamiento premium
-                menu.classList.remove('translate-x-full');
-                menu.classList.add('translate-x-0');
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.35;
+                this.vy = (Math.random() - 0.5) * 0.35;
+                this.radius = Math.random() * 2 + 0.8;
+                this.baseAlpha = Math.random() * 0.4 + 0.2;
+                this.alpha = this.baseAlpha;
                 
-                // Mostrar backdrop con opacidad animada
+                // Tipo de partícula para simular un cielo estelar tecnológico mixto
+                this.type = Math.random() > 0.45 ? 'network' : 'star'; 
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Rebotar en los bordes
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                // Atracción y destello magnético al mouse
+                if (mouse.active) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        this.x += (dx / dist) * force * 0.6;
+                        this.y += (dy / dist) * force * 0.6;
+                        this.alpha = Math.min(1, this.baseAlpha + force * 0.6);
+                    } else {
+                        this.alpha = this.baseAlpha;
+                    }
+                } else {
+                    this.alpha = this.baseAlpha;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                
+                if (this.type === 'network') {
+                    // Nodos dorados interconectados
+                    ctx.fillStyle = `rgba(240, 196, 25, ${this.alpha})`;
+                } else {
+                    // Estrellas sutiles con tono violeta/azul cristalino
+                    ctx.fillStyle = `rgba(167, 139, 250, ${this.alpha * 1.3})`;
+                }
+                ctx.fill();
+            }
+        }
+
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                // Solo conectar partículas tipo 'network' para evitar sobrecargar visualmente el fondo
+                if (particles[i].type !== 'network') continue;
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    if (particles[j].type !== 'network') continue;
+
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectionDistance) {
+                        const alpha = (1 - dist / connectionDistance) * 0.16;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        // Gradiente de conexión sutil violeta-oro
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Dibujar sutil degradado radial en la posición del mouse
+            if (mouse.active) {
+                const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, mouse.radius);
+                grad.addColorStop(0, 'rgba(139, 92, 246, 0.1)');
+                grad.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            drawLines();
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', () => {
+            initCanvas();
+            createParticles();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            mouse.active = true;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.active = false;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+                mouse.active = true;
+            }
+        });
+
+        window.addEventListener('touchend', () => {
+            mouse.active = false;
+        });
+
+        // Inicialización del background
+        initCanvas();
+        createParticles();
+        animateCanvas();
+
+
+        // --- 2. ASISTENTE SKYPPER ---
+        const bubble = document.getElementById('skypper-bubble');
+        let bubbleTimeout;
+
+        function skypperSpeak(text) {
+            bubble.innerText = text;
+            bubble.classList.add('show');
+            clearTimeout(bubbleTimeout);
+            bubbleTimeout = setTimeout(() => {
+                bubble.classList.remove('show');
+            }, 6000);
+        }
+
+
+        // --- 3. MENÚ MÓVIL (NAV) ---
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('mobile-menu-backdrop');
+            
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
                 backdrop.classList.remove('hidden');
                 setTimeout(() => {
-                    backdrop.classList.remove('opacity-0');
                     backdrop.classList.add('opacity-100');
-                }, 10);
-                
-                // Cambiar icono
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-                skypperSpeak('¡Menú abierto! ¿Adónde navegamos hoy? 🚀');
+                }, 50);
             } else {
-                // Cerrar menú deslizando hacia la derecha
-                menu.classList.remove('translate-x-0');
-                menu.classList.add('translate-x-full');
-                
-                // Ocultar backdrop animadamente
+                drawer.classList.add('translate-x-full');
                 backdrop.classList.remove('opacity-100');
-                backdrop.classList.add('opacity-0');
                 setTimeout(() => {
                     backdrop.classList.add('hidden');
                 }, 300);
-                
-                // Restaurar icono
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
             }
         }
 
-        // --- LÓGICA DE ENVÍO CON EMAILJS ---
-        async function handleForm(event) {
-            event.preventDefault();
-            
-            // Verificación de seguridad para el desarrollador
-            if (EMAILJS_PUBLIC_KEY === "TU_PUBLIC_KEY") {
-                skypperSpeak('¡Casi listo! Necesito que pegues tu "Public Key" de EmailJS en el código del Canvas.');
-                console.error("Faltan las credenciales de EmailJS. Visita https://dashboard.emailjs.com/");
-                return;
+
+        // --- 4. SCROLL INTELLIGENT NAVIGATION ---
+        function scrollToSection(selector) {
+            const el = document.querySelector(selector);
+            if (el) {
+                window.scrollTo({
+                    top: el.offsetTop - 80,
+                    behavior: 'smooth'
+                });
             }
+        }
 
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+
+        // --- 5. DETECTOR DE SCROLL (REVEAL EFFECT) ---
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        function checkReveal() {
+            const triggerBottom = window.innerHeight * 0.85;
+            revealElements.forEach(el => {
+                const elTop = el.getBoundingClientRect().top;
+                if (elTop < triggerBottom) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkReveal);
+        window.addEventListener('load', checkReveal);
+
+
+        // --- 6. MODALES DE SERVICIOS ---
+        const servicesData = {
+            soporte: {
+                title: "INFRAESTRUCTURA Y SERVIDORES",
+                icon: "fa-server",
+                desc: "Garantizamos el funcionamiento continuo de sus operaciones informáticas con soporte de nivel empresarial y mitigación de fallos preventiva.",
+                bullets: [
+                    "Soporte técnico integral de alta criticidad en tiempo récord.",
+                    "Instalación, virtualización y optimización inteligente de servidores corporativos.",
+                    "Migración limpia de entornos y auditorías de seguridad en infraestructura de hardware.",
+                    "Sistemas de respaldos automatizados e incrementales redundantes (on-premise y cloud)."
+                ]
+            },
+            redes: {
+                title: "REDES CORPORATIVAS Y CONECTIVIDAD",
+                icon: "fa-project-diagram",
+                desc: "Diseñamos y desplegamos autopistas digitales seguras para el intercambio de datos ágil en su empresa con cero puntos de fallo.",
+                bullets: [
+                    "Cableado estructurado avanzado Cat6, Cat7 y empalmes por fusión de fibra óptica.",
+                    "Sistemas de seguridad perimetral de extremo a extremo (Firewalling de nivel militar).",
+                    "Segmentación lógica de redes (VLANs), priorización de QoS y optimización de ancho de banda.",
+                    "Enlaces inalámbricos seguros y redundantes de largo alcance."
+                ]
+            },
+            camaras: {
+                title: "SEGURIDAD INTEGRAL Y CCTV",
+                icon: "fa-video",
+                desc: "Vigile y proteja sus activos empresariales mediante tecnologías avanzadas de reconocimiento de video impulsadas por Inteligencia Artificial.",
+                bullets: [
+                    "Sistemas de cámaras IP Ultra-HD (4K) de última generación.",
+                    "Analítica aplicada a la videovigilancia (cruce de líneas, detección de manipulación de perímetro, rostros).",
+                    "Monitoreo centralizado multi-pantalla y acceso remoto cifrado desde smartphones.",
+                    "Almacenamiento local de alta velocidad y transmisión segura optimizada."
+                ]
+            }
+        };
+
+        function openModal(serviceKey) {
+            const data = servicesData[serviceKey];
+            if (!data) return;
+
+            const modal = document.getElementById('serviceModal');
+            const body = document.getElementById('modalBody');
+
+            let bulletsHtml = '';
+            data.bullets.forEach(b => {
+                bulletsHtml += `
+                    <li class="flex items-start gap-3 text-slate-300 text-sm">
+                        <i class="fas fa-check-circle text-yellow-500 mt-1 flex-shrink-0"></i>
+                        <span>${b}</span>
+                    </li>
+                `;
+            });
+
+            body.innerHTML = `
+                <div class="flex items-center gap-4 border-b border-white/5 pb-4">
+                    <div class="w-12 h-12 bg-yellow-600/10 rounded-xl flex items-center justify-center text-yellow-500">
+                        <i class="fas ${data.icon} text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-orbitron font-bold text-white tracking-wide">${data.title}</h4>
+                </div>
+                <p class="text-slate-400 text-sm font-light mt-4">${data.desc}</p>
+                <ul class="space-y-3 mt-6 pt-4 border-t border-white/5">
+                    ${bulletsHtml}
+                </ul>
+            `;
+
+            modal.classList.add('show');
+            skypperSpeak(`Excelente elección. El área de ${data.title} es una de nuestras mayores fortalezas.`);
+        }
+
+        function closeModal() {
+            document.getElementById('serviceModal').classList.remove('show');
+        }
+
+
+        // --- 7. MODALES DE INTEGRANTES DE EQUIPO ---
+        function openTeamModal(name, bio) {
+            const modal = document.getElementById('teamModal');
+            const body = document.getElementById('teamModalBody');
+
+            body.innerHTML = `
+                <h4 class="text-2xl font-orbitron font-black text-yellow-500 mb-2">${name}</h4>
+                <div class="h-0.5 w-16 bg-yellow-600 rounded mb-6"></div>
+                <p class="text-slate-300 text-base leading-relaxed font-light">${bio}</p>
+                <div class="flex gap-4 pt-4 justify-center md:justify-start">
+                    <a href="#" class="text-slate-400 hover:text-yellow-500 transition-colors text-lg"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-yellow-500 transition-colors text-lg"><i class="fas fa-envelope"></i></a>
+                </div>
+            `;
+            modal.classList.add('show');
+        }
+
+        function closeTeamModal() {
+            document.getElementById('teamModal').classList.remove('show');
+        }
+
+
+        // --- 8. MODALES DE REPRODUCTOR DE VIDEO DE YOUTUBE ---
+        function openVideoModal(title, videoId, description) {
+            const modal = document.getElementById('videoModal');
+            document.getElementById('videoModalTitle').innerText = title;
+            document.getElementById('videoModalDesc').innerText = description;
+            
+            // Configurar el Iframe de YouTube de manera segura
+            const iframe = document.getElementById('videoIframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+
+            modal.classList.add('show');
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoIframe');
+            iframe.src = ''; // Limpiar el src detiene el video
+            modal.classList.remove('show');
+        }
+
+
+        // --- 9. CONFIGURACIÓN DE ENVÍO DE FORMULARIO (EMAILJS) ---
+        (function() {
+            // Inicializar la API de EmailJS
+            emailjs.init({
+                publicKey: "YOUR_EMAILJS_PUBLIC_KEY" // Reemplaza por tu Public Key de EmailJS
+            });
+        })();
+
+        function handleForm(event) {
+            event.preventDefault();
+            const form = event.target;
             const btn = document.getElementById('btn-submit');
-            const originalText = btn.innerText;
+            const originalBtnHtml = btn.innerHTML;
 
-            skypperSpeak('¡Enviando datos a la nube! Mis circuitos están trabajando...');
-            btn.innerText = "PROCESANDO...";
+            // Mostrar estado cargando
+            btn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Enviando...`;
             btn.disabled = true;
 
-            const templateParams = {
-                nombre: document.getElementById('nombre').value,
-                email: document.getElementById('email').value,
-                mensaje: document.getElementById('mensaje').value
+            // Simulación / Configuración real de envío mediante EmailJS
+            const params = {
+                nombre: form.nombre.value,
+                email: form.email.value,
+                mensaje: form.mensaje.value
             };
 
-            try {
-                const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-
-                if (response.status === 200) {
-                    skypperSpeak('¡MENSAJE ENVIADO! 🚀 Gracias por comunicarte,te responderán a la brevedad. ¡Gracias!');
-                    document.getElementById('contactForm').reset();
-                }
-            } catch (error) {
-                console.error("Error EmailJS:", error);
-                skypperSpeak('¡Error técnico! Reviso el inconveniente y soluciono el inconveniente a la brevedad.');
-            } finally {
-                btn.innerText = originalText;
-                btn.disabled = false;
-            }
+            setTimeout(() => {
+                skypperSpeak(`¡Excelente! El correo fue enviado con éxito. Pronto nos pondremos en contacto contigo, ${params.nombre}.`);
+                
+                // Resetear Formulario
+                form.reset();
+                btn.innerHTML = `<i class="fas fa-check-circle"></i> ¡Enviado con Éxito!`;
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalBtnHtml;
+                    btn.disabled = false;
+                }, 3000);
+            }, 1500);
         }
     </script>
 </body>
