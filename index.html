@@ -390,7 +390,7 @@
     <!-- ASISTENTE SKYPPER -->
     <div id="skypper-container">
         <div id="skypper-bubble" class="skypper-bubble">¡Hola! Soy Skipper. ¡Voy a ser tu guía, bienvenido!</div>
-        <div class="skypper-character bounce-anim" onclick="skypperSpeak('¡Ouch! Jaja, ¡hola! Soy Skypper, el guía estrella de WTICS.')">
+        <div class="skypper-character bounce-anim" onclick="skypperSpeak('¡Ouch! Jaja!, acordate de seleccionar la opción que necesites !')">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="55" r="35" fill="#f0c419" stroke="#000" stroke-width="2"/>
                 <path d="M25 45 Q50 10 75 45" fill="#b8860b" stroke="#000" stroke-width="2"/>
@@ -774,7 +774,7 @@
                     setTimeout(() => {
                         // Remover del flujo de render para optimizar rendimiento
                         intro.style.display = 'none';
-                        skypperSpeak('¡Hola! Selecciona en la opción que necesites, que te ayudo');
+                        skypperSpeak('¡Hola! Soy Skipper. ¡Voy a ser tu guía, bienvenido!');
                     }, 800);
                 }
             }, 3600); // Duración exacta de la revelación de la intro antes de la transición
