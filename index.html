@@ -363,7 +363,7 @@
                         <circle cx="15" cy="40" r="5" fill="url(#goldGradIntro)"/>
                         <path d="M34 40H20" stroke="url(#goldGradIntro)" stroke-width="4" stroke-linecap="round"/>
                         <circle cx="85" cy="40" r="5" fill="url(#goldGradIntro)"/>
-                        <path d="M66 40H80" stroke="url(#goldGradIntro)" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M66 40H80" stroke="url(#goldGradLogo)" stroke-width="4" stroke-linecap="round"/>
                         <circle cx="30" cy="72" r="5" fill="url(#goldGradIntro)"/>
                         <path d="M40 53L33 67" stroke="url(#goldGradIntro)" stroke-width="4" stroke-linecap="round"/>
                         <circle cx="70" cy="72" r="5" fill="url(#goldGradIntro)"/>
@@ -645,23 +645,29 @@
         <div class="max-w-7xl mx-auto px-6">
             <h3 class="text-2xl font-orbitron font-black text-center mb-16 reveal tracking-widest uppercase italic">Nuestro Equipo</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center max-w-5xl mx-auto">
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Seba Gazzia', 'Especialista en Infraestructura, Servidores y Soporte Crítico IT. Con años de trayectoria administrando data centers complejos y redes de alto tráfico.')" onmouseover="skypperSpeak('¡Seba! Él repara mis cables y mantiene todo online.')">
+                
+                <!-- INTEGRANTE SEBA CON IMAGEN Y RUTA PERSONALIZADA -->
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Seba Gazzia', 'Especialista en Infraestructura, Servidores y Soporte Crítico IT. Con años de trayectoria administrando data centers complejos y redes de alto tráfico.', 'imagenes/integrantes/seba.jpg')" onmouseover="skypperSpeak('¡Seba! Él repara mis cables y mantiene todo online.')">
                     <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
-                        <i class="fas fa-server text-yellow-500/60"></i>
+                        <img src="imagenes/integrantes/seba.jpg" alt="Seba Gazzia" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80';">
                     </div>
                     <h5 class="text-sm font-bold uppercase text-white group-hover:text-yellow-400">Seba Gazzia</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Infraestructura / Soporte IT</p>
                 </div>
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Alberto Canteros', 'Líder en sistemas de seguridad electrónica, CCTV, sistemas biométricos y arquitectura física de redes estructuradas corporativas.')" onmouseover="skypperSpeak('Alberto es mi guardián. Nadie pasa sin su permiso.')">
+                
+                <!-- INTEGRANTE ALBERTO CON SU IMAGEN ADAPTADA PARA MOSTRAR SU CARA PERFECTAMENTE EN EL CÍRCULO -->
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Alberto Canteros', 'Líder en sistemas de seguridad electrónica, CCTV, sistemas biométricos y arquitectura física de redes estructuradas corporativas.', 'imagenes/integrantes/alberto.jpg')" onmouseover="skypperSpeak('Alberto es mi guardián. Nadie pasa sin su permiso.')">
                     <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
-                        <i class="fas fa-shield-virus text-yellow-500/60"></i>
+                        <img src="imagenes/integrantes/alberto.jpg" alt="Alberto Canteros" class="w-full h-full object-cover" style="object-position: 78% 25%;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80';">
                     </div>
                     <h5 class="text-sm font-bold uppercase text-white group-hover:text-yellow-400">Alberto Canteros</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Cámaras de Seguridad / Redes</p>
                 </div>
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Especialista en Desarrollo de Software de Frontera, Diseñadora de Interfaces Web Interactivas y estratega de posicionamiento digital de WTICS.')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
+                
+                <!-- INTEGRANTE LAU CON IMAGEN Y RUTA PERSONALIZADA -->
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Especialista en Desarrollo de Software de Frontera, Diseñadora de Interfaces Web Interactivas y estratega de posicionamiento digital de WTICS.', 'imagenes/integrantes/lau.jpg')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
                     <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
-                        <i class="fas fa-laptop-code text-yellow-500/60"></i>
+                        <img src="imagenes/integrantes/lau.jpg" alt="Lau Ballesteros" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80';">
                     </div>
                     <h5 class="text-sm font-bold uppercase text-white group-hover:text-yellow-400">Lau Ballesteros</h5>
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Diseño Págs Web</p>
@@ -1020,7 +1026,7 @@
             soporte: {
                 title: "INFRAESTRUCTURA Y SERVIDORES",
                 icon: "fa-server",
-                desc: "Garantizamos el funcionamiento continuo de sus operaciones informáticas con soporte de nivel empresarial y mitigación de fallos preventiva.",
+                desc: "Garantizamos el funcionamiento continuo de sus operaciones informáticas con soporte de nivel empresarial and mitigación de fallos preventiva.",
                 bullets: [
                     "Soporte técnico integral de alta criticidad en tiempo récord.",
                     "Instalación, virtualización y optimización inteligente de servidores corporativos.",
@@ -1091,23 +1097,74 @@
         }
 
 
-        // --- 7. MODALES DE INTEGRANTES DE EQUIPO ---
-        function openTeamModal(name, bio) {
+        // --- 7. MODALES DE INTEGRANTES DE EQUIPO (UNIFICADO PARA TODOS LOS INTEGRANTES CON ENLACES PERSONALES) ---
+        function openTeamModal(name, bio, imgUrl) {
             const modal = document.getElementById('teamModal');
             const body = document.getElementById('teamModalBody');
 
+            // Definición y mapeo dinámico de correos y LinkedIn de forma segura
+            let linkedinUrl = '#';
+            let emailUrl = '#';
+
+            if (name.includes('Alberto')) {
+                linkedinUrl = 'https://www.linkedin.com/in/alberto-d-c-14b33b150/';
+                emailUrl = 'mailto:adcante@wtics.com.ar';
+            } else if (name.includes('Seba')) {
+                linkedinUrl = 'https://www.linkedin.com/in/sebastian-gazzia/';
+                emailUrl = 'mailto:sgazzia@wtics.com.ar';
+            } else if (name.includes('Lau')) {
+                linkedinUrl = 'https://www.linkedin.com/in/laura-ballesteros-ab8980276/';
+                emailUrl = 'mailto:lau@wtics.com.ar';
+            }
+
+            let mediaHtml = '';
+            if (imgUrl) {
+                // Al cargar Alberto, le damos el enfoque personalizado a su cara en el retrato expandido.
+                if (imgUrl.includes('alberto.jpg') || imgUrl.includes('1757626567389.jpg')) {
+                    mediaHtml = `
+                        <div class="w-32 h-40 rounded-2xl border-2 border-yellow-600 overflow-hidden mx-auto md:mx-0 shadow-lg shadow-yellow-900/30 bg-slate-950">
+                            <img src="${imgUrl}" alt="${name}" class="w-full h-full object-cover" style="object-position: 78% 30%;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80';">
+                        </div>
+                    `;
+                } else if (imgUrl.includes('seba.jpg')) {
+                    mediaHtml = `
+                        <div class="w-32 h-40 rounded-2xl border-2 border-yellow-600 overflow-hidden mx-auto md:mx-0 shadow-lg shadow-yellow-900/30 bg-slate-950">
+                            <img src="${imgUrl}" alt="${name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80';">
+                        </div>
+                    `;
+                } else if (imgUrl.includes('lau.jpg')) {
+                    mediaHtml = `
+                        <div class="w-32 h-40 rounded-2xl border-2 border-yellow-600 overflow-hidden mx-auto md:mx-0 shadow-lg shadow-yellow-900/30 bg-slate-950">
+                            <img src="${imgUrl}" alt="${name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80';">
+                        </div>
+                    `;
+                } else {
+                    mediaHtml = `
+                        <div class="w-32 h-40 rounded-2xl border-2 border-yellow-600 overflow-hidden mx-auto md:mx-0 shadow-lg shadow-yellow-900/30 bg-slate-950">
+                            <img src="${imgUrl}" alt="${name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80';">
+                        </div>
+                    `;
+                }
+            }
+
             body.innerHTML = `
-                <h4 class="text-2xl font-orbitron font-black text-yellow-500 mb-2">${name}</h4>
-                <div class="h-0.5 w-16 bg-yellow-600 rounded mb-6"></div>
-                <p class="text-slate-300 text-base leading-relaxed font-light">${bio}</p>
-                <div class="flex gap-4 pt-4 justify-center md:justify-start">
-                    <a href="#" class="text-slate-400 hover:text-yellow-500 transition-colors text-lg"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="text-slate-400 hover:text-yellow-500 transition-colors text-lg"><i class="fas fa-envelope"></i></a>
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                    ${mediaHtml ? `<div class="flex-shrink-0">${mediaHtml}</div>` : ''}
+                    <div class="flex-1 text-center md:text-left">
+                        <h4 class="text-2xl font-orbitron font-black text-yellow-500 mb-2">${name}</h4>
+                        <div class="h-0.5 w-16 bg-yellow-600 rounded mb-4 mx-auto md:mx-0"></div>
+                        <p class="text-slate-300 text-sm md:text-base leading-relaxed font-light">${bio}</p>
+                        <div class="flex gap-4 pt-4 justify-center md:justify-start">
+                            <a href="${linkedinUrl}" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-yellow-500 transition-colors text-lg" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="${emailUrl}" class="text-slate-400 hover:text-yellow-500 transition-colors text-lg" title="Enviar Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
                 </div>
             `;
             modal.classList.add('show');
         }
 
+        // Función auxiliar para cerrar el modal de integrantes
         function closeTeamModal() {
             document.getElementById('teamModal').classList.remove('show');
         }
