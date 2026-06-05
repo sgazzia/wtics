@@ -614,29 +614,46 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DE CLIENTES -->
+    <!-- SECCIÓN DE CLIENTES (INTERACTIVA CON LOGOTIPOS Y NUEVAS RUTAS) -->
     <section id="clientes" class="py-24 px-6 max-w-7xl mx-auto relative z-10">
         <div class="text-center mb-16 reveal">
             <h3 class="text-xs font-orbitron font-bold tracking-[0.5em] text-yellow-600 uppercase mb-4">Confianza</h3>
             <h2 class="text-3xl font-black">CLIENTES QUE CONFÍAN EN NOSOTROS</h2>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡Farmacity tiene toda su infraestructura crítica protegida con nosotros!')">
-                <i class="fas fa-building text-3xl text-yellow-500/60 group-hover:text-yellow-500 group-hover:scale-110 transition-all mb-3"></i>
+            
+            <!-- FARMACITY -->
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('farmacity')" onmouseover="skypperSpeak('¡Farmacity tiene toda su infraestructura crítica protegida con nosotros! Clic para ver detalles.')">
+                <div class="w-16 h-12 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/Clientes/Farmacity/logo.png" alt="Farmacity" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-building text-3xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
+                </div>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Farmacity</span>
             </div>
-            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡Look Abasto confía en WTICS para sus sistemas informáticos en puntos de venta!')">
-                <i class="fas fa-university text-3xl text-yellow-500/60 group-hover:text-yellow-500 group-hover:scale-110 transition-all mb-3"></i>
+
+            <!-- LOOK ABASTO -->
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('look_abasto')" onmouseover="skypperSpeak('¡Look Abasto confía en WTICS para sus sistemas informáticos en puntos de venta! Clic para ver detalles.')">
+                <div class="w-16 h-12 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/Clientes/Look Abasto/logo.png" alt="Look Abasto" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-university text-3xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
+                </div>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Look Abasto</span>
             </div>
-            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡A Motomel les instalamos cámaras IP de última tecnología en sus depósitos!')">
-                <i class="fas fa-boxes text-3xl text-yellow-500/60 group-hover:text-yellow-500 group-hover:scale-110 transition-all mb-3"></i>
+
+            <!-- MOTOMEL -->
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('motomel')" onmouseover="skypperSpeak('¡A Motomel les instalamos cámaras IP de última tecnología en sus depósitos! Clic para ver detalles.')">
+                <div class="w-16 h-12 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/Clientes/Motomel/logo.png" alt="Motomel" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-boxes text-3xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
+                </div>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Motomel</span>
             </div>
-            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal" onmouseover="skypperSpeak('¡Magny gestiona su arquitectura de TI con nuestro soporte especializado!')">
-                <i class="fas fa-atom text-3xl text-yellow-500/60 group-hover:text-yellow-500 group-hover:scale-110 transition-all mb-3"></i>
+
+            <!-- MAGNY -->
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('magny')" onmouseover="skypperSpeak('¡Magny gestiona su arquitectura de TI con nuestro soporte especializado! Clic para ver detalles.')">
+                <div class="w-16 h-12 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/Clientes/Magny/logo.png" alt="Magny" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-atom text-3xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
+                </div>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Magny</span>
             </div>
+
         </div>
     </section>
 
@@ -647,7 +664,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center max-w-5xl mx-auto">
                 
                 <!-- INTEGRANTE SEBA CON IMAGEN Y RUTA PERSONALIZADA -->
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Seba Gazzia', 'Especialista en Infraestructura, Servidores/Redes informaticas, Sistemás Operativos y Soporte Crítico IT. Con años de trayectoria administrando data centers complejos y redes de alto tráfico.', 'imagenes/integrantes/seba.jpg')" onmouseover="skypperSpeak('¡Seba! Él repara mis cables y mantiene todo online.')">
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Seba Gazzia', 'Especialista en Infraestructura, Servidores y Soporte Crítico IT. Con años de trayectoria administrando data centers complejos y redes de alto tráfico.', 'imagenes/integrantes/seba.jpg')" onmouseover="skypperSpeak('¡Seba! Él repara mis cables y mantiene todo online.')">
                     <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
                         <img src="imagenes/integrantes/seba.jpg" alt="Seba Gazzia" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80';">
                     </div>
@@ -751,6 +768,18 @@
         </div>
     </div>
 
+    <!-- MODAL PARA DETALLES DE CLIENTES (NUEVA VENTANA MODAL) -->
+    <div id="clientModal" class="modal" onclick="closeClientModal()">
+        <div class="modal-content max-w-2xl" onclick="event.stopPropagation()">
+            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors" onclick="closeClientModal()">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div id="clientModalBody" class="space-y-6">
+                <!-- Se inyecta dinámicamente -->
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL PARA VIDEOS DE YOUTUBE -->
     <div id="videoModal" class="modal" onclick="closeVideoModal()">
         <div class="modal-content max-w-3xl" onclick="event.stopPropagation()">
@@ -801,6 +830,7 @@
             radius: 180
         };
 
+        // ... Mantenemos la lógica intacta del canvas para conservar rendimiento ...
         function initCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -815,8 +845,6 @@
                 this.radius = Math.random() * 2 + 0.8;
                 this.baseAlpha = Math.random() * 0.4 + 0.2;
                 this.alpha = this.baseAlpha;
-                
-                // Tipo de partícula para simular un cielo estelar tecnológico mixto
                 this.type = Math.random() > 0.45 ? 'network' : 'star'; 
             }
 
@@ -824,11 +852,9 @@
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Rebotar en los bordes
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
 
-                // Atracción y destello magnético al mouse
                 if (mouse.active) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
@@ -851,10 +877,8 @@
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 
                 if (this.type === 'network') {
-                    // Nodos dorados interconectados
                     ctx.fillStyle = `rgba(240, 196, 25, ${this.alpha})`;
                 } else {
-                    // Estrellas sutiles con tono violeta/azul cristalino
                     ctx.fillStyle = `rgba(167, 139, 250, ${this.alpha * 1.3})`;
                 }
                 ctx.fill();
@@ -870,7 +894,6 @@
 
         function drawLines() {
             for (let i = 0; i < particles.length; i++) {
-                // Solo conectar partículas tipo 'network' para evitar sobrecargar visualmente el fondo
                 if (particles[i].type !== 'network') continue;
 
                 for (let j = i + 1; j < particles.length; j++) {
@@ -885,7 +908,6 @@
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        // Gradiente de conexión sutil violeta-oro
                         ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
                         ctx.lineWidth = 0.8;
                         ctx.stroke();
@@ -897,7 +919,6 @@
         function animateCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Dibujar sutil degradado radial en la posición del mouse
             if (mouse.active) {
                 const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, mouse.radius);
                 grad.addColorStop(0, 'rgba(139, 92, 246, 0.1)');
@@ -944,7 +965,6 @@
             mouse.active = false;
         });
 
-        // Inicialización del background
         initCanvas();
         createParticles();
         animateCanvas();
@@ -1102,7 +1122,6 @@
             const modal = document.getElementById('teamModal');
             const body = document.getElementById('teamModalBody');
 
-            // Definición y mapeo dinámico de correos y LinkedIn de forma segura
             let linkedinUrl = '#';
             let emailUrl = '#';
 
@@ -1119,7 +1138,6 @@
 
             let mediaHtml = '';
             if (imgUrl) {
-                // Al cargar Alberto, le damos el enfoque personalizado a su cara en el retrato expandido.
                 if (imgUrl.includes('alberto.jpg') || imgUrl.includes('1757626567389.jpg')) {
                     mediaHtml = `
                         <div class="w-32 h-40 rounded-2xl border-2 border-yellow-600 overflow-hidden mx-auto md:mx-0 shadow-lg shadow-yellow-900/30 bg-slate-950">
@@ -1164,9 +1182,99 @@
             modal.classList.add('show');
         }
 
-        // Función auxiliar para cerrar el modal de integrantes
         function closeTeamModal() {
             document.getElementById('teamModal').classList.remove('show');
+        }
+
+
+        // --- 7.5 DATOS Y CONTROLES DEL NUEVO MODAL DE CLIENTES (LOOK ABASTO, FARMACITY, MOTOMEL, MAGNY) ---
+        const clientsData = {
+            farmacity: {
+                title: "FARMACITY S.A.",
+                logo: "imagenes/Clientes/Farmacity/logo.png",
+                desc: "Despliegue integral de infraestructura de alta gama, incluyendo el ordenamiento y estructurado de gabinetes de servidores críticos, migración limpia de sistemas de bases de datos y soporte preventivo contra caídas imprevistas.",
+                images: [
+                    "imagenes/Clientes/Farmacity/trabajo1.jpg",
+                    "imagenes/Clientes/Farmacity/trabajo2.jpg"
+                ]
+            },
+            look_abasto: {
+                title: "LOOK ABASTO",
+                logo: "imagenes/Clientes/Look Abasto/logo.png",
+                desc: "Segmentación lógica de conectividad para sistemas de facturación en puntos de venta críticos. Configuración de redes de alta velocidad redundantes y sistemas de alimentación regulada para máxima disponibilidad operativa.",
+                images: [
+                    "imagenes/Clientes/Look Abasto/trabajo1.jpg",
+                    "imagenes/Clientes/Look Abasto/trabajo2.jpg"
+                ]
+            },
+            motomel: {
+                title: "MOTOMEL INDUSTRIAL",
+                logo: "imagenes/Clientes/Motomel/logo.png",
+                desc: "Diseño e ingeniería de seguridad perimetral integrada por circuito cerrado de televisión (CCTV) con analítica avanzada inteligente (cruce de líneas y rostros) para sus naves industriales y depósitos de almacenamiento logístico.",
+                images: [
+                    "imagenes/Clientes/Motomel/trabajo1.jpg",
+                    "imagenes/Clientes/Motomel/trabajo2.jpg"
+                ]
+            },
+            magny: {
+                title: "MAGNY CORPORATIVO",
+                logo: "imagenes/Clientes/Magny/logo.png",
+                desc: "Modernización y saneamiento de racks e infraestructura física de TI. Implementación de cableado estructurado certificado categoría 6 y backups automatizados a nivel híbrido empresarial.",
+                images: [
+                    "imagenes/Clientes/Magny/trabajo1.jpg",
+                    "imagenes/Clientes/Magny/trabajo2.jpg"
+                ]
+            }
+        };
+
+        function openClientModal(clientKey) {
+            const data = clientsData[clientKey];
+            if (!data) return;
+
+            const modal = document.getElementById('clientModal');
+            const body = document.getElementById('clientModalBody');
+
+            // Generamos las imágenes con fallbacks elegantes en caso de que aún no existan localmente
+            let imagesHtml = '';
+            data.images.forEach((img, idx) => {
+                imagesHtml += `
+                    <div class="relative group/client-img overflow-hidden rounded-xl border border-white/10 aspect-video bg-slate-950 shadow-md">
+                        <img src="${img}" alt="Registro de Obra ${idx + 1}" class="w-full h-full object-cover transition-transform duration-500 group-hover/client-img:scale-105" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80';">
+                        <div class="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] text-yellow-500 font-orbitron border border-yellow-600/20">
+                            OBRA REGISTRADA #${idx + 1}
+                        </div>
+                    </div>
+                `;
+            });
+
+            body.innerHTML = `
+                <div class="flex items-center gap-4 border-b border-white/5 pb-4">
+                    <div class="w-16 h-16 bg-yellow-600/10 rounded-xl flex items-center justify-center p-2 border border-yellow-600/20 overflow-hidden">
+                        <img src="${data.logo}" alt="${data.title}" class="max-w-full max-h-full object-contain filter drop-shadow-[0_0_8px_rgba(240,196,25,0.3)]" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-building text-2xl text-yellow-500/80&quot;></i>';">
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-orbitron font-black text-yellow-500 tracking-wider">${data.title}</h4>
+                        <p class="text-[9px] text-yellow-600 font-black uppercase tracking-widest mt-0.5">Bitácora de Ingeniería / WTICS</p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h5 class="text-xs font-orbitron font-bold text-slate-400 tracking-widest uppercase">Trabajos Implementados:</h5>
+                    <p class="text-slate-300 text-sm leading-relaxed font-light">${data.desc}</p>
+                </div>
+                <div class="space-y-3 pt-4 border-t border-white/5">
+                    <h5 class="text-xs font-orbitron font-bold text-slate-400 tracking-widest uppercase">Galería de Infraestructura:</h5>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        ${imagesHtml}
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('show');
+            skypperSpeak(`Fascinante. He cargado la documentación de los trabajos de ingeniería realizados para ${data.title}.`);
+        }
+
+        function closeClientModal() {
+            document.getElementById('clientModal').classList.remove('show');
         }
 
 
