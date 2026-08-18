@@ -438,8 +438,8 @@
             <a href="#servicios" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('¿Quieres ver qué hacemos? ¡Servidores, Redes y mucha magia IT!')">
                 <i class="fas fa-server text-yellow-500 text-[10px]"></i> Servicios
             </a>
-            <a href="#proyectos" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('¡Mira mis trabajos favoritos! Tengo videos de YouTube aquí.')">
-                <i class="fas fa-folder-open text-yellow-500 text-[10px]"></i> Proyectos
+            <!--<a href="#proyectos" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('¡Mira mis trabajos favoritos! Tengo videos de YouTube aquí.')">
+                <i class="fas fa-folder-open text-yellow-500 text-[10px]"></i> Proyectos -->
             </a>
             <a href="#clientes" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('¡Las mejores empresas confían en nosotros!')">
                 <i class="fas fa-handshake text-yellow-500 text-[10px]"></i> Clientes
@@ -594,11 +594,27 @@
                 <p class="text-slate-400 text-sm mb-6 leading-relaxed">Vigilancia IP inteligente con analítica avanzada de video.</p>
                 <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest group-hover:text-yellow-400 transition-colors">Saber más +</div>
             </div>
+            <div class="glass-card p-8 rounded-[2rem] hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('soporteit')" onmouseover="skypperSpeak('¡Siempre listos para brindar ayuda!')">
+                <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
+                    <i class="fas fa-project-diagram text-xl"></i>
+                </div>
+                <h4 class="text-lg font-bold mb-3">Soporte Tecnico</h4>
+                <p class="text-slate-400 text-sm mb-6 leading-relaxed">Asistencia técnica integral para infraestructura y equipos. Soluciones rápidas para garantizar la continuidad de su negocio.</p>
+                <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest group-hover:text-yellow-400 transition-colors">Saber más +</div>
+            </div>
+            <div class="glass-card p-8 rounded-[2rem] hover:border-yellow-600/40 transition-all cursor-pointer group reveal" onclick="openModal('cloud')" onmouseover="skypperSpeak('Respaldo automático de datos y soluciones en la nube.')">
+        <div class="w-14 h-14 bg-yellow-600/10 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-600 group-hover:text-black transition-all">
+        <i class="fas fa-cloud-upload-alt text-xl"></i>
+       </div>
+    <h4 class="text-lg font-bold mb-3">Backup & Cloud</h4>
+    <p class="text-slate-400 text-sm mb-6 leading-relaxed">Copias de seguridad automatizadas y planes de recuperación ante desastres para proteger la información crítica de tu negocio.</p>
+    <div class="text-yellow-600 font-black text-[10px] uppercase tracking-widest group-hover:text-yellow-400 transition-colors">Saber más +</div>
+</div>
         </div>
     </section>
 
     <!-- SECCIÓN TRABAJOS REALIZADOS -->
-    <section id="proyectos" class="py-24 px-6 max-w-7xl mx-auto relative z-10">
+    <!--<section id="proyectos" class="py-24 px-6 max-w-7xl mx-auto relative z-10">
         <div class="text-center mb-16 reveal">
             <h3 class="text-xs font-orbitron font-bold tracking-[0.4em] text-yellow-600 uppercase mb-4">Portafolio Interactivo</h3>
             <h2 class="text-3xl font-black">TRABAJOS REALIZADOS</h2>
@@ -629,7 +645,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- SECCIÓN DE CLIENTES (CONFIANZA CON SUB-SECCIÓN DE CAPACITACIÓN CONTINUA) -->
     <section id="clientes" class="py-24 px-6 max-w-7xl mx-auto relative z-10">
@@ -712,7 +728,7 @@
                 </div>
                 
                 <!-- INTEGRANTE LAU -->
-                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Especialista en Desarrollo de Software de Frontera, Diseñadora de Interfaces Web Interactivas y estratega de posicionamiento digital de WTICS.', 'imagenes/integrantes/lau.jpg')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
+                <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Especialista de Soft de Front-end, Diseñadora de Interfaces Web Interactivas y estratega de posicionamiento digital de WTICS.', 'imagenes/integrantes/lau.jpg')" onmouseover="skypperSpeak('Lau me diseñó como me ves ahora.')">
                     <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
                         <img src="imagenes/integrantes/lau.jpg" alt="Lau Ballesteros" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80';">
                     </div>
@@ -1135,7 +1151,29 @@
                     "Monitoreo centralizado multi-pantalla y acceso remoto cifrado desde smartphones.",
                     "Almacenamiento local de alta velocidad y transmisión segura optimizada."
                 ]
-            }
+            },
+            soporteit: {
+                title: "SOPORTE TÉCNICO Y MESA DE AYUDA",
+                icon: "fa-headset",
+                desc: "Garantizamos la continuidad operativa de su empresa mediante asistencia técnica proactiva, resolución ágil de incidentes y mantenimiento preventivo continuo.",
+                bullets: [
+                    "Mesa de ayuda (Helpdesk) multicanal con atención remota e intervenciones presenciales on-site.",
+                    "Mantenimiento preventivo y correctivo de estaciones de trabajo, servidores y equipos informáticos.",
+                    "Gestión centralizada de activos de IT, licencias de software y despliegue automatizado de parches.",
+                    "Monitoreo proactivo del rendimiento del parque informático para prevenir interrupciones."
+                ]
+            },
+            cloud: {
+                title: "BACKUP Y SOLUCIONES CLOUD",
+                icon: "fa-cloud-upload-alt",
+                desc: "Protegemos la información crítica de su negocio mediante estrategias de respaldo automatizadas y migraciones eficientes hacia la nube.",
+                bullets: [
+                    "Copias de seguridad automatizadas, encriptadas y redundantes (locales y Backup en la Nube).",
+                    "Diseño e implementación de Planes de Recuperación ante Desastres (DRP) y Continuidad del Negocio.",
+                    "Migración, gestión y optimización de servidores e infraestructura en plataformas Cloud (Huawei, Oracle, PowerCloud, Donweb, Azure).",
+                    "Soluciones de almacenamiento híbrido de alta disponibilidad con acceso remoto seguro."
+                ]
+            },
         };
 
         function openModal(serviceKey) {
