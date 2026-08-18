@@ -17,7 +17,7 @@
             --gold-dark: #b8860b;
             --gold-light: #e6b800;
             --gold-text: #f0c419;
-            --bg-dark: #05020c; /* Ajustado al tono violeta oscuro de la imagen */
+            --bg-dark: #05020c; /* Tono violeta oscuro cósmico */
             --violet-glow: rgba(139, 92, 246, 0.45);
             --blue-glow: rgba(59, 130, 246, 0.3);
         }
@@ -44,7 +44,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Lienzo interactivo que recrea el espacio cósmico de la imagen */
+        /* Lienzo interactivo */
         #interactiveNetworkCanvas {
             position: fixed;
             top: 0;
@@ -113,6 +113,8 @@
             border: 1px solid rgba(139, 92, 246, 0.3);
             max-width: 600px;
             width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
             border-radius: 24px;
             padding: 32px;
             position: relative;
@@ -123,6 +125,22 @@
 
         .modal.show .modal-content {
             transform: scale(1);
+        }
+
+        /* Scrollbar personalizada para modales */
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(10, 5, 22, 0.6);
+            border-radius: 8px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(240, 196, 25, 0.4);
+            border-radius: 8px;
+        }
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(240, 196, 25, 0.8);
         }
 
         /* Contenedor flotante de Skipper */
@@ -235,7 +253,7 @@
         .bounce-anim { animation: bounceSkypper 3s infinite ease-in-out; }
         @keyframes bounceSkypper { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        /* EFECTO DE IMPACTO REDONDO (Anillo de Luz de la Imagen) */
+        /* EFECTO DE IMPACTO REDONDO (Anillo de Luz) */
         .impact-glow-container {
             position: relative;
             width: 200px;
@@ -288,7 +306,7 @@
             position: fixed;
             inset: 0;
             background: radial-gradient(circle at 50% 50%, #0d0621 0%, #030107 100%);
-            z-index: 100000; /* Siempre por encima de todo */
+            z-index: 100000;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -296,7 +314,6 @@
             transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.8s;
         }
 
-        /* Acercamiento y aparición del logo */
         @keyframes introLogoZoom {
             0% {
                 transform: scale(0.7) rotate(-10deg);
@@ -315,7 +332,6 @@
             }
         }
 
-        /* Aparición sutil del texto */
         @keyframes introTextReveal {
             0% {
                 opacity: 0;
@@ -344,7 +360,6 @@
     <!-- PANTALLA DE PRESENTACIÓN / INTRO SPLASH SCREEN -->
     <div id="intro-screen">
         <div class="text-center space-y-6 px-4">
-            <!-- Wrapper del Anillo de Impacto para la Intro -->
             <div class="impact-glow-container animate-intro-logo scale-90 md:scale-100">
                 <div class="impact-glow-outer"></div>
                 <div class="impact-glow-ring"></div>
@@ -372,13 +387,11 @@
                 </div>
             </div>
 
-            <!-- Textos de Revelación -->
             <div class="space-y-2 animate-intro-text">
                 <h1 class="logo-text text-4xl md:text-5xl font-black font-orbitron tracking-widest">WTICS</h1>
                 <p class="text-xs md:text-sm font-medium tracking-[0.25em] text-slate-300 uppercase">
                     Infraestructura sin límites 
                 </p>
-                <!-- Indicador de carga sutil -->
                 <div class="w-16 h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto mt-4 animate-pulse"></div>
             </div>
         </div>
@@ -410,7 +423,7 @@
     <!-- FONDO EN BLUR TRANSLÚCIDO PARA EL MENÚ MÓVIL (BACKDROP) -->
     <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[99] hidden opacity-0 transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
 
-    <!-- MENÚ MÓVIL ESTILO "SIDE DRAWER" (A LA DERECHA) -->
+    <!-- MENÚ MÓVIL ESTILO "SIDE DRAWER" -->
     <div id="mobile-menu" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-black/95 border-l border-yellow-600/30 z-[100] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col p-6 shadow-2xl">
         <div class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
             <div class="flex items-center gap-2">
@@ -433,6 +446,9 @@
             </a>
             <a href="#integrantes" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('Conoce a los genios detrás de todo esto.')">
                 <i class="fas fa-users text-yellow-500 text-[10px]"></i> Equipo
+            </a>
+            <a href="#partners" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 hover:bg-yellow-600/10 transition-colors" onmouseover="skypperSpeak('Nuestras alianzas estratégicas y partners tecnológicos.')">
+                <i class="fas fa-handshake-angle text-yellow-500 text-[10px]"></i> Partners
             </a>
             <a href="#contacto" onclick="toggleMobileMenu()" class="nav-btn text-center py-3 flex items-center justify-center gap-3 bg-yellow-600/15 border-yellow-600 hover:bg-yellow-600/20 transition-colors" onmouseover="skypperSpeak('¡Hablemos de tu próximo gran proyecto!')">
                 <i class="fas fa-envelope text-yellow-500 text-[10px]"></i> Contacto
@@ -484,6 +500,7 @@
                 <a href="#proyectos" class="nav-btn" onmouseover="skypperSpeak('¡Mira mis trabajos favoritos! Tengo videos de YouTube aquí.')">Proyectos</a>
                 <a href="#clientes" class="nav-btn" onmouseover="skypperSpeak('¡Las mejores empresas confían en nosotros!')">Clientes</a>
                 <a href="#integrantes" class="nav-btn" onmouseover="skypperSpeak('Conoce a los genios detrás de todo esto.')">Equipo</a>
+                <a href="#partners" class="nav-btn" onmouseover="skypperSpeak('Nuestras alianzas estratégicas y marcas líderes.')">Partners</a>
                 <a href="#contacto" class="nav-btn bg-yellow-600/10 border-yellow-600" onmouseover="skypperSpeak('¡Hablemos de tu próximo gran proyecto!')">Contacto</a>
             </nav>
             <div class="lg:hidden text-yellow-500 text-2xl cursor-pointer p-2 hover:scale-105 transition-transform" onclick="toggleMobileMenu()">
@@ -492,11 +509,11 @@
         </div>
     </header>
 
-    <!-- SECCIÓN HERO CON EL IMPACTO DE ANILLO DE LUZ (RECREADO DE LABORALFORGE) -->
+    <!-- SECCIÓN HERO -->
     <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-32 pb-16 relative">
         <div class="reveal active space-y-8 z-10 max-w-4xl mx-auto">
             
-            <!-- ANILLO ORBITAL DE IMPACTO CON TU LOGOTIPO -->
+            <!-- ANILLO ORBITAL DE IMPACTO -->
             <div class="impact-glow-container mb-2" onmouseover="skypperSpeak('¡Este anillo contiene nuestra frecuencia de conexión de alta fidelidad!')">
                 <div class="impact-glow-outer"></div>
                 <div class="impact-glow-ring"></div>
@@ -614,44 +631,57 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DE CLIENTES (INTERACTIVA CON LOGOTIPOS AGRANDADOS Y NUEVAS RUTAS) -->
+    <!-- SECCIÓN DE CLIENTES (CONFIANZA CON SUB-SECCIÓN DE CAPACITACIÓN CONTINUA) -->
     <section id="clientes" class="py-24 px-6 max-w-7xl mx-auto relative z-10">
         <div class="text-center mb-16 reveal">
             <h3 class="text-xs font-orbitron font-bold tracking-[0.5em] text-yellow-600 uppercase mb-4">Confianza</h3>
             <h2 class="text-3xl font-black">CLIENTES QUE CONFÍAN EN NOSOTROS</h2>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+        
+        <!-- GRID DE CLIENTES Y SECCIÓN CAPACITACIONES -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 items-center justify-items-center">
             
             <!-- FARMACITY -->
-            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('farmacity')" onmouseover="skypperSpeak('¡Farmacity tiene toda su infraestructura crítica protegida con nosotros! Clic para ver detalles.')">
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('farmacity')" onmouseover="skypperSpeak('¡Farmacity tiene videos e imágenes de sus trabajos! Clic para ver detalles.')">
                 <div class="w-28 h-16 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
-                    <img src="imagenes/Clientes/Farmacity/logo.png" alt="Farmacity" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-building text-4xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
+                    <img src="imagenes/Clientes/Farmacity/logo.png" alt="Farmacity" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-clinic-medical text-4xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
                 </div>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Farmacity</span>
             </div>
 
             <!-- LOOK ABASTO -->
-            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('look_abasto')" onmouseover="skypperSpeak('¡Look Abasto confía en WTICS para sus sistemas informáticos en puntos de venta! Clic para ver detalles.')">
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('look_abasto')" onmouseover="skypperSpeak('¡Look Abasto confía en WTICS! Clic para ver el resumen e imágenes de obra.')">
                 <div class="w-28 h-16 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
-                    <img src="imagenes/Clientes/Look Abasto/logo.png" alt="Look Abasto" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-university text-4xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
+                    <img src="imagenes/Clientes/Look Abasto/logo.png" alt="Look Abasto" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-store text-4xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
                 </div>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Look Abasto</span>
             </div>
 
             <!-- MOTOMEL -->
-            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('motomel')" onmouseover="skypperSpeak('¡A Motomel les instalamos cámaras IP de última tecnología en sus depósitos! Clic para ver detalles.')">
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('motomel')" onmouseover="skypperSpeak('¡Motomel confía en nuestras redes e infraestructura! Clic para ver su resumen de actividad.')">
                 <div class="w-28 h-16 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
-                    <img src="imagenes/Clientes/Motomel/logo.png" alt="Motomel" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-boxes text-4xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
+                    <img src="imagenes/Clientes/Motomel/logo.png" alt="Motomel" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-motorcycle text-4xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
                 </div>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Motomel</span>
             </div>
 
             <!-- MAGNY -->
-            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('magny')" onmouseover="skypperSpeak('¡Magny gestiona su arquitectura de TI con nuestro soporte especializado! Clic para ver detalles.')">
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-600/40" onclick="openClientModal('magny')" onmouseover="skypperSpeak('¡Magny gestiona su arquitectura IT con nosotros! Clic para ver su galería de obras.')">
                 <div class="w-28 h-16 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
-                    <img src="imagenes/Clientes/Magny/logo.png" alt="Magny" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-atom text-4xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
+                    <img src="imagenes/Clientes/Magny/logo.png" alt="Magny" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-industry text-4xl text-yellow-500/60 group-hover:text-yellow-500&quot;></i>';">
                 </div>
                 <span class="text-xs font-orbitron font-bold tracking-widest text-slate-400 group-hover:text-white transition-colors">Magny</span>
+            </div>
+
+            <!-- SUB-ÁREA CAPACITACIÓN CONTINUA DEL EQUIPO -->
+            <div class="glass-card p-6 rounded-[2rem] flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-500/60 relative overflow-hidden bg-gradient-to-br from-yellow-900/10 to-purple-950/20" onclick="openClientModal('capacitaciones')" onmouseover="skypperSpeak('¡Nos capacitamos continuamente para brindarte la mejor tecnología y máxima calidad!')">
+                <div class="absolute top-2 right-2 bg-yellow-500/20 text-yellow-400 text-[8px] font-orbitron px-2 py-0.5 rounded-full border border-yellow-500/30 uppercase tracking-wider">
+                    Formación IT
+                </div>
+                <div class="w-28 h-16 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/Clientes/Capacitaciones/logo.png" alt="Capacitaciones" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-graduation-cap text-4xl text-yellow-500/80 group-hover:text-yellow-400&quot;></i>';">
+                </div>
+                <span class="text-xs font-orbitron font-bold tracking-widest text-yellow-500 group-hover:text-yellow-300 transition-colors text-center">Capacitaciones</span>
             </div>
 
         </div>
@@ -663,7 +693,7 @@
             <h3 class="text-2xl font-orbitron font-black text-center mb-16 reveal tracking-widest uppercase italic">Nuestro Equipo</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center max-w-5xl mx-auto">
                 
-                <!-- INTEGRANTE SEBA CON IMAGEN Y RUTA PERSONALIZADA -->
+                <!-- INTEGRANTE SEBA -->
                 <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Seba Gazzia', 'Especialista en Infraestructura, Servidores y Soporte Crítico IT. Con años de trayectoria administrando data centers complejos y redes de alto tráfico.', 'imagenes/integrantes/seba.jpg')" onmouseover="skypperSpeak('¡Seba! Él repara mis cables y mantiene todo online.')">
                     <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
                         <img src="imagenes/integrantes/seba.jpg" alt="Seba Gazzia" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80';">
@@ -672,7 +702,7 @@
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Infraestructura / Soporte IT</p>
                 </div>
                 
-                <!-- INTEGRANTE ALBERTO CON SU IMAGEN ADAPTADA PARA MOSTRAR SU CARA PERFECTAMENTE EN EL CÍRCULO -->
+                <!-- INTEGRANTE ALBERTO -->
                 <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Alberto Canteros', 'Líder en sistemas de seguridad electrónica, CCTV, sistemas biométricos y arquitectura física de redes estructuradas corporativas.', 'imagenes/integrantes/alberto.jpg')" onmouseover="skypperSpeak('Alberto es mi guardián. Nadie pasa sin su permiso.')">
                     <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
                         <img src="imagenes/integrantes/alberto.jpg" alt="Alberto Canteros" class="w-full h-full object-cover" style="object-position: 78% 25%;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80';">
@@ -681,7 +711,7 @@
                     <p class="text-yellow-600 text-[9px] font-black uppercase tracking-widest mt-1">Cámaras de Seguridad / Redes</p>
                 </div>
                 
-                <!-- INTEGRANTE LAU CON IMAGEN Y RUTA PERSONALIZADA -->
+                <!-- INTEGRANTE LAU -->
                 <div class="reveal team-card cursor-pointer group" onclick="openTeamModal('Lau Ballesteros', 'Especialista en Desarrollo de Software de Frontera, Diseñadora de Interfaces Web Interactivas y estratega de posicionamiento digital de WTICS.', 'imagenes/integrantes/lau.jpg')" onmouseover="skypperSpeak('Lau me diseñó tan guapo como me ves ahora.')">
                     <div class="w-24 h-24 bg-slate-900 rounded-full mx-auto mb-4 border-2 border-yellow-600 flex items-center justify-center text-3xl text-slate-500 overflow-hidden transition-all group-hover:scale-110 group-hover:border-yellow-400">
                         <img src="imagenes/integrantes/lau.jpg" alt="Lau Ballesteros" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80';">
@@ -693,12 +723,56 @@
         </div>
     </section>
 
+    <!-- SECCIÓN PARTNERS -->
+    <section id="partners" class="py-16 px-6 max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-10 reveal">
+            <h3 class="text-xs font-orbitron font-bold tracking-[0.4em] text-yellow-600 uppercase mb-2">Alianzas Tecnológicas</h3>
+            <h2 class="text-2xl font-black font-orbitron tracking-wider">PARTNERS & MARCAS LÍDERES</h2>
+        </div>
+        
+        <!-- GRID CENTRADO DE PARTNERS CON SUS LOGOS E ÍCONOS DE RESPALDO -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 items-center justify-items-center max-w-4xl mx-auto">
+            
+            <!-- Fortinet -->
+            <div class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-500/40 transition-all" onmouseover="skypperSpeak('Ciberseguridad y Firewalling Fortinet')">
+                <div class="w-28 h-14 flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/partners/Fortinet/logo.jpg" alt="Fortinet" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 rounded-md" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-shield-alt text-3xl text-yellow-500/70 group-hover:text-yellow-400 transition-colors&quot;></i>';">
+                </div>
+                <span class="text-[10px] font-orbitron font-bold tracking-widest text-slate-300 group-hover:text-white transition-colors">FORTINET</span>
+            </div>
+
+            <!-- Hikvision -->
+            <div class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-500/40 transition-all" onmouseover="skypperSpeak('Tecnología de Videovigilancia Hikvision')">
+                <div class="w-28 h-14 flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/partners/Hikvision/logo.jpg" alt="Hikvision" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 rounded-md" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-video text-3xl text-yellow-500/70 group-hover:text-yellow-400 transition-colors&quot;></i>';">
+                </div>
+                <span class="text-[10px] font-orbitron font-bold tracking-widest text-slate-300 group-hover:text-white transition-colors">HIKVISION</span>
+            </div>
+
+            <!-- Mikrotik -->
+            <div class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-500/40 transition-all" onmouseover="skypperSpeak('Soluciones y Enrutamiento MikroTik')">
+                <div class="w-28 h-14 flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/partners/Mikrotik/logo.jpg" alt="Mikrotik" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 rounded-md" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-router text-3xl text-yellow-500/70 group-hover:text-yellow-400 transition-colors&quot;></i>';">
+                </div>
+                <span class="text-[10px] font-orbitron font-bold tracking-widest text-slate-300 group-hover:text-white transition-colors">MIKROTIK</span>
+            </div>
+
+            <!-- Ubiquiti -->
+            <div class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-500/40 transition-all" onmouseover="skypperSpeak('Sistemas Inalámbricos Ubiquiti UniFi')">
+                <div class="w-28 h-14 flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/partners/Ubiquiti/logo.jpg" alt="Ubiquiti" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 rounded-md" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-wifi text-3xl text-yellow-500/70 group-hover:text-yellow-400 transition-colors&quot;></i>';">
+                </div>
+                <span class="text-[10px] font-orbitron font-bold tracking-widest text-slate-300 group-hover:text-white transition-colors">UBIQUITI</span>
+            </div>
+
+        </div>
+    </section>
+
     <!-- SECCIÓN CONTACTO -->
     <section id="contacto" class="py-24 px-6 max-w-4xl mx-auto reveal relative z-10">
         <div class="glass-card rounded-[2rem] p-8 md:p-12 relative">
             <h3 class="text-2xl font-orbitron font-black text-center mb-8 tracking-wider italic uppercase text-yellow-500">Contáctanos Hoy</h3>
             
-            <!-- FORMULARIO ADAPTADO A EMAILJS -->
             <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="handleForm(event)">
                 <input name="nombre" id="nombre" type="text" class="bg-black/60 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Nombre" required onfocus="skypperSpeak('¿Cómo te llamas? ¡Dime!')">
                 <input name="email" id="email" type="email" class="bg-black/60 border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:border-yellow-500 transition-all" placeholder="Email" required onfocus="skypperSpeak('Escribe bien tu email para poder responderte.')">
@@ -719,7 +793,7 @@
                 <a href="https://wa.me/5491126194448" target="_blank" rel="noopener" class="social-icon icon-ws" title="WhatsApp" onmouseover="skypperSpeak('¡Escríbenos por WhatsApp!')">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                <a href="#" class="social-icon icon-ig" title="Instagram" onmouseover="skypperSpeak('Síguenos en Instagram')">
+                <a href="https://www.instagram.com/wtics.it/" target="_blank" rel="noopener" class="social-icon icon-ig" title="Instagram" onmouseover="skypperSpeak('Síguenos en Instagram')">
                     <i class="fab fa-instagram"></i>
                 </a>
                 <a href="#" class="social-icon icon-yt" title="YouTube" onmouseover="skypperSpeak('Mira nuestros videos en YouTube')">
@@ -747,43 +821,37 @@
     <!-- MODAL UNIVERSAL PARA DETALLES DE SERVICIOS -->
     <div id="serviceModal" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors" onclick="closeModal()">
+            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors z-10" onclick="closeModal()">
                 <i class="fas fa-times text-xl"></i>
             </button>
-            <div id="modalBody" class="space-y-4">
-                <!-- Se inyecta dinámicamente según el servicio -->
-            </div>
+            <div id="modalBody" class="space-y-4"></div>
         </div>
     </div>
 
     <!-- MODAL PARA INTEGRANTES DE EQUIPO -->
     <div id="teamModal" class="modal" onclick="closeTeamModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors" onclick="closeTeamModal()">
+            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors z-10" onclick="closeTeamModal()">
                 <i class="fas fa-times text-xl"></i>
             </button>
-            <div id="teamModalBody" class="space-y-4 text-center md:text-left">
-                <!-- Se inyecta dinámicamente -->
-            </div>
+            <div id="teamModalBody" class="space-y-4 text-center md:text-left"></div>
         </div>
     </div>
 
-    <!-- MODAL PARA DETALLES DE CLIENTES (NUEVA VENTANA MODAL) -->
+    <!-- MODAL PARA DETALLES DE CLIENTES Y TRABAJOS REALIZADOS (REPRODUCTOR DE VIDEOS E IMÁGENES) -->
     <div id="clientModal" class="modal" onclick="closeClientModal()">
-        <div class="modal-content max-w-2xl" onclick="event.stopPropagation()">
-            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors" onclick="closeClientModal()">
+        <div class="modal-content max-w-3xl" onclick="event.stopPropagation()">
+            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors z-10" onclick="closeClientModal()">
                 <i class="fas fa-times text-xl"></i>
             </button>
-            <div id="clientModalBody" class="space-y-6">
-                <!-- Se inyecta dinámicamente -->
-            </div>
+            <div id="clientModalBody" class="space-y-6"></div>
         </div>
     </div>
 
     <!-- MODAL PARA VIDEOS DE YOUTUBE -->
     <div id="videoModal" class="modal" onclick="closeVideoModal()">
         <div class="modal-content max-w-3xl" onclick="event.stopPropagation()">
-            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors" onclick="closeVideoModal()">
+            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors z-10" onclick="closeVideoModal()">
                 <i class="fas fa-times text-xl"></i>
             </button>
             <h4 id="videoModalTitle" class="text-xl font-orbitron font-bold text-yellow-500 mb-4"></h4>
@@ -803,19 +871,17 @@
                     intro.style.opacity = '0';
                     intro.style.visibility = 'hidden';
                     
-                    // Permitir el scroll en el body y lanzar saludos de Skipper
                     document.body.classList.remove('loading');
                     
                     setTimeout(() => {
-                        // Remover del flujo de render para optimizar rendimiento
                         intro.style.display = 'none';
                         skypperSpeak('¡Hola! Soy Skipper. ¡Voy a ser tu guía, bienvenido!');
                     }, 800);
                 }
-            }, 3600); // Duración exacta de la revelación de la intro antes de la transición
+            }, 3600);
         });
 
-        // --- 1. FONDO INTERACTIVO VIOLETA + PARTÍCULAS ESTELARES (RECREADO DE LABORALFORGE) ---
+        // --- 1. FONDO INTERACTIVO VIOLETA + PARTÍCULAS ESTELARES ---
         const canvas = document.getElementById('interactiveNetworkCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -830,7 +896,6 @@
             radius: 180
         };
 
-        // ... Mantenemos la lógica intacta del canvas para conservar rendimiento ...
         function initCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -969,7 +1034,6 @@
         createParticles();
         animateCanvas();
 
-
         // --- 2. ASISTENTE SKYPPER ---
         const bubble = document.getElementById('skypper-bubble');
         let bubbleTimeout;
@@ -982,7 +1046,6 @@
                 bubble.classList.remove('show');
             }, 6000);
         }
-
 
         // --- 3. MENÚ MÓVIL (NAV) ---
         function toggleMobileMenu() {
@@ -1004,7 +1067,6 @@
             }
         }
 
-
         // --- 4. SCROLL INTELLIGENT NAVIGATION ---
         function scrollToSection(selector) {
             const el = document.querySelector(selector);
@@ -1023,7 +1085,6 @@
             });
         }
 
-
         // --- 5. DETECTOR DE SCROLL (REVEAL EFFECT) ---
         const revealElements = document.querySelectorAll('.reveal');
         
@@ -1040,13 +1101,12 @@
         window.addEventListener('scroll', checkReveal);
         window.addEventListener('load', checkReveal);
 
-
         // --- 6. MODALES DE SERVICIOS ---
         const servicesData = {
             soporte: {
                 title: "INFRAESTRUCTURA Y SERVIDORES",
                 icon: "fa-server",
-                desc: "Garantizamos el funcionamiento continuo de sus operaciones informáticas con soporte de nivel empresarial and mitigación de fallos preventiva.",
+                desc: "Garantizamos el funcionamiento continuo de sus operaciones informáticas con soporte de nivel empresarial y mitigación de fallos preventiva.",
                 bullets: [
                     "Soporte técnico integral de alta criticidad en tiempo récord.",
                     "Instalación, virtualización y optimización inteligente de servidores corporativos.",
@@ -1062,7 +1122,7 @@
                     "Cableado estructurado avanzado Cat6, Cat7 y empalmes por fusión de fibra óptica.",
                     "Sistemas de seguridad perimetral de extremo a extremo (Firewalling de nivel militar).",
                     "Segmentación lógica de redes (VLANs), priorización de QoS y optimización de ancho de banda.",
-                    "Enlaces inalámbricos seguros and redundantes de largo alcance."
+                    "Enlaces inalámbricos seguros y redundantes de largo alcance."
                 ]
             },
             camaras: {
@@ -1116,8 +1176,7 @@
             document.getElementById('serviceModal').classList.remove('show');
         }
 
-
-        // --- 7. MODALES DE INTEGRANTES DE EQUIPO (UNIFICADO PARA TODOS LOS INTEGRANTES CON ENLACES PERSONALES) ---
+        // --- 7. MODALES DE INTEGRANTES DE EQUIPO ---
         function openTeamModal(name, bio, imgUrl) {
             const modal = document.getElementById('teamModal');
             const body = document.getElementById('teamModalBody');
@@ -1138,7 +1197,7 @@
 
             let mediaHtml = '';
             if (imgUrl) {
-                if (imgUrl.includes('alberto.jpg') || imgUrl.includes('1757626567389.jpg')) {
+                if (imgUrl.includes('alberto.jpg')) {
                     mediaHtml = `
                         <div class="w-32 h-40 rounded-2xl border-2 border-yellow-600 overflow-hidden mx-auto md:mx-0 shadow-lg shadow-yellow-900/30 bg-slate-950">
                             <img src="${imgUrl}" alt="${name}" class="w-full h-full object-cover" style="object-position: 78% 30%;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80';">
@@ -1186,43 +1245,61 @@
             document.getElementById('teamModal').classList.remove('show');
         }
 
-
-        // --- 7.5 DATOS Y CONTROLES DEL NUEVO MODAL DE CLIENTES (LOOK ABASTO, FARMACITY, MOTOMEL, MAGNY) ---
+        // --- 8. BASE DE DATOS Y MODAL DE CLIENTES (RUTAS EXACTAS, VIDEOS E IMÁGENES + SUBÁREA CAPACITACIÓN CONTINUA) ---
         const clientsData = {
             farmacity: {
                 title: "FARMACITY S.A.",
                 logo: "imagenes/Clientes/Farmacity/logo.png",
-                desc: "Despliegue integral de infraestructura de alta gama, incluyendo el ordenamiento y estructurado de gabinetes de servidores críticos, migración limpia de sistemas de bases de datos y soporte preventivo contra caídas imprevistas.",
-                images: [
-                    "imagenes/Clientes/Farmacity/trabajo1.jpg",
-                    "imagenes/Clientes/Farmacity/trabajo2.jpg"
+                summary: "Farmacity es una empresa argentina fundada en 1997, dedicada a la venta minorista de medicamentos, salud, belleza y bienestar.\nCuenta con más de 300 sucursales, centros de distribución de alta complejidad y droguerías automáticas en múltiples provincias.\nSe destaca por su innovación tecnológica continua, plataformas de comercio electrónico y su sólida infraestructura operativa comercial.\nEs reconocida nacionalmente por su liderazgo en gestión logística, calidad prestacional y alta disponibilidad en todos sus servicios.",
+                desc: "instalación de camaras de seguridad (CCTV) y de Antenas Wi-fi (APs).",
+                media: [
+                    { type: "video", title: "Video de Trabajo 1", src: "imagenes/Clientes/Farmacity/Trabajos realizados/video1" },
+                    { type: "video", title: "Video de Trabajo 2", src: "imagenes/Clientes/Farmacity/Trabajos realizados/video2" },
+                    { type: "video", title: "Video de Trabajo 3", src: "imagenes/Clientes/Farmacity/Trabajos realizados/video3" },
+                    { type: "image", title: "Imagen de Trabajo 1", src: "imagenes/Clientes/Farmacity/Trabajos realizados/imagen1" },
+                    { type: "image", title: "Imagen de Trabajo 2", src: "imagenes/Clientes/Farmacity/Trabajos realizados/imagen2" }
                 ]
             },
             look_abasto: {
                 title: "LOOK ABASTO",
                 logo: "imagenes/Clientes/Look Abasto/logo.png",
-                desc: "Segmentación lógica de conectividad para sistemas de facturación en puntos de venta críticos. Configuración de redes de alta velocidad redundantes y sistemas de alimentación regulada para máxima disponibilidad operativa.",
-                images: [
-                    "imagenes/Clientes/Look Abasto/trabajo1.jpg",
-                    "imagenes/Clientes/Look Abasto/trabajo2.jpg"
+                summary: "Look Abasto es un espacio boutique y formato comercial enfocado en la belleza, cosmética, perfumería y cuidado personal.\nUbicado estratégicamente en el Shopping Abasto, ofrece una propuesta vanguardista que combina atención personalizada con tendencia digital.\nSostiene un flujo continuo de clientes diarios en un entorno de alto rendimiento comercial dentro del principal centro de compras de CABA.\nRequiere disponibilidad permanente en sus sistemas de cobro, conectividad sin latencia y soporte tecnológico prioritario.",
+                desc: "Segmentación de red para puntos de venta críticos (POS), instalación de camaras de seguridad (CCTV).",
+                media: [
+                    { type: "image", title: "Imagen de Trabajo 1", src: "imagenes/Clientes/Look Abasto/Trabajos realizados/imagen 1" },
+                    { type: "image", title: "Imagen de Trabajo 2", src: "imagenes/Clientes/Look Abasto/Trabajos realizados/imagen 2" }
                 ]
             },
             motomel: {
                 title: "MOTOMEL INDUSTRIAL",
                 logo: "imagenes/Clientes/Motomel/logo.png",
-                desc: "Diseño e ingeniería de seguridad perimetral integrada por circuito cerrado de televisión (CCTV) con analítica avanzada inteligente (cruce de líneas y rostros) para sus naves industriales y depósitos de almacenamiento logístico.",
-                images: [
-                    "imagenes/Clientes/Motomel/trabajo1.jpg",
-                    "imagenes/Clientes/Motomel/trabajo2.jpg"
-                ]
+                summary: "Motomel es una compañía argentina líder con más de 25 años dedicada a la producción, ensamblaje y distribución de motocicletas y repuestos.\nPosee un centro logístico e industrial de más de 18.000 m² distribuidos con equipamiento tecnológico y líneas operativas de vanguardia.\nComercializa vehículos y movilidad urbana en todo el país, integrando representación de marcas internacionales de primer nivel.\nEmplea a cientos de operarios e impulsa constantemente proyectos de expansión en infraestructura de conectividad y logística.",
+                desc: "Diseño e ingeniería de seguridad perimetral mediante circuito cerrado de televisión IP (CCTV) con analítica inteligente de video, supervisión de naves industriales y depósitos logísticos.",
+                media: []
             },
             magny: {
                 title: "MAGNY CORPORATIVO",
                 logo: "imagenes/Clientes/Magny/logo.png",
-                desc: "Modernización y saneamiento de racks e infraestructura física de TI. Implementación de cableado estructurado certificado categoría 6 y backups automatizados a nivel híbrido empresarial.",
-                images: [
-                    "imagenes/Clientes/Magny/trabajo1.jpg",
-                    "imagenes/Clientes/Magny/trabajo2.jpg"
+                summary: "Magny S.A. es una empresa industrial argentina especializada en la producción, importación y comercialización de motocicletas y componentes.\nRepresentante oficial de firmas globales como TVS Motors y KOVE, opera oficinas corporativas en CABA y una planta industrial de 7.000 m².\nCuenta con una red extendida de concesionarios a nivel nacional ofreciendo soluciones de movilidad eficientes y adaptadas al usuario.\nInvierte continuamente en desarrollo tecnológico, modernización informática y optimización de sus procesos productivos.",
+                desc: "Diseño e ingeniería de seguridad perimetral mediante circuito cerrado de televisión IP (CCTV) con su correspondiente cableado e infraestructura.",
+                media: [
+                    { type: "image", title: "Imagen 1", src: "imagenes/Clientes/Magny/Trabajos realizados/imagen1" },
+                    { type: "image", title: "Imagen 2", src: "imagenes/Clientes/Magny/Trabajos realizados/imagen2" },
+                    { type: "image", title: "Imagen 3", src: "imagenes/Clientes/Magny/Trabajos realizados/imagen3" },
+                    { type: "image", title: "Imagen 4", src: "imagenes/Clientes/Magny/Trabajos realizados/imagen4" },
+                    { type: "image", title: "Imagen 5", src: "imagenes/Clientes/Magny/Trabajos realizados/imagen5" },
+                    { type: "image", title: "Imagen 6", src: "imagenes/Clientes/Magny/Trabajos realizados/imagen6" },
+                    { type: "image", title: "Imagen 7", src: "imagenes/Clientes/Magny/Trabajos realizados/imagen7" }
+                ]
+            },
+            capacitaciones: {
+                title: "CAPACITACIÓN CONTINUA WTICS",
+                logo: "imagenes/Clientes/Capacitaciones/logo.png",
+                summary: "En WTICS nos capacitamos y actualizamos de manera ininterrumpida para ofrecer las mejores soluciones IT a nuestros clientes.\nSostenemos un programa permanente de especialización técnica, certificación oficial y entrenamiento en tecnologías de vanguardia.\nActualizamos constantemente nuestros conocimientos en ciberseguridad, fibra óptica, virtualización de servidores y redes de última generación.\nEsta búsqueda constante de la excelencia garantiza la máxima calidad, seguridad e innovación en cada infraestructura que implementamos.",
+                desc: "Certificaciones oficiales, seminarios de especialización en ciberseguridad, actualización en arquitecturas de red y formación técnica continua de nuestro equipo de ingenieros y especialistas.",
+                media: [
+                    { type: "image", title: "Registro Formación 1", src: "imagenes/Clientes/Capacitaciones/imagen1" },
+                    { type: "image", title: "Registro Formación 2", src: "imagenes/Clientes/Capacitaciones/imagen2" }
                 ]
             }
         };
@@ -1234,57 +1311,99 @@
             const modal = document.getElementById('clientModal');
             const body = document.getElementById('clientModalBody');
 
-            // Generamos las imágenes con fallbacks elegantes en caso de que aún no existan localmente
-            let imagesHtml = '';
-            data.images.forEach((img, idx) => {
-                imagesHtml += `
-                    <div class="relative group/client-img overflow-hidden rounded-xl border border-white/10 aspect-video bg-slate-950 shadow-md">
-                        <img src="${img}" alt="Registro de Obra ${idx + 1}" class="w-full h-full object-cover transition-transform duration-500 group-hover/client-img:scale-105" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80';">
-                        <div class="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] text-yellow-500 font-orbitron border border-yellow-600/20">
-                            OBRA REGISTRADA #${idx + 1}
-                        </div>
+            let mediaContentHtml = '';
+            if (data.media && data.media.length > 0) {
+                data.media.forEach((item, idx) => {
+                    if (item.type === 'video') {
+                        mediaContentHtml += `
+                            <div class="relative overflow-hidden rounded-xl border border-yellow-600/30 bg-black aspect-video shadow-lg group/vid">
+                                <video controls class="w-full h-full object-contain bg-black" preload="metadata">
+                                    <source src="${item.src}.mp4" type="video/mp4">
+                                    <source src="${item.src}.webm" type="video/webm">
+                                    <source src="${item.src}.mov" type="video/quicktime">
+                                    <source src="${item.src}" type="video/mp4">
+                                    Tu navegador no soporta la reproducción de video.
+                                </video>
+                                <div class="absolute top-2 left-2 bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] text-yellow-500 font-orbitron border border-yellow-600/30 flex items-center gap-1.5 pointer-events-none">
+                                    <i class="fas fa-play text-[10px] text-yellow-400"></i> ${item.title}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        mediaContentHtml += `
+                            <div class="relative group/client-img overflow-hidden rounded-xl border border-white/10 aspect-video bg-slate-950 shadow-md">
+                                <img src="${item.src}.jpg" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover/client-img:scale-105" 
+                                     onerror="this.onerror=null; this.src='${item.src}.png'; this.onerror=function(){this.src='${item.src}.jpeg'; this.onerror=function(){this.src='${item.src}'; this.onerror=function(){this.src='https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80';};};};">
+                                <div class="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded-md text-[9px] text-yellow-500 font-orbitron border border-yellow-600/20">
+                                    ${item.title}
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            } else {
+                mediaContentHtml = `
+                    <div class="col-span-full p-6 text-center border border-dashed border-white/10 rounded-xl bg-black/40">
+                        <i class="fas fa-shield-alt text-yellow-500/60 text-2xl mb-2 block"></i>
+                        <p class="text-xs text-slate-400">Trabajos ejecutados bajo acuerdo de confidencialidad de infraestructura.</p>
                     </div>
                 `;
-            });
+            }
+
+            const summaryLines = data.summary.split('\n').map(line => `
+                <div class="flex items-start gap-2.5 text-slate-300 text-xs md:text-sm font-light">
+                    <span class="text-yellow-500 font-bold mt-0.5">•</span>
+                    <span>${line}</span>
+                </div>
+            `).join('');
 
             body.innerHTML = `
                 <div class="flex items-center gap-4 border-b border-white/5 pb-4">
-                    <div class="w-16 h-16 bg-yellow-600/10 rounded-xl flex items-center justify-center p-2 border border-yellow-600/20 overflow-hidden">
-                        <img src="${data.logo}" alt="${data.title}" class="max-w-full max-h-full object-contain filter drop-shadow-[0_0_8px_rgba(240,196,25,0.3)]" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-building text-2xl text-yellow-500/80&quot;></i>';">
+                    <div class="w-16 h-16 bg-yellow-600/10 rounded-xl flex items-center justify-center p-2 border border-yellow-600/20 overflow-hidden flex-shrink-0">
+                        <img src="${data.logo}" alt="${data.title}" class="max-w-full max-h-full object-contain filter drop-shadow-[0_0_8px_rgba(240,196,25,0.3)]" 
+                             onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-graduation-cap text-2xl text-yellow-500/80&quot;></i>';">
                     </div>
                     <div>
                         <h4 class="text-2xl font-orbitron font-black text-yellow-500 tracking-wider">${data.title}</h4>
-                        <p class="text-[9px] text-yellow-600 font-black uppercase tracking-widest mt-0.5">Bitácora de Ingeniería / WTICS</p>
+                        <p class="text-[9px] text-yellow-600 font-black uppercase tracking-widest mt-0.5">WTICS / Garantía de Excelencia Técnica</p>
                     </div>
                 </div>
-                <div class="space-y-2">
-                    <h5 class="text-xs font-orbitron font-bold text-slate-400 tracking-widest uppercase">Trabajos Implementados:</h5>
-                    <p class="text-slate-300 text-sm leading-relaxed font-light">${data.desc}</p>
+
+                <!-- RESUMEN / INFORMACIÓN -->
+                <div class="space-y-2 bg-black/40 p-4 rounded-xl border border-white/5">
+                    <h5 class="text-xs font-orbitron font-bold text-yellow-500 tracking-widest uppercase flex items-center gap-2">
+                        <i class="fas fa-info-circle"></i> Detalle Institucional:
+                    </h5>
+                    <div class="space-y-1.5 pt-1">
+                        ${summaryLines}
+                    </div>
                 </div>
+
+                <!-- GALERÍA DE ARCHIVOS MULTIMEDIA (VIDEOS / IMÁGENES) -->
                 <div class="space-y-3 pt-4 border-t border-white/5">
-                    <h5 class="text-xs font-orbitron font-bold text-slate-400 tracking-widest uppercase">Galería de Infraestructura:</h5>
+                    <h5 class="text-xs font-orbitron font-bold text-slate-400 tracking-widest uppercase flex items-center justify-between">
+                        <span>Galería de Trabajos y Registros:</span>
+                    </h5>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        ${imagesHtml}
+                        ${mediaContentHtml}
                     </div>
                 </div>
             `;
 
             modal.classList.add('show');
-            skypperSpeak(`Fascinante. He cargado la documentación de los trabajos de ingeniería realizados para ${data.title}.`);
+            skypperSpeak(`He cargado los videos, imágenes y la información de ${data.title}. ¡Puedes revisarlo en pantalla!`);
         }
 
         function closeClientModal() {
             document.getElementById('clientModal').classList.remove('show');
         }
 
-
-        // --- 8. MODALES DE REPRODUCTOR DE VIDEO DE YOUTUBE ---
+        // --- 9. MODALES DE REPRODUCTOR DE VIDEO DE YOUTUBE ---
         function openVideoModal(title, videoId, description) {
             const modal = document.getElementById('videoModal');
             document.getElementById('videoModalTitle').innerText = title;
             document.getElementById('videoModalDesc').innerText = description;
             
-            // Configurar el Iframe de YouTube de manera segura
             const iframe = document.getElementById('videoIframe');
             iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
 
@@ -1294,16 +1413,14 @@
         function closeVideoModal() {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('videoIframe');
-            iframe.src = ''; // Limpiar el src detiene el video
+            iframe.src = '';
             modal.classList.remove('show');
         }
 
-
-        // --- 9. CONFIGURACIÓN DE ENVÍO DE FORMULARIO (EMAILJS) ---
+        // --- 10. CONFIGURACIÓN DE ENVÍO DE FORMULARIO (EMAILJS) ---
         (function() {
-            // Inicializar la API de EmailJS
             emailjs.init({
-                publicKey: "YOUR_EMAILJS_PUBLIC_KEY" // Reemplaza por tu Public Key de EmailJS
+                publicKey: "YOUR_EMAILJS_PUBLIC_KEY"
             });
         })();
 
@@ -1313,11 +1430,9 @@
             const btn = document.getElementById('btn-submit');
             const originalBtnHtml = btn.innerHTML;
 
-            // Mostrar estado cargando
             btn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Enviando...`;
             btn.disabled = true;
 
-            // Simulación / Configuración real de envío mediante EmailJS
             const params = {
                 nombre: form.nombre.value,
                 email: form.email.value,
@@ -1327,7 +1442,6 @@
             setTimeout(() => {
                 skypperSpeak(`¡Excelente! El correo fue enviado con éxito. Pronto nos pondremos en contacto contigo, ${params.nombre}.`);
                 
-                // Resetear Formulario
                 form.reset();
                 btn.innerHTML = `<i class="fas fa-check-circle"></i> ¡Enviado con Éxito!`;
                 
