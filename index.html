@@ -747,7 +747,7 @@
         </div>
         
         <!-- GRID CENTRADO DE PARTNERS CON SUS LOGOS E ÍCONOS DE RESPALDO -->
-        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 items-center justify-items-center max-w-4xl mx-auto">
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-6 items-center justify-items-center max-w-5xl mx-auto">
             
             <!-- Fortinet -->
             <div class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-500/40 transition-all" onmouseover="skypperSpeak('Ciberseguridad y Firewall Fortinet')">
@@ -779,6 +779,14 @@
                     <img src="imagenes/partners/Ubiquiti/logo.jpg" alt="Ubiquiti" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 rounded-md" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-wifi text-3xl text-yellow-500/70 group-hover:text-yellow-400 transition-colors&quot;></i>';">
                 </div>
                 <span class="text-[10px] font-orbitron font-bold tracking-widest text-slate-300 group-hover:text-white transition-colors">UBIQUITI</span>
+            </div>
+
+            <!-- Huawei -->
+            <div class="glass-card p-5 rounded-2xl flex flex-col items-center justify-center w-full aspect-[3/2] group reveal cursor-pointer hover:border-yellow-500/40 transition-all" onclick="openPdfModal('imagenes/partners/Huawei/certhuawei.pdf', 'Certificado de Validez Partner Huawei')" onmouseover="skypperSpeak('Infraestructura y Redes Huawei. ¡Haz clic para ver nuestro certificado de validez!')">
+                <div class="w-28 h-14 flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110">
+                    <img src="imagenes/partners/Huawei/huawei.jpg" alt="Huawei" class="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 rounded-md" onerror="this.onerror=null; this.outerHTML='<i class=&quot;fas fa-network-wired text-3xl text-yellow-500/70 group-hover:text-yellow-400 transition-colors&quot;></i>';">
+                </div>
+                <span class="text-[10px] font-orbitron font-bold tracking-widest text-slate-300 group-hover:text-white transition-colors">HUAWEI</span>
             </div>
 
         </div>
@@ -875,6 +883,22 @@
                 <iframe id="videoIframe" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <p id="videoModalDesc" class="text-slate-300 text-sm font-light leading-relaxed"></p>
+        </div>
+    </div>
+
+    <!-- MODAL FLOTANTE PARA CERTIFICADOS PDF -->
+    <div id="pdfModal" class="modal" onclick="closePdfModal()">
+        <div class="modal-content max-w-3xl" onclick="event.stopPropagation()">
+            <button class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors z-10" onclick="closePdfModal()">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <h4 id="pdfModalTitle" class="text-xl font-orbitron font-bold text-yellow-500 mb-4 flex items-center gap-2">
+                <i class="fas fa-file-pdf text-red-500"></i>
+                <span>Certificado de Validez Partner</span>
+            </h4>
+            <div class="w-full h-[65vh] rounded-xl overflow-hidden bg-black border border-white/10 shadow-2xl">
+                <iframe id="pdfIframe" class="w-full h-full" src="" frameborder="0"></iframe>
+            </div>
         </div>
     </div>
 
@@ -1451,7 +1475,33 @@
             modal.classList.remove('show');
         }
 
-        // --- 10. CONFIGURACIÓN DE ENVÍO DE FORMULARIO (EMAILJS) ---
+        // --- 10. MODAL PARA VISUALIZAR CERTIFICADOS PDF ---
+        function openPdfModal(pdfUrl, title) {
+            const modal = document.getElementById('pdfModal');
+            const titleEl = document.getElementById('pdfModalTitle');
+            const iframe = document.getElementById('pdfIframe');
+
+            if (titleEl) {
+                titleEl.querySelector('span').innerText = title || 'Certificado de Validez Partner';
+            }
+            if (iframe) {
+                iframe.src = pdfUrl;
+            }
+
+            modal.classList.add('show');
+            skypperSpeak('Aquí puedes verificar nuestro certificado de validez como Partner oficial de Huawei.');
+        }
+
+        function closePdfModal() {
+            const modal = document.getElementById('pdfModal');
+            const iframe = document.getElementById('pdfIframe');
+            if (iframe) {
+                iframe.src = '';
+            }
+            modal.classList.remove('show');
+        }
+
+        // --- 11. CONFIGURACIÓN DE ENVÍO DE FORMULARIO (EMAILJS) ---
         (function() {
             emailjs.init({
                 publicKey: "YOUR_EMAILJS_PUBLIC_KEY"
