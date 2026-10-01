@@ -1501,40 +1501,56 @@
             modal.classList.remove('show');
         }
 
-        // --- 11. CONFIGURACIÓN DE ENVÍO DE FORMULARIO (EMAILJS) ---
-        (function() {
-            emailjs.init({
-                publicKey: "YOUR_EMAILJS_PUBLIC_KEY"
-            });
-        })();
+        const EMAILJS_PUBLIC_KEY = "pF2Aeyl051x-114DS"; 
+    const EMAILJS_SERVICE_ID = "service_5923r8p"; 
+    const EMAILJS_TEMPLATE_ID = "template_9wpkmfe"; 
 
-        function handleForm(event) {
-            event.preventDefault();
-            const form = event.target;
-            const btn = document.getElementById('btn-submit');
-            const originalBtnHtml = btn.innerHTML;
+    // Inicialización inmediata de EmailJS
+    (function() {
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+        }
+    })();
 
-            btn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Enviando...`;
-            btn.disabled = true;
+    // Lógica de envío de formulario corregida
+    async function handleForm(event) {
+        event.preventDefault();
 
-            const params = {
-                nombre: form.nombre.value,
-                email: form.email.value,
-                mensaje: form.mensaje.value
-            };
+        const form = event.target;
+        const btn = document.getElementById('btn-submit');
+        const originalBtnHtml = btn.innerHTML;
 
-            setTimeout(() => {
-                skypperSpeak(`¡Excelente! El correo fue enviado con éxito. Pronto nos pondremos en contacto contigo, ${params.nombre}.`);
-                
+        skypperSpeak('¡Enviando datos a la nube! Mis circuitos están trabajando...');
+        btn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> Enviando...`;
+        btn.disabled = true;
+
+        const templateParams = {
+            nombre: document.getElementById('nombre').value,
+            email: document.getElementById('email').value,
+            mensaje: document.getElementById('mensaje').value
+        };
+
+        try {
+            const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+
+            if (response.status === 200) {
+                skypperSpeak(`¡Excelente! El correo fue enviado con éxito. Pronto nos pondremos en contacto contigo, ${templateParams.nombre}.`);
                 form.reset();
                 btn.innerHTML = `<i class="fas fa-check-circle"></i> ¡Enviado con Éxito!`;
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalBtnHtml;
-                    btn.disabled = false;
-                }, 3000);
-            }, 1500);
+            } else {
+                throw new Error("Respuesta no válida del servidor");
+            }
+        } catch (error) {
+            console.error("Error EmailJS:", error);
+            skypperSpeak('¡Ocurrió un problema al enviar el correo! Por favor, verifica tu conexión o escríbenos directamente.');
+            btn.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Error al enviar`;
+        } finally {
+            setTimeout(() => {
+                btn.innerHTML = originalBtnHtml;
+                btn.disabled = false;
+            }, 3500);
         }
+    }
     </script>
 </body>
 </html>
